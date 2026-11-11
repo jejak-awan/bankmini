@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * PelariSemuaTesQa
  *
@@ -11,6 +9,8 @@ declare(strict_types=1);
  * Cara menjalankan:
  * C:\xampp\php\php.exe C:\xampp\htdocs\www\bankmini\pengujian\jalankan_semua_tes.php
  */
+
+declare(strict_types=1);
 
 $akarProjek = dirname(__DIR__);
 
@@ -105,4 +105,3 @@ if (count($daftarKegagalan) === 0) {
 echo "\n[STATUS QA: GAGAL] Terdapat skenario uji yang belum lulus.\n";
 echo "======================================================================\n";
 exit(1);
-

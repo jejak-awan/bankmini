@@ -91,4 +91,3 @@ class PengendaliRekening extends PengendaliDasar
         $this->alihkan('rekening');
     }
 }
-

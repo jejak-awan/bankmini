@@ -13,7 +13,7 @@ $petaLencanaMutasi = [
 <!-- Ringkasan Statistik Utama (KPI) -->
 <div class="row g-3 mb-4">
     <div class="col-12 col-md-4">
-        <div class="card kartu-bankmini h-100">
+        <div class="card kartu-bankmini kartu-statistik-aksen-biru h-100">
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="text-muted small fw-semibold text-uppercase">Total Nasabah</div>
@@ -29,7 +29,7 @@ $petaLencanaMutasi = [
     </div>
 
     <div class="col-12 col-md-4">
-        <div class="card kartu-bankmini h-100">
+        <div class="card kartu-bankmini kartu-statistik-aksen-toska h-100">
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="text-muted small fw-semibold text-uppercase">Total Rekening Aktif</div>
@@ -45,7 +45,7 @@ $petaLencanaMutasi = [
     </div>
 
     <div class="col-12 col-md-4">
-        <div class="card kartu-bankmini h-100">
+        <div class="card kartu-bankmini kartu-statistik-aksen-hijau h-100">
             <div class="card-body d-flex align-items-center justify-content-between">
                 <div>
                     <div class="text-muted small fw-semibold text-uppercase">Total Dana Tabungan (IDR)</div>
@@ -97,8 +97,8 @@ $petaLencanaMutasi = [
         </a>
     </div>
     <div class="table-responsive">
-        <table class="table table-hover table-striped align-middle mb-0">
-            <thead class="table-light">
+        <table class="table tabel-bankmini table-hover align-middle mb-0">
+            <thead>
                 <tr>
                     <th>Waktu</th>
                     <th>Referensi</th>
@@ -123,13 +123,13 @@ $petaLencanaMutasi = [
                             <td class="small text-nowrap">
                                 <?= amankanHtml(formatTanggalIndonesia((string) ($barisMutasi['waktu_transaksi'] ?? ''))) ?>
                             </td>
-                            <td class="small font-monospace">
+                            <td class="small font-monospace text-nowrap">
                                 <?= amankanHtml($barisMutasi['kode_referensi'] ?? '') ?>
                             </td>
                             <td class="angka-keuangan">
                                 <?= amankanHtml($barisMutasi['nomor_rekening'] ?? '') ?>
                             </td>
-                            <td><?= amankanHtml($barisMutasi['nama_nasabah'] ?? '') ?></td>
+                            <td class="text-nowrap"><?= amankanHtml($barisMutasi['nama_nasabah'] ?? '') ?></td>
                             <td>
                                 <?php if ($jenisTransaksi === 'KOREKSI') : ?>
                                     <span class="badge text-bg-warning">KOREKSI</span>

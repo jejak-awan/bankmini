@@ -62,4 +62,3 @@ class ModelLogAudit
         return (int) $this->koneksi->lastInsertId();
     }
 }
-

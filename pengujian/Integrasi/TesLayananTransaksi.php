@@ -195,4 +195,3 @@ class TesLayananTransaksi extends KasusUjiDasar
         $this->pastikanSama(2, count($modelMutasi->penyimpananMutasi));
     }
 }
-

@@ -488,4 +488,3 @@ class LayananTransaksi
         return sprintf('%s-%s-%06d', $awalan, date('Ymd'), random_int(1, 999999));
     }
 }
-

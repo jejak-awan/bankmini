@@ -66,4 +66,3 @@ class ModelProduk
         return is_array($barisData) ? $barisData : null;
     }
 }
-

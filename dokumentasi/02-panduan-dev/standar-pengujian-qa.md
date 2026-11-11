@@ -129,3 +129,16 @@ class TesLayananTransaksi extends KasusUjiDasar
 }
 ```
 
+---
+
+## 5. Quality Gate Tambahan: Lint PSR-12, PHPStan, & Playwright E2E
+
+Selain unit/integrasi test PHP Native di atas, projek **Bank Mini** dilengkapi tiga penjaga kualitas modern:
+
+| Lapisan | Alat / File Konfigurasi | Perintah Jalankan | Tujuan |
+| :--- | :--- | :--- | :--- |
+| **Linting PSR-12** | `squizlabs/php_codesniffer` (`phpcs.xml`) | `composer lint` (`composer lint:fix`) | Menjaga kerapian penulisan PHP sesuai standar PSR-12 |
+| **Analisis Statis** | `phpstan/phpstan` Level 5 (`phpstan.neon`) | `composer stan` | Mendeteksi *type mismatch*, variabel tidak terdefinisi, dan bug logika sebelum runtime |
+| **Smoke & E2E Test** | `@playwright/test` (`playwright.config.js`) | `npm run test:e2e` / `npm run test:smoke` | Menguji browser Chrome nyata: status HTTP aset CSS/JS offline, kontras sidebar, tidak ada overflow, pratinjau Rupiah, dan modal konfirmasi transaksi |
+
+

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Kumpulan Fungsi Pembantu Umum (Stateless Helpers)
  *
@@ -12,6 +10,8 @@ declare(strict_types=1);
  * 2. `formatRupiah()`: Menjadi Single Source of Truth (SoT) pemformatan tampilan mata uang
  *    Rupiah (`Rp 150.000`) sehingga lapisan Model dan Layanan tetap murni menyimpan angka desimal.
  */
+
+declare(strict_types=1);
 
 if (!function_exists('amankanHtml')) {
     /**
@@ -100,8 +100,19 @@ if (!function_exists('urlDasar')) {
      */
     function urlDasar(string $jalurRelatif = ''): string
     {
-        $konfigurasi = require dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'konfigurasi' . DIRECTORY_SEPARATOR . 'aplikasi.php';
-        $dasar = rtrim((string) $konfigurasi['url_dasar'], '/');
+        $dasar = '';
+        if (PHP_SAPI !== 'cli' && !empty($_SERVER['HTTP_HOST'])) {
+            $apakahHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                || (($_SERVER['SERVER_PORT'] ?? '') === '443');
+            $skema = $apakahHttps ? 'https' : 'http';
+            $direktoriSkrip = str_replace('\\', '/', dirname((string) ($_SERVER['SCRIPT_NAME'] ?? '')));
+            $basisPath = ($direktoriSkrip === '/' || $direktoriSkrip === '.') ? '' : rtrim($direktoriSkrip, '/');
+            $dasar = $skema . '://' . $_SERVER['HTTP_HOST'] . $basisPath;
+        } else {
+            $konfigurasi = require dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'konfigurasi' . DIRECTORY_SEPARATOR . 'aplikasi.php';
+            $dasar = rtrim((string) $konfigurasi['url_dasar'], '/');
+        }
+
         $jalurBersih = ltrim($jalurRelatif, '/');
 
         return $jalurBersih === '' ? $dasar : $dasar . '/' . $jalurBersih;

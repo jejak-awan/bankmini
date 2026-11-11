@@ -121,8 +121,8 @@ $petaStatusRekening = [
                 </div>
             </div>
             <div class="table-responsive">
-                <table id="tabelRekening" class="table table-hover table-striped align-middle mb-0">
-                    <thead class="table-light">
+                <table id="tabelRekening" class="table tabel-bankmini table-hover align-middle mb-0">
+                    <thead>
                         <tr>
                             <th>No. Rekening</th>
                             <th>Nasabah</th>

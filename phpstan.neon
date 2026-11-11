@@ -1,0 +1,10 @@
+parameters:
+    level: 5
+    paths:
+        - aplikasi
+        - pengujian
+    excludePaths:
+        - aplikasi/Tampilan/*
+    bootstrapFiles:
+        - aplikasi/Pembantu/fungsi_umum.php
+    treatPhpDocTypesAsCertain: false

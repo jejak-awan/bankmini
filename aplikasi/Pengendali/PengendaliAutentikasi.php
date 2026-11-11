@@ -98,4 +98,3 @@ class PengendaliAutentikasi extends PengendaliDasar
         $this->alihkan('masuk');
     }
 }
-

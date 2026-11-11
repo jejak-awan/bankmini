@@ -170,4 +170,3 @@ class LayananRekening
         return sprintf('BM-%s-%02d-%06d', date('Ym'), $idProduk, random_int(100000, 999999));
     }
 }
-

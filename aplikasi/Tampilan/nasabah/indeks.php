@@ -119,8 +119,8 @@ $petaStatusBadge = [
                 </div>
             </div>
             <div class="table-responsive">
-                <table id="tabelNasabah" class="table table-hover table-striped align-middle mb-0">
-                    <thead class="table-light">
+                <table id="tabelNasabah" class="table tabel-bankmini table-hover align-middle mb-0">
+                    <thead>
                         <tr>
                             <th>No. Identitas</th>
                             <th>Nama Lengkap</th>

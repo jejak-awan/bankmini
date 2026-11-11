@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="BankMiniPSR12">
+    <description>Standar Linting PSR-12 untuk Kode PHP Aplikasi dan Pengujian Bank Mini</description>
+
+    <file>aplikasi</file>
+    <file>pengujian</file>
+    <exclude-pattern>aplikasi/Tampilan/*</exclude-pattern>
+    <exclude-pattern>pengujian/e2e/*</exclude-pattern>
+
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <rule ref="PSR12">
+        <exclude name="Generic.Files.LineLength"/>
+    </rule>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="150"/>
+            <property name="absoluteLineLimit" value="200"/>
+        </properties>
+    </rule>
+
+    <rule ref="PSR1.Classes.ClassDeclaration.MultipleClasses">
+        <exclude-pattern>pengujian/*</exclude-pattern>
+    </rule>
+</ruleset>

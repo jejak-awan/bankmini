@@ -238,4 +238,24 @@ document.addEventListener('DOMContentLoaded', function () {
             formulirMenungguKonfirmasi.submit();
         });
     }
+
+    /**
+     * 5. Toggle Tampilkan / Sembunyikan Kata Sandi
+     */
+    const tombolToggleSandi = document.querySelectorAll('button[data-toggle-sandi]');
+    tombolToggleSandi.forEach(function (tombol) {
+        tombol.addEventListener('click', function () {
+            const idInput = tombol.getAttribute('data-toggle-sandi');
+            const inputSandi = idInput ? document.getElementById(idInput) : null;
+            if (!inputSandi) {
+                return;
+            }
+            const apakahPassword = inputSandi.type === 'password';
+            inputSandi.type = apakahPassword ? 'text' : 'password';
+            const ikon = tombol.querySelector('i');
+            if (ikon) {
+                ikon.className = apakahPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
+            }
+        });
+    });
 });

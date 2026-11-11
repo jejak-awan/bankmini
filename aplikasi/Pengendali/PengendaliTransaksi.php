@@ -255,4 +255,3 @@ class PengendaliTransaksi extends PengendaliDasar
         $this->alihkan('transaksi/koreksi');
     }
 }
-

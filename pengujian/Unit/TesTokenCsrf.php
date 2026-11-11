@@ -46,4 +46,3 @@ class TesTokenCsrf extends KasusUjiDasar
         $this->pastikanBenar(!TokenCsrf::validasiToken('token_palsu_123'), 'Token palsu harus ditolak.');
     }
 }
-

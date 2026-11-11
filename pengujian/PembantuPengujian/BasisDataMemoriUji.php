@@ -108,4 +108,3 @@ class PdoTiruanTransaksi extends PDO
         return $this->jumlahRollback;
     }
 }
-

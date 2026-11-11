@@ -150,4 +150,3 @@ class ModelMutasi
         return $this->ambilMutasiTerbaru($batasJumlah);
     }
 }
-

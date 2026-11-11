@@ -9,14 +9,22 @@
     <link rel="stylesheet" href="<?= amankanHtml(urlDasar('aset/css/gaya.css')) ?>">
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark d-lg-none tidak-cetak">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-semibold" href="<?= amankanHtml(urlDasar('dasbor')) ?>">
-            <i class="bi bi-bank2 me-2"></i>Bank Mini (IDR)
+<nav class="navbar navbar-dark d-lg-none tidak-cetak" style="background-color: #0b2545;">
+    <div class="container-fluid px-3">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="<?= amankanHtml(urlDasar('dasbor')) ?>">
+            <span class="badge text-bg-primary p-2"><i class="bi bi-bank2"></i></span>
+            <span>Bank Mini (IDR)</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuBilahSisi" aria-controls="menuBilahSisi">
+        <button
+            class="navbar-toggler border-0"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#menuBilahSisi"
+            aria-controls="menuBilahSisi"
+            aria-label="Buka menu navigasi"
+        >
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </nav>
-<div class="d-flex">
+<div class="d-flex w-100">

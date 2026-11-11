@@ -6,6 +6,13 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.3.0] - 2026-11-11
+
+### Diperbarui (Changed)
+- Perbaikan UI Sidebar Kontras Tinggi, Redesign Antarmuka Modern Bank Mini, serta Penambahan Tooling Lint PHPCS, PHPStan Level 5, dan Playwright E2E/Smoke Test
+
+---
+
 ## [1.2.0] - 2026-11-11
 
 ### Diperbarui (Changed)

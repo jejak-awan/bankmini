@@ -84,4 +84,3 @@ class ModelPengguna
         return $pernyataan->fetchAll(PDO::FETCH_ASSOC);
     }
 }
-

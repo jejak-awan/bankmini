@@ -53,4 +53,3 @@ class TesFungsiUmum extends KasusUjiDasar
         $this->pastikanSama('11 November 2026 17:30', $hasilTanggal);
     }
 }
-

@@ -1,10 +1,10 @@
 # Status Handover & Konteks Aktif Agen (SSOT Lintas Sesi)
 
-- **Pembaruan Terakhir**: 2026-11-11
-- **Versi Aplikasi Saat Ini**: `1.2.0` (SoT di `VERSION` & `CHANGELOG.md`)
-- **Work Log Terakhir**: [`2026-11-11-upgrade-frontend-bootstrap5-ui-ux.md`](../04-work-log/2026-11-11-upgrade-frontend-bootstrap5-ui-ux.md)
-- **Fase Projek Saat Ini**: Fase 1, 2, & 3 Selesai (v1.2.0) — Aplikasi `bankmini` + UI/UX Bootstrap 5 Offline & Vanilla JS + Bahan Belajar RPL Lengkap (`@konsep_rpl`, DFD, ERD, Kamus Data, Glosarium, Standar UI/UX) + Manajemen Versi & Suite QA
-- **Status Kepatuhan & QA**: LULUS 100% (0 Pelanggaran, 14 Skenario QA Lulus)
+- **Pembaruan Terakhir**: 2026-11-12
+- **Versi Aplikasi Saat Ini**: `1.3.0` (SoT di `VERSION` & `CHANGELOG.md`)
+- **Work Log Terakhir**: [`2026-11-12-tooling-lint-phpstan-playwright-dan-redesign-ui.md`](../04-work-log/2026-11-12-tooling-lint-phpstan-playwright-dan-redesign-ui.md)
+- **Fase Projek Saat Ini**: Fase 1, 2, & 3 Selesai (v1.3.0) — Aplikasi `bankmini` + UI/UX Modern Kontras Tinggi + Quality Gate Lengkap (`PHPCS` Lint, `PHPStan` Level 5, `Playwright` E2E/Smoke, Suite QA 14 Skenario, & Pemeriksa Kepatuhan Agen)
+- **Status Kepatuhan & QA**: LULUS 100% (0 Pelanggaran, 0 Error PHPStan/PHPCS, 14 QA PHP + 3 Playwright E2E Lulus)
 
 ---
 
@@ -18,17 +18,17 @@
 
 ## 2. Komponen yang Sudah Selesai & Terverifikasi
 - [x] **Pondasi Dokumentasi, 7 ADR, & Bahan Belajar RPL** (`dfd-dan-alur-sistem.md`, `skema-database.md`, `manajemen-versi-lisensi-dan-changelog.md`, `glosarium-dan-daftar-istilah.md`, `standar-frontend-ui-ux.md`)
-- [x] **Manajemen Versi & Lisensi** (`VERSION` = `1.2.0`, `CHANGELOG.md`, `LICENSE` MIT, `naikkan_versi.php`)
-- [x] **Skrip Pemeriksa Kepatuhan & Gate Handover** (`06-aturan-agen/skrip/periksa_kepatuhan_agen.php`, `gerbang_handover_agen.php`, `periksa-konsistensi.ps1`)
+- [x] **Manajemen Versi & Lisensi** (`VERSION` = `1.3.0`, `CHANGELOG.md`, `LICENSE` MIT, `naikkan_versi.php`)
+- [x] **Quality Gate Lengkap** (`periksa_kepatuhan_agen.php`, `gerbang_handover_agen.php`, `phpcs.xml` PSR-12 Lint, `phpstan.neon` Level 5, `playwright.config.js` E2E & Smoke Test)
 - [x] **Skema, Seeder, & Pemasang Database MySQL InnoDB Rupiah IDR** (`basis_data/skema.sql`, `basis_data/data_awal.sql`, `basis_data/pasang_basis_data.php` — sudah terpasang aktif di `bankmini_db`)
 - [x] **Seluruh Kode Inti, Model, Layanan, Pengendali, & Tampilan** lengkap dengan komentar edukasi `@konsep_rpl` untuk siswa RPL
-- [x] **Frontend & UI/UX Perbankan Bootstrap 5.3.3 Offline + Bootstrap Icons + Vanilla JS** (`public/aset/vendor/`, `gaya.css`, `aplikasi.js`, dan seluruh 13 file view di `aplikasi/Tampilan/`)
-- [x] **Suite Pengujian Otomatis QA (`pengujian/`)**: 14 skenario lulus 100%
+- [x] **Frontend & UI/UX Perbankan Modern Bootstrap 5.3.3 Offline + Bootstrap Icons + Vanilla JS** (`public/aset/vendor/`, `gaya.css`, `aplikasi.js`, sidebar kontras tinggi, topbar, dan seluruh 13 file view di `aplikasi/Tampilan/`)
+- [x] **Suite Pengujian Otomatis QA (`pengujian/`)**: 14 skenario PHP + 3 skenario Playwright E2E/Smoke lulus 100%
 
 ---
 
 ## 3. Tugas Aktif / Sedang Dikerjakan
-- [ ] Tidak ada tugas yang menggantung (seluruh *deliverable* v1.2.0 selesai 100%).
+- [ ] Tidak ada tugas yang menggantung (seluruh *deliverable* v1.3.0 selesai 100%).
 
 ---
 

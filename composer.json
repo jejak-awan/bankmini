@@ -1,0 +1,42 @@
+{
+    "name": "smk-rpl/bankmini",
+    "description": "Sistem Informasi Bank Mini (PHP Native MVC-Lite, Rupiah IDR, Bahan Belajar SMK RPL)",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "squizlabs/php_codesniffer": "^3.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aplikasi\\": "aplikasi/"
+        },
+        "files": [
+            "aplikasi/Pembantu/fungsi_umum.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pengujian\\": "pengujian/"
+        }
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "stan": "phpstan analyse --memory-limit=512M",
+        "test": "php pengujian/jalankan_semua_tes.php",
+        "patuh": "php dokumentasi/06-aturan-agen/skrip/periksa_kepatuhan_agen.php",
+        "qa": [
+            "@lint",
+            "@stan",
+            "@test",
+            "@patuh"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

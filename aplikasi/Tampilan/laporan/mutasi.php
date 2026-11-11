@@ -79,8 +79,8 @@ $petaLencanaMutasi = [
         </div>
     </div>
     <div class="table-responsive">
-        <table id="tabelLaporanMutasi" class="table table-hover table-striped align-middle mb-0">
-            <thead class="table-light">
+        <table id="tabelLaporanMutasi" class="table tabel-bankmini table-hover align-middle mb-0">
+            <thead>
                 <tr>
                     <th>Waktu</th>
                     <th>Kode Referensi</th>
@@ -108,13 +108,13 @@ $petaLencanaMutasi = [
                             <td class="small text-nowrap">
                                 <?= amankanHtml(formatTanggalIndonesia((string) ($barisMutasi['waktu_transaksi'] ?? ''))) ?>
                             </td>
-                            <td class="small font-monospace">
+                            <td class="small font-monospace text-nowrap">
                                 <?= amankanHtml($barisMutasi['kode_referensi'] ?? '') ?>
                             </td>
                             <td class="angka-keuangan">
                                 <?= amankanHtml($barisMutasi['nomor_rekening'] ?? '') ?>
                             </td>
-                            <td><?= amankanHtml($barisMutasi['nama_nasabah'] ?? '') ?></td>
+                            <td class="text-nowrap"><?= amankanHtml($barisMutasi['nama_nasabah'] ?? '') ?></td>
                             <td>
                                 <?php if ($jenisTransaksi === 'KOREKSI') : ?>
                                     <span class="badge text-bg-warning">KOREKSI</span>

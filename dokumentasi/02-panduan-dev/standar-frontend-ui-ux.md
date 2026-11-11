@@ -29,7 +29,7 @@ public/aset/
 | File | Fungsi | Fitur Utama |
 | :--- | :--- | :--- |
 | [`kepala.php`](../../aplikasi/Tampilan/tata_letak/kepala.php) | Bagian `<head>` & Navbar Mobile | Memuat `bootstrap.min.css`, `bootstrap-icons.min.css`, `gaya.css`, dan tombol *hamburger* offcanvas di layar kecil (`d-lg-none`). |
-| [`bilah_sisi.php`](../../aplikasi/Tampilan/tata_letak/bilah_sisi.php) | Navigasi Samping Responsif | Menggunakan `offcanvas-lg` Bootstrap 5, menyorot menu aktif via `$tampilanAktif`, membatasi menu **Jurnal Koreksi** hanya untuk `admin`/`supervisor`, serta merender `$pesanKilat` (*flash message*). |
+| [`bilah_sisi.php`](../../aplikasi/Tampilan/tata_letak/bilah_sisi.php) | Navigasi Samping Responsif & Topbar | Menggunakan struktur resmi `.offcanvas-lg` -> `.offcanvas-body` dengan latar navy gelap kontras tinggi (`!important` menimpa default transparent Bootstrap), topbar putih bersih `.bilah-atas-bankmini`, serta kontrol menu berdasarkan `$peranPenggunaAktif`. |
 | [`kaki.php`](../../aplikasi/Tampilan/tata_letak/kaki.php) | Footer, Modal Global, & Skrip | Menyediakan modal konfirmasi global `#modalKonfirmasiTransaksi`, menampilkan `$versiAplikasi`, serta memuat `bootstrap.bundle.min.js` dan `aplikasi.js`. |
 
 ---
@@ -96,3 +96,4 @@ Menyaring baris `<tbody> tr` pada tabel nasabah, rekening, maupun laporan mutasi
 1. Semua variabel lokal di dalam file `aplikasi/Tampilan/*.php` wajib memakai format **`$camelCase` Bahasa Indonesia** (dilarang `$snake_case`).
 2. Setiap output variabel wajib dibungkus fungsi `amankanHtml(...)` untuk mencegah celah **XSS**.
 3. Dilarang menulis query SQL, memanggil Model/Service, membaca `$_SESSION`, atau `require konfigurasi/` langsung di dalam View.
+

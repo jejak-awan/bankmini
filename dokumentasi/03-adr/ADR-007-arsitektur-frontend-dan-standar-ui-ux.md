@@ -32,3 +32,4 @@ Tim memilih **Opsi 3: Bootstrap 5.3.3 (Offline) + Bootstrap Icons 1.11.3 (Offlin
 ## 4. Konsekuensi
 - Ukuran folder `public/aset/vendor/` bertambah ~500 KB, namun menjamin keandalan 100% *offline*.
 - Setiap halaman baru yang ditambahkan di masa depan wajib memanfaatkan komponen Bootstrap 5, atribut `data-*` standar di `aplikasi.js`, dan mematuhi aturan kepatuhan di `periksa_kepatuhan_agen.php`.
+

@@ -20,8 +20,8 @@ $petaStatusProduk = [
         </span>
     </div>
     <div class="table-responsive">
-        <table class="table table-hover table-striped align-middle mb-0">
-            <thead class="table-light">
+        <table class="table tabel-bankmini table-hover align-middle mb-0">
+            <thead>
                 <tr>
                     <th>Kode Produk</th>
                     <th>Nama Produk</th>

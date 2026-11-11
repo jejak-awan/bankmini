@@ -113,4 +113,3 @@ class LayananAutentikasi
         Sesi::hancurkanSesi();
     }
 }
-

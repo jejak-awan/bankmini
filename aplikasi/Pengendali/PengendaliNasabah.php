@@ -66,4 +66,3 @@ class PengendaliNasabah extends PengendaliDasar
         $this->alihkan('nasabah');
     }
 }
-

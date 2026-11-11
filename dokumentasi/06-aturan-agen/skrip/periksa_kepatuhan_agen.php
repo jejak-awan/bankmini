@@ -621,9 +621,18 @@ final class PemeriksaKepatuhanAgen
     private function ambilSemuaFilePhp(string $direktori): array
     {
         $hasil = [];
-        $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($direktori, FilesystemIterator::SKIP_DOTS)
+        $folderDikecualikan = ['vendor', 'node_modules', '.git', 'test-results', 'playwright-report'];
+        $iteratorDirektori = new RecursiveDirectoryIterator($direktori, FilesystemIterator::SKIP_DOTS);
+        $filterIterator = new RecursiveCallbackFilterIterator(
+            $iteratorDirektori,
+            static function (SplFileInfo $saatIni) use ($folderDikecualikan): bool {
+                if ($saatIni->isDir() && in_array($saatIni->getFilename(), $folderDikecualikan, true)) {
+                    return false;
+                }
+                return true;
+            }
         );
+        $iterator = new RecursiveIteratorIterator($filterIterator);
 
         foreach ($iterator as $infoFile) {
             if ($infoFile instanceof SplFileInfo && strtolower($infoFile->getExtension()) === 'php') {
