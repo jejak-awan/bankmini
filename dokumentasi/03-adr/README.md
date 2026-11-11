@@ -1,0 +1,16 @@
+# Architecture Decision Records (ADR)
+
+Folder ini menyimpan seluruh keputusan arsitektur penting dalam pengembangan **Bank Mini**. Setiap kali tim atau agen AI mengambil keputusan besar terkait arsitektur kode, skema database, keamanan, atau konvensi penamaan, keputusan tersebut wajib dicatat di sini.
+
+## Indeks ADR
+
+| ID | Judul Keputusan | Status | Tanggal |
+| :--- | :--- | :--- | :--- |
+| [ADR-001](./ADR-001-php-native-mvc-lite.md) | Arsitektur Layered MVC-Lite, Single Source of Truth (SoT), & Separation of Concerns (SoC) | **Disetujui (Accepted)** | 2026-11-11 |
+| [ADR-002](./ADR-002-integritas-transaksi-keuangan.md) | Standar Transaksi Mata Uang Rupiah (IDR), Ledger Append-Only, & Penguncian ACID | **Disetujui (Accepted)** | 2026-11-11 |
+| [ADR-003](./ADR-003-standar-keamanan-aplikasi-keuangan.md) | Standar Keamanan Aplikasi Keuangan (PDO Prepared Statements, CSRF + PRG, & Sanitasi XSS) | **Disetujui (Accepted)** | 2026-11-11 |
+| [ADR-004](./ADR-004-konvensi-penamaan-bahasa-indonesia.md) | Konvensi Penamaan, Struktur Folder, Tabel, & Anotasi dalam Bahasa Indonesia | **Disetujui (Accepted)** | 2026-11-11 |
+| [ADR-005](./ADR-005-standar-qa-dan-skrip-penjaga-konsistensi.md) | Standar Pengujian QA & Skrip Otomatis Penjaga Konsistensi Aturan Agen | **Disetujui (Accepted)** | 2026-11-11 |
+
+## Cara Menambahkan ADR Baru
+Salin template dari [`../05-template-dokumentasi/template-adr.md`](../05-template-dokumentasi/template-adr.md), beri nomor urut berikutnya (`ADR-006-...`), dan daftarkan pada tabel indeks di atas.

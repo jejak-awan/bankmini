@@ -1,0 +1,148 @@
+:root {
+    --warna-utama: #0f4c81;
+    --warna-gelap: #092c4c;
+    --warna-latar: #f4f6f9;
+    --warna-putih: #ffffff;
+    --warna-teks: #1f2937;
+    --warna-sukses: #15803d;
+    --warna-bahaya: #b91c1c;
+    --warna-batas: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--warna-latar);
+    color: var(--warna-teks);
+    line-height: 1.5;
+}
+
+.wadah-utama {
+    display: flex;
+    min-height: 100vh;
+}
+
+.bilah-sisi {
+    width: 250px;
+    background-color: var(--warna-gelap);
+    color: var(--warna-putih);
+    padding: 1.5rem 1rem;
+}
+
+.bilah-sisi h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 0.75rem;
+}
+
+.bilah-sisi ul {
+    list-style: none;
+}
+
+.bilah-sisi li {
+    margin-bottom: 0.5rem;
+}
+
+.bilah-sisi a {
+    display: block;
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+}
+
+.bilah-sisi a:hover {
+    background-color: var(--warna-utama);
+    color: var(--warna-putih);
+}
+
+.konten-utama {
+    flex: 1;
+    padding: 2rem;
+}
+
+.kartu {
+    background: var(--warna-putih);
+    border: 1px solid var(--warna-batas);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.grid-statistik {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tabel-data {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.tabel-data th,
+.tabel-data td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--warna-batas);
+    text-align: left;
+}
+
+.tabel-data th {
+    background-color: #f8fafc;
+    font-weight: 600;
+}
+
+.baris-form {
+    margin-bottom: 1rem;
+}
+
+.baris-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.baris-form input,
+.baris-form select,
+.baris-form textarea {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+.tombol-utama {
+    background-color: var(--warna-utama);
+    color: var(--warna-putih);
+    border: none;
+    padding: 0.65rem 1.25rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.pesan-kilat {
+    padding: 0.85rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+}
+
+.pesan-sukses {
+    background-color: #dcfce7;
+    color: var(--warna-sukses);
+}
+
+.pesan-kesalahan {
+    background-color: #fee2e2;
+    color: var(--warna-bahaya);
+}
+

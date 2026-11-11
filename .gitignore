@@ -1,0 +1,40 @@
+# ==============================================================================
+# .gitignore - Sistem Informasi Bank Mini (PHP Native)
+# ==============================================================================
+
+# 1. File Environment & Kredensial Lokal
+.env
+.env.*
+!.env.example
+konfigurasi/*.lokal.php
+
+# 2. Penyimpanan Internal (Log & Backup Database)
+penyimpanan/log/*
+!penyimpanan/log/.gitkeep
+penyimpanan/cadangan/*
+!penyimpanan/cadangan/.gitkeep
+
+# 3. File Sistem Operasi (Windows / macOS / Linux)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# 4. Editor & IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# 5. Paket Pihak Ketiga & Artefak Sementara
+vendor/
+node_modules/
+*.log
+*.tmp
+*.bak
+*.sql.gz
+
