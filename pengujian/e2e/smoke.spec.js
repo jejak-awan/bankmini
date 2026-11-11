@@ -24,8 +24,8 @@ test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
     const daftarAsetGagal = [];
 
     page.on('console', (pesan) => {
-      if (pesan.type() === 'error') {
-        daftarErrorKonsol.push(pesan.text());
+      if (pesan.type() === 'error' || pesan.type() === 'warning') {
+        daftarErrorKonsol.push(`[${pesan.type()}] ${pesan.text()}`);
       }
     });
     page.on('pageerror', (galat) => daftarErrorHalaman.push(galat.message));
@@ -60,13 +60,13 @@ test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
     const daftarAsetGagal = [];
 
     page.on('console', (pesan) => {
-      if (pesan.type() === 'error') {
-        daftarErrorKonsol.push(pesan.text());
+      if (pesan.type() === 'error' || pesan.type() === 'warning') {
+        daftarErrorKonsol.push(`[${pesan.type()}] ${pesan.text()}`);
       }
     });
     page.on('pageerror', (galat) => daftarErrorHalaman.push(galat.message));
     page.on('response', (respons) => {
-      if (respons.status() >= 400 && !respons.url().includes('favicon.ico')) {
+      if (respons.status() >= 400) {
         daftarAsetGagal.push(`${respons.status()} ${respons.url()}`);
       }
     });

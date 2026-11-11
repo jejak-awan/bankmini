@@ -84,13 +84,33 @@ final class GerbangHandoverAgen
             return 1;
         }
 
-        // Hitung inventaris file di bankmini
+        // Hitung inventaris file di bankmini & cek prasyarat lingkungan aktif
         $jumlahFileAplikasi = is_dir($this->jalurAplikasi) ? count($this->ambilSemuaFilePhp($this->jalurAplikasi)) : 0;
+        $ekstensiWajib = ['pdo_mysql', 'bcmath', 'mbstring', 'openssl', 'tokenizer'];
+        $ekstensiHilang = [];
+        foreach ($ekstensiWajib as $namaEkstensi) {
+            if (!extension_loaded($namaEkstensi)) {
+                $ekstensiHilang[] = $namaEkstensi;
+            }
+        }
+
+        $statusComposer = is_file($this->jalurAplikasi . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')
+            ? 'TERPASANG (PHPCS + PHPStan)'
+            : 'BELUM (jalankan composer install)';
+        $statusPlaywright = is_dir($this->jalurAplikasi . DIRECTORY_SEPARATOR . 'node_modules' . DIRECTORY_SEPARATOR . '@playwright' . DIRECTORY_SEPARATOR . 'test')
+            ? 'TERPASANG (@playwright/test)'
+            : 'BELUM (jalankan npm install)';
 
         echo "[STATUS GATE: SIAP & TERVERIFIKASI]\n";
         echo "Total File PHP di bankmini : {$jumlahFileAplikasi} file\n";
+        echo "Versi PHP Runtime          : " . PHP_VERSION . (PHP_VERSION_ID >= 80200 ? ' (Memenuhi >= 8.2)' : ' (PERLU >= 8.2!)') . "\n";
+        echo "Ekstensi PHP Wajib         : " . (count($ekstensiHilang) === 0 ? 'LENGKAP (' . implode(', ', $ekstensiWajib) . ')' : 'KURANG: ' . implode(', ', $ekstensiHilang)) . "\n";
+        echo "Tooling Lint & PHPStan     : {$statusComposer}\n";
+        echo "Tooling E2E Playwright     : {$statusPlaywright}\n";
         echo "----------------------------------------------------------------------\n";
         echo $isiHandover . "\n";
+        echo "----------------------------------------------------------------------\n";
+        echo "[QUALITY GATE AKHIR SESI]: composer lint | composer stan | composer test | composer patuh | npm run test:e2e\n";
         echo "======================================================================\n";
         return 0;
     }

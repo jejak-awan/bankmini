@@ -1,0 +1,19 @@
+#!/bin/sh
+# ==============================================================================
+# Git Pre-Push Gate - Projek Bank Mini
+# Memblokir `git push` apabila masih ada QA PHP atau E2E Playwright yang gagal.
+# ==============================================================================
+
+echo "[GIT PRE-PUSH GATE] Memverifikasi QA PHP + E2E Playwright sebelum push..."
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "dokumentasi/06-aturan-agen/skrip/periksa-konsistensi.ps1" -DenganE2E
+KODE_KELUAR=$?
+
+if [ $KODE_KELUAR -ne 0 ]; then
+    echo ""
+    echo "[DITOLAK] git push DIBLOKIR oleh QA Gate! Pastikan seluruh QA PHP & E2E Playwright lulus 100%."
+    exit 1
+fi
+
+echo "[LOLOS] Seluruh QA Gate (PHP + E2E) lulus 100%. Lanjut push ke remote."
+exit 0
+

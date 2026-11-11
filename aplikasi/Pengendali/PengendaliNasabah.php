@@ -42,9 +42,11 @@ class PengendaliNasabah extends PengendaliDasar
      */
     public function simpanNasabah(): void
     {
+        // [Langkah 1 - Konsep RPL]: Batasi hak akses tambah nasabah hanya untuk peran admin dan teller.
         MiddlewareAutentikasi::wajibPeran(['admin', 'teller']);
 
         try {
+            // [Langkah 2 - Konsep RPL]: Validasi token CSRF dan simpan data dengan pola Post-Redirect-Get (PRG).
             $this->wajibValidasiCsrf();
 
             $modelNasabah = new ModelNasabah();

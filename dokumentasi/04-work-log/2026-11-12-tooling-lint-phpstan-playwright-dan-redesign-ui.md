@@ -23,3 +23,4 @@ Memperbaiki cacat visual Bootstrap `.offcanvas-lg` yang menimpa warna latar side
 ## 3. Verifikasi & Penutupan
 - Versi dinaikkan dari `1.2.0` -> `1.3.0` melalui `naikkan_versi.php`.
 - Diverifikasi lulus 100% pada `phpcs` (32/32 file), `phpstan` Level 5 (32/32 file, 0 errors), `jalankan_semua_tes.php` (14/14 tes), `periksa_kepatuhan_agen.php` (0 pelanggaran), `gerbang_handover_agen.php`, serta `playwright test` (3/3 tes browser lulus + inspeksi visual screenshot).
+

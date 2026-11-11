@@ -24,8 +24,10 @@ class PengendaliProduk extends PengendaliDasar
      */
     public function indeks(): void
     {
+        // [Langkah 1 - Konsep RPL]: Pastikan petugas sudah masuk sebelum membaca daftar master produk tabungan.
         MiddlewareAutentikasi::wajibMasuk();
 
+        // [Langkah 2 - Konsep RPL]: Ambil data produk simpanan dari Model dan kirimkan ke tampilan HTML.
         $modelProduk = new ModelProduk();
         $this->tampilkanTampilan('produk/indeks', [
             'judulHalaman' => 'Master Produk Tabungan (Rupiah IDR)',

@@ -12,6 +12,17 @@
 
 declare(strict_types=1);
 
+// [Konsep RPL - Zero Warning QA Policy]: Ubah seluruh PHP warning, notice, dan deprecated menjadi kegagalan tes.
+error_reporting(E_ALL);
+set_error_handler(
+    static function (int $tingkatKesalahan, string $pesanKesalahan, string $namaBerkas, int $nomorBaris): bool {
+        if (!(error_reporting() & $tingkatKesalahan)) {
+            return false;
+        }
+        throw new ErrorException($pesanKesalahan, 0, $tingkatKesalahan, $namaBerkas, $nomorBaris);
+    }
+);
+
 $akarProjek = dirname(__DIR__);
 
 require_once $akarProjek . DIRECTORY_SEPARATOR . 'aplikasi' . DIRECTORY_SEPARATOR . 'Pembantu' . DIRECTORY_SEPARATOR . 'fungsi_umum.php';

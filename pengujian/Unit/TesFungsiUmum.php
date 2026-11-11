@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Pengujian\Unit;
 
+use InvalidArgumentException;
 use Pengujian\PembantuPengujian\KasusUjiDasar;
 
 /**
@@ -51,5 +52,25 @@ class TesFungsiUmum extends KasusUjiDasar
     {
         $hasilTanggal = formatTanggalIndonesia('2026-11-11 17:30:00', true);
         $this->pastikanSama('11 November 2026 17:30', $hasilTanggal);
+    }
+
+    /**
+     * @skenario QA-UNT-004
+     * Memastikan keStringNumerik() menerima desimal valid dan melempar InvalidArgumentException bila tidak valid.
+     *
+     * @return void
+     */
+    public function ujiKeStringNumerikMemvalidasiAngkaDanMenolakInputNonNumerik(): void
+    {
+        $this->pastikanSama('150000.50', keStringNumerik(' 150000.50 '));
+
+        $gagalSesuaiHarapan = false;
+        try {
+            keStringNumerik('bukan_angka');
+        } catch (InvalidArgumentException) {
+            $gagalSesuaiHarapan = true;
+        }
+
+        $this->pastikanBenar($gagalSesuaiHarapan, 'Input non-numerik wajib ditolak dengan InvalidArgumentException.');
     }
 }

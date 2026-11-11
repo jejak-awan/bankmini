@@ -1,9 +1,17 @@
+<?php
+/**
+ * Tata Letak Kepala HTML & Navbar Mobile Bank Mini.
+ * Memuat stylesheet offline Bootstrap 5, Bootstrap Icons, gaya tema perbankan,
+ * serta tombol hamburger offcanvas untuk perangkat layar kecil.
+ */
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= amankanHtml($judulHalaman ?? 'Sistem Informasi Bank Mini') ?></title>
+    <link rel="icon" type="image/svg+xml" href="<?= amankanHtml(urlDasar('aset/favicon.svg')) ?>">
     <link rel="stylesheet" href="<?= amankanHtml(urlDasar('aset/vendor/bootstrap/css/bootstrap.min.css')) ?>">
     <link rel="stylesheet" href="<?= amankanHtml(urlDasar('aset/vendor/bootstrap-icons/font/bootstrap-icons.min.css')) ?>">
     <link rel="stylesheet" href="<?= amankanHtml(urlDasar('aset/css/gaya.css')) ?>">

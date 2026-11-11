@@ -79,12 +79,14 @@ class LayananRekening
         int $idPetugas,
         string $alamatIp
     ): array {
+        // [Langkah 1 - Konsep RPL]: Validasi format desimal Rupiah dengan regex dan normalisasi via BCMath.
         if (!preg_match('/^\d+(\.\d{1,2})?$/', $nominalSetoranAwal)) {
             throw new InvalidArgumentException('Format nominal setoran awal Rupiah tidak valid.');
         }
 
-        $nominalNormal = bcadd($nominalSetoranAwal, '0.00', 2);
+        $nominalNormal = bcadd(keStringNumerik($nominalSetoranAwal), '0.00', 2);
 
+        // [Langkah 2 - Konsep RPL]: Pastikan entitas nasabah dan produk aktif sebelum membuka rekening baru.
         $dataNasabah = $this->modelNasabah->ambilBerdasarkanId($idNasabah);
         if ($dataNasabah === null || $dataNasabah['status'] !== 'aktif') {
             throw new DomainException('Data nasabah tidak ditemukan atau berstatus nonaktif.');
@@ -95,7 +97,7 @@ class LayananRekening
             throw new DomainException('Produk tabungan tidak ditemukan atau sedang tidak aktif.');
         }
 
-        $setoranMinimum = (string) $dataProduk['setoran_awal_minimum'];
+        $setoranMinimum = keStringNumerik($dataProduk['setoran_awal_minimum']);
         if (bccomp($nominalNormal, $setoranMinimum, 2) < 0) {
             throw new DomainException(
                 'Setoran awal kurang dari batas minimum produk (' . formatRupiah($setoranMinimum) . ').'

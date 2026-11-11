@@ -64,11 +64,13 @@ class PengendaliTransaksi extends PengendaliDasar
      */
     public function prosesSetorTunai(): void
     {
+        // [Langkah 1 - Konsep RPL]: Periksa peran petugas (admin/teller) dan validasi CSRF token form.
         MiddlewareAutentikasi::wajibPeran(['admin', 'teller']);
 
         try {
             $this->wajibValidasiCsrf();
 
+            // [Langkah 2 - Konsep RPL]: Ekstrak input nominal Rupiah bertipe string agar presisi BCMath terjaga.
             $idRekening = (int) ($_POST['id_rekening'] ?? 0);
             $nominalSetoran = (string) ($_POST['nominal_setoran'] ?? '0');
             $keterangan = (string) ($_POST['keterangan'] ?? '');

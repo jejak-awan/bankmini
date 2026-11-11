@@ -27,8 +27,10 @@ class PengendaliDasbor extends PengendaliDasar
      */
     public function indeks(): void
     {
+        // [Langkah 1 - Konsep RPL]: Terapkan middleware autentikasi agar dasbor tidak dapat diakses tanpa login.
         MiddlewareAutentikasi::wajibMasuk();
 
+        // [Langkah 2 - Konsep RPL]: Ambil data ringkasan nasabah, rekening, dan mutasi terbaru dari Model.
         $modelNasabah = new ModelNasabah();
         $modelRekening = new ModelRekening();
         $modelMutasi = new ModelMutasi();
@@ -40,7 +42,7 @@ class PengendaliDasbor extends PengendaliDasar
         $totalSaldoRupiah = '0.00';
         foreach ($daftarRekening as $barisRekening) {
             if ($barisRekening['status'] === 'aktif') {
-                $totalSaldoRupiah = bcadd($totalSaldoRupiah, (string) $barisRekening['saldo'], 2);
+                $totalSaldoRupiah = bcadd($totalSaldoRupiah, keStringNumerik($barisRekening['saldo']), 2);
             }
         }
 

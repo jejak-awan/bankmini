@@ -52,6 +52,7 @@ final class PemeriksaKepatuhanAgen
         $this->periksaSinkronisasiIndeksAdrDanWorkLog();
         $this->periksaVersiChangelogDanLisensi();
         $this->periksaStrukturFolderAplikasi();
+        $this->periksaPrasyaratQualityGateDanJs();
         $this->periksaSkemaBasisData();
         $this->periksaKodePhpDanBatasSoc();
         $this->periksaKepatuhanFileTesQa();
@@ -255,6 +256,79 @@ final class PemeriksaKepatuhanAgen
                         );
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * 3b. Memeriksa kelengkapan file konfigurasi Quality Gate (Lint, PHPStan, Playwright) serta komentar JSDoc.
+     *
+     * @return void
+     */
+    private function periksaPrasyaratQualityGateDanJs(): void
+    {
+        $daftarKonfigurasiWajib = [
+            'composer.json',
+            'phpcs.xml',
+            'phpstan.neon',
+            'package.json',
+            'playwright.config.js',
+            'pengujian/e2e/smoke.spec.js',
+            'pengujian/e2e/alur_keuangan.spec.js',
+            '.githooks/pre-commit',
+            '.githooks/pre-push',
+            'dokumentasi/06-aturan-agen/skrip/gerbang_komit_dan_push.ps1',
+            'public/aset/vendor/bootstrap/css/bootstrap.min.css',
+            'public/aset/vendor/bootstrap-icons/font/bootstrap-icons.min.css',
+        ];
+
+        // Pastikan level PHPStan minimal >= 8 (hasil kenaikan bertahap 5 -> 6 -> 7 -> 8)
+        $jalurStan = $this->jalurAplikasi . DIRECTORY_SEPARATOR . 'phpstan.neon';
+        if (is_file($jalurStan)) {
+            $this->jumlahPemeriksaan++;
+            $isiStan = (string) file_get_contents($jalurStan);
+            if (!preg_match('/level:\s*(\d+)/', $isiStan, $cocokLevel) || (int) $cocokLevel[1] < 8) {
+                $this->daftarPelanggaran[] = '[Standar QA] Level PHPStan pada phpstan.neon minimal harus level 8.';
+            }
+        }
+
+        // Pastikan PHPCS memberlakukan Zero Warning Policy (ignore_warnings_on_exit = 0)
+        $jalurPhpcs = $this->jalurAplikasi . DIRECTORY_SEPARATOR . 'phpcs.xml';
+        if (is_file($jalurPhpcs)) {
+            $this->jumlahPemeriksaan++;
+            $isiPhpcs = (string) file_get_contents($jalurPhpcs);
+            if (!str_contains($isiPhpcs, 'ignore_warnings_on_exit" value="0"')) {
+                $this->daftarPelanggaran[] = '[Standar QA] phpcs.xml wajib mengaktifkan ignore_warnings_on_exit value="0" (0 Warning).';
+            }
+        }
+
+        foreach ($daftarKonfigurasiWajib as $jalurRelatif) {
+            $this->jumlahPemeriksaan++;
+            $jalurPenuh = $this->jalurAplikasi . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $jalurRelatif);
+            if (!is_file($jalurPenuh)) {
+                $this->catatPelanggaran(
+                    "[PRASYARAT QUALITY GATE] File prasyarat '{$jalurRelatif}' tidak ditemukan. Lengkapi sesuai arsitektur-sistem.md."
+                );
+            }
+        }
+
+        // Pastikan file JS aplikasi dan E2E memiliki komentar blok / penjelas berbahasa Indonesia
+        $daftarFileJs = [
+            'public/aset/js/aplikasi.js',
+            'pengujian/e2e/smoke.spec.js',
+            'pengujian/e2e/alur_keuangan.spec.js',
+        ];
+        foreach ($daftarFileJs as $jalurJsRelatif) {
+            $jalurJsPenuh = $this->jalurAplikasi . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $jalurJsRelatif);
+            if (!is_file($jalurJsPenuh)) {
+                continue;
+            }
+            $this->jumlahPemeriksaan++;
+            $isiJs = (string) file_get_contents($jalurJsPenuh);
+            if (!preg_match('/\/\*\*[\s\S]{15,}?\*\//', $isiJs) && !preg_match('/\/\/\s+\S+/', $isiJs)) {
+                $this->catatPelanggaran(
+                    "[ANOTASI KODE JS] File '{$jalurJsRelatif}' wajib memiliki komentar JSDoc atau komentar penjelas untuk pembelajaran RPL."
+                );
             }
         }
     }
@@ -473,11 +547,15 @@ final class PemeriksaKepatuhanAgen
                         "[ANOTASI PHPDOC] {$jenis} '{$namaIdentifier}' pada '{$jalurRelatifNormal}' baris {$baris} belum dilengkapi blok anotasi PHPDoc (/** ... */) Bahasa Indonesia."
                     );
                 } else {
-                    // Jika ini adalah Class di dalam aplikasi/, wajib memuat anotasi edukasi @konsep_rpl untuk siswa RPL
+                    // Jika ini adalah Class di dalam aplikasi/, wajib memuat anotasi edukasi @konsep_rpl yang deskriptif
                     if ($idToken === T_CLASS && str_starts_with($jalurRelatifNormal, 'aplikasi/')) {
                         if (!str_contains($isiDocCommentTerakhir, '@konsep_rpl')) {
                             $this->catatPelanggaran(
                                 "[EDUKASI RPL] Class '{$namaIdentifier}' di '{$jalurRelatifNormal}' baris {$baris} wajib mencantumkan anotasi '@konsep_rpl' pada PHPDoc-nya sebagai bahan belajar siswa RPL."
+                            );
+                        } elseif (strlen(trim($isiDocCommentTerakhir)) < 40) {
+                            $this->catatPelanggaran(
+                                "[EDUKASI RPL] PHPDoc Class '{$namaIdentifier}' di '{$jalurRelatifNormal}' terlalu singkat (< 40 karakter). Jelaskan konsep RPL secara edukatif."
                             );
                         }
                     }
@@ -526,6 +604,33 @@ final class PemeriksaKepatuhanAgen
                         "[KONVENSI BAHASA] Variabel '{$teksToken}' di '{$jalurRelatifNormal}' baris {$baris} menggunakan bahasa Inggris. Gunakan variabel Bahasa Indonesia yang deskriptif."
                     );
                 }
+            }
+        }
+
+        // Pastikan file Tampilan memiliki blok komentar deskriptif (/** ... */)
+        if ($apakahFileTampilan) {
+            $this->jumlahPemeriksaan++;
+            if (!preg_match('/\/\*\*[\s\S]{20,}?\*\//', $isiFile)) {
+                $this->catatPelanggaran(
+                    "[EDUKASI RPL] File Tampilan '{$jalurRelatifNormal}' wajib memiliki blok komentar header (/** ... */) yang menjelaskan fungsi tampilan."
+                );
+            }
+        }
+
+        // Pastikan file Layanan/ & Pengendali/ memiliki komentar penjelasan blok logika (// ...)
+        if (str_starts_with($jalurRelatifNormal, 'aplikasi/Layanan/') || str_starts_with($jalurRelatifNormal, 'aplikasi/Pengendali/')) {
+            $this->jumlahPemeriksaan++;
+            $adaKomentarBaris = false;
+            foreach ($daftarToken as $tokenCek) {
+                if (is_array($tokenCek) && $tokenCek[0] === T_COMMENT) {
+                    $adaKomentarBaris = true;
+                    break;
+                }
+            }
+            if (!$adaKomentarBaris) {
+                $this->catatPelanggaran(
+                    "[EDUKASI RPL] File '{$jalurRelatifNormal}' wajib memiliki komentar penjelasan langkah blok kode (// ...) untuk bahan belajar siswa RPL."
+                );
             }
         }
     }

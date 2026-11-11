@@ -3,6 +3,16 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Pengujian E2E Alur Nasabah, Rekening, & Transaksi Rupiah', () => {
   test('Daftar nasabah, buka rekening, setor tunai, & tarik tunai via Modal Konfirmasi', async ({ page }) => {
+    const daftarErrorKonsol = [];
+    const daftarErrorHalaman = [];
+
+    page.on('console', (pesan) => {
+      if (pesan.type() === 'error' || pesan.type() === 'warning') {
+        daftarErrorKonsol.push(`[${pesan.type()}] ${pesan.text()}`);
+      }
+    });
+    page.on('pageerror', (galat) => daftarErrorHalaman.push(galat.message));
+
     await page.goto('/masuk');
     await page.fill('#nama_pengguna', 'teller1');
     await page.fill('#kata_sandi', 'password');
@@ -87,5 +97,8 @@ test.describe('Pengujian E2E Alur Nasabah, Rekening, & Transaksi Rupiah', () => 
       page.click('#tombolKonfirmasiEksekusi'),
     ]);
     await expect(page.locator('.alert-success')).toContainText('berhasil');
+
+    expect(daftarErrorKonsol).toEqual([]);
+    expect(daftarErrorHalaman).toEqual([]);
   });
 });

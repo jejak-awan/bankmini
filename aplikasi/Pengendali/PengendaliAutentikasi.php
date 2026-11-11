@@ -61,8 +61,10 @@ class PengendaliAutentikasi extends PengendaliDasar
     public function prosesMasuk(): void
     {
         try {
+            // [Langkah 1 - Konsep RPL]: Tolak permintaan POST tanpa token CSRF valid untuk mencegah pemalsuan request.
             $this->wajibValidasiCsrf();
 
+            // [Langkah 2 - Konsep RPL]: Delegasikan validasi kredensial dan pencatatan sesi ke lapisan Layanan.
             $namaPengguna = (string) ($_POST['nama_pengguna'] ?? '');
             $kataSandi = (string) ($_POST['kata_sandi'] ?? '');
             $alamatIp = (string) ($_SERVER['REMOTE_ADDR'] ?? '127.0.0.1');

@@ -25,19 +25,21 @@ flowchart LR
 ### A. ENTRY GATE (Wajib Saat Agen Baru Memulai Sesi)
 Setiap kali agen baru memulai percakapan atau menerima tugas baru, agen **wajib** menjalankan atau membaca ringkasan dari:
 ```powershell
-C:\xampp\php\php.exe C:\xampp\htdocs\www\dokumentasi\06-aturan-agen\skrip\gerbang_handover_agen.php
+C:\xampp\php\php.exe C:\xampp\htdocs\www\bankmini\dokumentasi\06-aturan-agen\skrip\gerbang_handover_agen.php
 ```
 Skrip *Entry Gate* ini akan:
 1. Menampilkan **Status Fase Projek Saat Ini**, **Work Log Terakhir**, **Komponen yang Sudah Selesai**, dan **Antrean Tugas Prioritas Berikutnya** dari [`status-handover-agen.md`](./status-handover-agen.md).
-2. Memverifikasi bahwa kondisi awal *workspace* (`dokumentasi` dan `bankmini`) berada dalam keadaan sehat (`0 Pelanggaran`).
+2. Memverifikasi kesiapan **Prasyarat Lingkungan** (PHP `>= 8.2`, ekstensi `pdo_mysql`, `bcmath`, `mbstring`, `openssl`, `tokenizer`, Composer `vendor/`, serta Node.js/`node_modules/` Playwright) sebagaimana tercantum pada [`arsitektur-sistem.md`](../02-panduan-dev/arsitektur-sistem.md).
+3. Memverifikasi bahwa kondisi awal *workspace* (`bankmini` beserta `dokumentasi/`) berada dalam keadaan sehat (`0 Pelanggaran`).
 
 ### B. EXIT / HANDOVER GATE (Wajib Sebelum Agen Mengakhiri Tugas)
 Sebelum agen menutup tugas dan menyerahkan hasil ke pengguna (atau ke agen berikutnya), agen **wajib**:
 1. Memperbarui [`status-handover-agen.md`](./status-handover-agen.md) dengan:
    - Daftar komponen/fitur yang baru diselesaikan pada sesi tersebut.
-   - Status pengujian QA terakhir.
+   - Status pengujian QA terakhir (`periksa_kepatuhan_agen.php`, `phpcs`, `phpstan`, `jalankan_semua_tes.php`, dan `npm run test:e2e`).
    - Daftar tugas prioritas selanjutnya (*Next Actionable Tasks*) secara spesifik beserta jalur filenya.
    - Catatan teknis/konteks penting yang tidak boleh dilanggar agen berikutnya.
 2. Mencatat detail pengerjaan di `04-work-log/` dan mendaftarkannya di `04-work-log/README.md`.
-3. Menjalankan `periksa_kepatuhan_agen.php` (yang juga otomatis memvalidasi keabsahan `status-handover-agen.md`) hingga **LULUS 100%**.
+3. Menjalankan `periksa_kepatuhan_agen.php`, `periksa-konsistensi.ps1` (termasuk `PHPCS` 0 Error/0 Warning & `PHPStan Level 8`), serta `npm run test:e2e` (0 Console Error/Warning) hingga **LULUS 100%**.
+4. **Blokir Commit & Push (`Zero Bug/Error/Warning`)**: Agen **dilarang keras** mengeksekusi `git commit` ataupun `git push` bila belum seluruh QA lulus bersih (diproteksi juga oleh `.githooks/pre-commit`, `.githooks/pre-push`, serta skrip [`gerbang_komit_dan_push.ps1`](./skrip/gerbang_komit_dan_push.ps1)).
 

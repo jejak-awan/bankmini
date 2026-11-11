@@ -87,7 +87,7 @@ class LayananTransaksi
                 throw new DomainException('Transaksi ditolak: Status rekening sedang tidak aktif.');
             }
 
-            $saldoSebelum = (string) $dataRekening['saldo'];
+            $saldoSebelum = keStringNumerik($dataRekening['saldo']);
             $saldoSesudah = bcadd($saldoSebelum, $nominalNormal, 2);
             $kodeReferensi = $this->buatKodeReferensiTransaksi('STR');
 
@@ -168,8 +168,8 @@ class LayananTransaksi
                 throw new DomainException('Transaksi ditolak: Status rekening sedang tidak aktif.');
             }
 
-            $saldoSebelum = (string) $dataRekening['saldo'];
-            $saldoMengendapMinimum = (string) $dataRekening['saldo_mengendap_minimum'];
+            $saldoSebelum = keStringNumerik($dataRekening['saldo']);
+            $saldoMengendapMinimum = keStringNumerik($dataRekening['saldo_mengendap_minimum']);
             $saldoEfektif = bcsub($saldoSebelum, $saldoMengendapMinimum, 2);
 
             if (bccomp($saldoEfektif, $nominalNormal, 2) < 0) {
@@ -272,15 +272,15 @@ class LayananTransaksi
                 throw new DomainException('Kedua rekening harus berstatus aktif untuk melakukan transfer.');
             }
 
-            $saldoAsalSebelum = (string) $dataAsal['saldo'];
-            $saldoEfektifAsal = bcsub($saldoAsalSebelum, (string) $dataAsal['saldo_mengendap_minimum'], 2);
+            $saldoAsalSebelum = keStringNumerik($dataAsal['saldo']);
+            $saldoEfektifAsal = bcsub($saldoAsalSebelum, keStringNumerik($dataAsal['saldo_mengendap_minimum']), 2);
 
             if (bccomp($saldoEfektifAsal, $nominalNormal, 2) < 0) {
                 throw new DomainException('Saldo efektif rekening pengirim tidak mencukupi untuk transfer.');
             }
 
             $saldoAsalSesudah = bcsub($saldoAsalSebelum, $nominalNormal, 2);
-            $saldoTujuanSebelum = (string) $dataTujuan['saldo'];
+            $saldoTujuanSebelum = keStringNumerik($dataTujuan['saldo']);
             $saldoTujuanSesudah = bcadd($saldoTujuanSebelum, $nominalNormal, 2);
 
             $kodeRefKeluar = $this->buatKodeReferensiTransaksi('TRK');
@@ -395,8 +395,8 @@ class LayananTransaksi
                 throw new DomainException('Rekening terkait tidak ditemukan atau sedang tidak aktif.');
             }
 
-            $nominalKoreksi = (string) $mutasiAsal['nominal'];
-            $saldoSebelum = (string) $dataRekening['saldo'];
+            $nominalKoreksi = keStringNumerik($mutasiAsal['nominal']);
+            $saldoSebelum = keStringNumerik($dataRekening['saldo']);
 
             // Balikkan arah mutasi: jika asalnya KREDIT maka koreksinya DEBIT, begitu pula sebaliknya
             if ($mutasiAsal['tipe_mutasi'] === 'KREDIT') {
@@ -458,7 +458,7 @@ class LayananTransaksi
      * Memvalidasi dan menormalisasi string nominal Rupiah agar bernilai positif > 0.00.
      *
      * @param string $nominalMasukan String nominal uang
-     * @return string String nominal format DECIMAL(15,2)
+     * @return numeric-string String nominal format DECIMAL(15,2)
      *
      * @throws InvalidArgumentException Jika format bukan angka positif > 0
      */
@@ -469,7 +469,7 @@ class LayananTransaksi
             throw new InvalidArgumentException('Format nominal Rupiah tidak valid.');
         }
 
-        $nominalNormal = bcadd($nominalBersih, '0.00', 2);
+        $nominalNormal = bcadd(keStringNumerik($nominalBersih), '0.00', 2);
         if (bccomp($nominalNormal, '0.00', 2) <= 0) {
             throw new InvalidArgumentException('Nominal transaksi Rupiah harus lebih besar dari Rp 0.');
         }

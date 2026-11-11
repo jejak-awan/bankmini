@@ -1,5 +1,5 @@
 parameters:
-    level: 5
+    level: 8
     paths:
         - aplikasi
         - pengujian
@@ -8,3 +8,4 @@ parameters:
     bootstrapFiles:
         - aplikasi/Pembantu/fungsi_umum.php
     treatPhpDocTypesAsCertain: false
+

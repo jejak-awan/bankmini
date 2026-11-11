@@ -118,3 +118,25 @@ if (!function_exists('urlDasar')) {
         return $jalurBersih === '' ? $dasar : $dasar . '/' . $jalurBersih;
     }
 }
+
+if (!function_exists('keStringNumerik')) {
+    /**
+     * Memastikan nilai nominal terkonversi menjadi string numerik sah (numeric-string)
+     * sebelum dihitung oleh ekstensi BCMath agar aman dari ValueError dan bug presisi.
+     *
+     * @param mixed $nilai Nilai nominal dari database atau input tervalidasi
+     * @return numeric-string String angka desimal valid (misalnya '150000.00')
+     *
+     * @throws InvalidArgumentException Jika nilai bukan angka desimal yang valid
+     */
+    function keStringNumerik(mixed $nilai): string
+    {
+        // [Konsep RPL]: Validasi tipe numerik runtime (PHPStan numeric-string) sebelum operasi BCMath
+        $teks = trim((string) $nilai);
+        if (!is_numeric($teks)) {
+            throw new InvalidArgumentException('Nilai nominal Rupiah tidak valid sebagai angka desimal.');
+        }
+
+        return $teks;
+    }
+}

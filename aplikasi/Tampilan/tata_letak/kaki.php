@@ -1,3 +1,10 @@
+<?php
+/**
+ * Tata Letak Kaki HTML, Modal Konfirmasi Global, & Skrip JS Offline Bank Mini.
+ * Menyediakan dialog konfirmasi transaksi XSS-safe (#modalKonfirmasiTransaksi)
+ * serta memuat bundle JavaScript Bootstrap 5 dan skrip interaksi lokal.
+ */
+?>
     </div>
 
     <footer class="mt-auto px-3 px-md-4 py-3 bg-white border-top text-muted small d-flex justify-content-between flex-wrap gap-2 tidak-cetak">

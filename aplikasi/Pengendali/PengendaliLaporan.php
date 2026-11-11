@@ -24,8 +24,10 @@ class PengendaliLaporan extends PengendaliDasar
      */
     public function mutasi(): void
     {
+        // [Langkah 1 - Konsep RPL]: Pastikan hanya petugas terautentikasi yang dapat melihat buku mutasi.
         MiddlewareAutentikasi::wajibMasuk();
 
+        // [Langkah 2 - Konsep RPL]: Bersihkan parameter filter tanggal GET sebelum diteruskan ke query Model.
         $tanggalMulai = isset($_GET['tanggal_mulai']) ? trim((string) $_GET['tanggal_mulai']) : '';
         $tanggalAkhir = isset($_GET['tanggal_akhir']) ? trim((string) $_GET['tanggal_akhir']) : '';
 

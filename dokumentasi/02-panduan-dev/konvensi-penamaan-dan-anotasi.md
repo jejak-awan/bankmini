@@ -238,3 +238,9 @@ class LayananTransaksi
 }
 ```
 
+### 4.1 Standar Anotasi File Tampilan (`aplikasi/Tampilan/`) & JavaScript (`public/aset/js/`, `pengujian/e2e/`)
+1. **Setiap file View `.php` di `aplikasi/Tampilan/`** wajib memiliki blok komentar deskripsi (`/** ... */`) di awal file yang menjelaskan tujuan antarmuka, komponen UX yang dipakai, dan keterkaitan datanya.
+2. **Setiap file di `aplikasi/Layanan/` dan `aplikasi/Pengendali/`** wajib dilengkapi komentar penjelas blok kode per langkah (`// [Langkah X]: ...` atau `// ...`) di dalam method-methodnya.
+3. **File JavaScript (`public/aset/js/aplikasi.js`) dan pengujian browser (`pengujian/e2e/*.spec.js`)** wajib menyertakan komentar JSDoc (`/** ... */`) atau komentar penjelas fungsi berbahasa Indonesia.
+4. Seluruh ketentuan anotasi di atas diperiksa otomatis oleh skrip [`periksa_kepatuhan_agen.php`](../06-aturan-agen/skrip/periksa_kepatuhan_agen.php).
+

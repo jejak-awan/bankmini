@@ -6,6 +6,13 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.3.1] - 2026-11-11
+
+### Diperbarui (Changed)
+- Lengkapi Dokumen Arsitektur Prasyarat Lingkungan serta Gate Anotasi Kode, Linting, Static Analysis, dan Handover
+
+---
+
 ## [1.3.0] - 2026-11-11
 
 ### Diperbarui (Changed)

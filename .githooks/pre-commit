@@ -1,0 +1,20 @@
+#!/bin/sh
+# ==============================================================================
+# Git Pre-Commit Gate - Projek Bank Mini
+# Memblokir `git commit` apabila masih terdapat pelanggaran kepatuhan, warning,
+# error lint (PHPCS), error analisis statis (PHPStan), atau tes QA yang gagal.
+# ==============================================================================
+
+echo "[GIT PRE-COMMIT GATE] Memeriksa seluruh aturan QA (0 Error & 0 Warning)..."
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "dokumentasi/06-aturan-agen/skrip/periksa-konsistensi.ps1"
+KODE_KELUAR=$?
+
+if [ $KODE_KELUAR -ne 0 ]; then
+    echo ""
+    echo "[DITOLAK] git commit DIBLOKIR oleh QA Gate! Perbaiki semua bug, error, atau warning terlebih dahulu."
+    exit 1
+fi
+
+echo "[LOLOS] Pre-Commit QA Gate bersih (0 Error & 0 Warning). Lanjut membuat commit."
+exit 0
+

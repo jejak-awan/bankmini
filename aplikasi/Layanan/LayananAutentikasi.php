@@ -48,11 +48,13 @@ class LayananAutentikasi
      */
     public function prosesMasuk(string $namaPengguna, string $kataSandi, string $alamatIp): array
     {
+        // [Langkah 1 - Konsep RPL]: Sanitasi input nama pengguna dan pastikan tidak kosong sebelum query database.
         $namaBersih = trim($namaPengguna);
         if ($namaBersih === '' || $kataSandi === '') {
             throw new DomainException('Nama pengguna dan kata sandi wajib diisi.');
         }
 
+        // [Langkah 2 - Konsep RPL]: Verifikasi hash kata sandi secara aman menggunakan algoritma bcrypt/argon2 PHP.
         $dataPengguna = $this->modelPengguna->ambilBerdasarkanNamaPengguna($namaBersih);
         if (
             $dataPengguna === null

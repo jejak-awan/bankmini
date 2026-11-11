@@ -17,10 +17,12 @@ Setiap baris kode yang ditulis oleh AI Agent di dalam `C:\xampp\htdocs\www\bankm
    - Tabel wajib menggunakan nama: `pengguna`, `nasabah`, `produk_tabungan`, `rekening`, `mutasi_transaksi`, `log_audit`.
    - Kolom Foreign Key wajib berpola `id_<entitas>` (`id_nasabah`, `id_produk`, `id_rekening`, `id_petugas`, `id_pengguna`).
    - Kolom waktu menggunakan `dibuat_pada`, `diperbarui_pada`, `waktu_transaksi`.
-4. **Anotasi PHPDoc & Komentar Edukasi Siswa RPL (`@konsep_rpl`)**:
-   - Karena projek ini digunakan sebagai bahan pembelajaran siswa **Rekayasa Perangkat Lunak (RPL)**, setiap class di dalam `aplikasi/` **wajib** mencantumkan tag `@konsep_rpl` pada blok PHPDoc-nya untuk menjelaskan konsep arsitektur/keamanan yang diterapkan.
-   - Setiap method wajib dilengkapi blok anotasi PHPDoc (`@param`, `@return`, `@throws`) serta komentar penjelasan langkah logika (`// [Langkah X - Konsep RPL]: ...`) dalam Bahasa Indonesia sesuai [`../02-panduan-dev/konvensi-penamaan-dan-anotasi.md`](../02-panduan-dev/konvensi-penamaan-dan-anotasi.md).
-5. **Manajemen Versi (`VERSION`), `CHANGELOG.md`, & `LICENSE`**:
+4. **Anotasi PHPDoc, Tampilan, JavaScript, & Komentar Edukasi Siswa RPL (`@konsep_rpl`)**:
+   - Karena projek ini digunakan sebagai bahan pembelajaran siswa **Rekayasa Perangkat Lunak (RPL)**, setiap class di dalam `aplikasi/` **wajib** mencantumkan tag `@konsep_rpl` (minimal 40 karakter penjelasan) pada blok PHPDoc-nya untuk menjelaskan konsep arsitektur/keamanan yang diterapkan.
+   - Setiap method wajib dilengkapi blok anotasi PHPDoc (`@param`, `@return`, `@throws`), dan setiap berkas di `aplikasi/Layanan/` maupun `aplikasi/Pengendali/` **wajib** menyertakan komentar penjelasan langkah logika (`// [Langkah X - Konsep RPL]: ...`) dalam Bahasa Indonesia sesuai [`../02-panduan-dev/konvensi-penamaan-dan-anotasi.md`](../02-panduan-dev/konvensi-penamaan-dan-anotasi.md).
+   - Setiap berkas antarmuka (`aplikasi/Tampilan/**/*.php`) **wajib** diawali blok komentar dokumentasi PHP `<?php /** ... */ ?>` (minimal 20 karakter), serta skrip JS/E2E (`public/aset/js/*.js`, `pengujian/e2e/*.js`) wajib memuat anotasi JSDoc/komentar alur agar seluruh kode frontend dan pengujian juga layak dibaca siswa RPL.
+5. **Prasyarat Lingkungan, Manajemen Versi (`VERSION`), `CHANGELOG.md`, & `LICENSE`**:
+   - Agen wajib memastikan kode kompatibel dengan **Prasyarat Lingkungan** pada [`../02-panduan-dev/arsitektur-sistem.md`](../02-panduan-dev/arsitektur-sistem.md) (PHP `>= 8.2`, ekstensi `pdo_mysql`, `bcmath`, `mbstring`, `openssl`, `tokenizer`, Bootstrap 5 offline di `public/aset/vendor/`, Composer `phpcs`/`phpstan`, serta Playwright E2E).
    - Nomor versi aktif disimpan di file tunggal `VERSION` (SoT) dalam format SemVer (`MAJOR.MINOR.PATCH`).
    - Setiap penambahan fitur atau perbaikan bug wajib dicatat di `CHANGELOG.md` (atau melalui skrip `naikkan_versi.php`).
 

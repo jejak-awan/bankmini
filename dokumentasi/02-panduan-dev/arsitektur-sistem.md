@@ -16,7 +16,7 @@ Meskipun menggunakan **PHP Native** (tanpa framework eksternal), sistem **Bank M
 | **4. Koneksi Database** | Instance tunggal PDO (`BasisData::ambilKoneksi()`) | `aplikasi/Inti/BasisData.php` | Dilarang membuat `new PDO(...)` di luar `aplikasi/Inti/BasisData.php` agar transaksi (`beginTransaction`) selalu berjalan pada koneksi yang sama. |
 | **5. Peta Rute & Akses** | Definisi rute terpusat | `public/index.php` & `aplikasi/Inti/Perute.php` | Seluruh HTTP request wajib melewati `public/index.php`. File di dalam `aplikasi/` tidak boleh diakses langsung via URL browser. |
 | **6. Hak Akses & Sesi** | Manajer Sesi & Guard RBAC | `aplikasi/Inti/Sesi.php` & `aplikasi/Inti/MiddlewareAutentikasi.php` | Pengecekan status masuk dan peran (`admin`, `teller`, `supervisor`, `nasabah`) hanya merujuk pada `MiddlewareAutentikasi`, bukan dicek manual berulang-ulang dengan `$_SESSION` mentah di Tampilan. |
-| **7. Dokumentasi & Aturan** | Repositori Dokumentasi | `C:\xampp\htdocs\www\dokumentasi` | Skema DB di `basis_data/skema.sql` harus selalu identik dengan `02-panduan-dev/skema-database.md`. |
+| **7. Dokumentasi & Aturan** | Repositori Dokumentasi | `C:\xampp\htdocs\www\bankmini\dokumentasi` | Skema DB di `basis_data/skema.sql` harus selalu identik dengan `02-panduan-dev/skema-database.md`. |
 
 ---
 
@@ -73,7 +73,7 @@ C:\xampp\htdocs\www\bankmini\
 ├── public/                        # Document Root / Satu-satunya pintu masuk publik Apache
 │   ├── index.php                  # Pengendali Depan (Front Controller) tunggal
 │   ├── .htaccess                  # Rewrite URL ke index.php
-│   └── aset/                      # File statis (css/, js/, gambar/)
+│   └── aset/                      # File statis (css/, js/, vendor/ Bootstrap 5 offline)
 ├── konfigurasi/                   # SoT Konfigurasi Aplikasi
 │   ├── aplikasi.php               # Zona waktu Asia/Jakarta, mata uang IDR, URL_DASAR
 │   └── basis_data.php             # Konfigurasi koneksi PDO MySQL InnoDB
@@ -120,12 +120,62 @@ C:\xampp\htdocs\www\bankmini\
 │   └── data_awal.sql              # Data awal (Admin, Teller, Produk Tabungan IDR)
 ├── pengujian/                     # Suite Pengujian Otomatis QA (Bahasa Indonesia)
 │   ├── jalankan_semua_tes.php     # Test Runner CLI tunggal
-│   ├── PembantuPengujian/         # KasusUjiDasar.php & BasisDataUji.php
+│   ├── PembantuPengujian/         # KasusUjiDasar.php & BasisDataMemoriUji.php
 │   ├── Unit/                      # TesFungsiUmum.php, TesTokenCsrf.php
 │   ├── Integrasi/                 # TesLayananAutentikasi.php, TesLayananRekening.php, TesLayananTransaksi.php
-│   └── Keamanan/                  # TesKeamananAplikasi.php
+│   ├── Keamanan/                  # TesKeamananAplikasi.php
+│   └── e2e/                       # Smoke Test & E2E Playwright (smoke.spec.js, alur_keuangan.spec.js)
 ├── penyimpanan/                   # Penyimpanan internal aplikasi
 │   ├── log/                       # Log error & aktivitas aplikasi
 │   └── cadangan/                  # Hasil cadangan (backup) database
+├── dokumentasi/                   # Dokumentasi arsitektur, DFD/ERD, panduan, ADR, work log, & skrip penjaga
+├── composer.json / phpcs.xml      # Konfigurasi Composer, PSR-12 Lint Zero-Warning (PHPCS), & PHPStan Level 8
+├── phpstan.neon                   # Konfigurasi analisis statis PHPStan (naik bertahap: Level 5 -> 6 -> 7 -> 8)
+├── .githooks/                     # Git Hook pemblokir commit & push jika QA Gate gagal
+├── package.json / playwright.config.js # Konfigurasi Playwright Browser Testing
 └── .htaccess                      # Mengarahkan seluruh trafik ke folder public/
+```
+
+---
+
+## 4. Prasyarat Lingkungan & Perkakas Pengembangan (*Environment Prerequisites*)
+
+Agar aplikasi **Bank Mini** dan seluruh gerbang verifikasi (*Quality Gate*) berjalan konsisten di komputer siswa RPL maupun pengembang/CI, berikut prasyarat lingkungan yang wajib dipenuhi:
+
+### 4.1 Lingkungan Runtime Aplikasi (Wajib di Lab / Server Produksi Sekolah)
+
+| Komponen | Versi Minimum / Disarankan | Catatan Teknis |
+| :--- | :--- | :--- |
+| **Web Server** | Apache `2.4+` (XAMPP) atau PHP Built-in Server | Pastikan modul `mod_rewrite` aktif agar `public/.htaccess` mengarahkan seluruh request ke `public/index.php`. |
+| **PHP** | **PHP `>= 8.2`** (Teruji pada `8.5.12`) | Mendukung *strict types*, *named arguments*, dan union types modern. |
+| **Ekstensi PHP Wajib** | `pdo_mysql`, `bcmath`, `mbstring`, `openssl`, `tokenizer` | `pdo_mysql` (PDO native prepares), `bcmath` (kalkulasi akurat Rupiah `DECIMAL(15,2)`), `tokenizer` (dipakai skrip penjaga kepatuhan). |
+| **Basis Data** | MySQL `8.0+` / MariaDB `10.4+` | Wajib menggunakan engine **InnoDB** (`SELECT ... FOR UPDATE` & ACID) dan charset `utf8mb4`. |
+| **Aset Frontend** | **100% Offline** (`public/aset/vendor/`) | Bootstrap `5.3.3` & Bootstrap Icons `1.11.3` sudah terbundel lokal sehingga tidak bergantung internet / Node.js saat aplikasi dijalankan. |
+
+### 4.2 Perkakas Quality Gate, Lint, Static Analysis, & E2E (Lingkungan Pengembangan / QA)
+
+| Perkakas | Versi / Paket | File Konfigurasi | Tujuan Pemeriksaan |
+| :--- | :--- | :--- | :--- |
+| **Composer** + PHP `ext-zip` | Composer `2.x` (`squizlabs/php_codesniffer`, `phpstan/phpstan`) | `composer.json`, `phpcs.xml`, `phpstan.neon` | Menjalankan linter PSR-12 **0 Error & 0 Warning** (`composer lint`) dan analisis statis **PHPStan Level 8** bertahap (`composer stan`). |
+| **Git Hooks** | Git `>= 2.9` | `.githooks/pre-commit`, `.githooks/pre-push` | Memblokir `git commit` dan `git push` otomatis jika masih terdapat *bug*, *error*, atau *warning* QA. |
+| **Node.js LTS + npm** | Node.js `>= 22.x LTS` (`@playwright/test`) | `package.json`, `playwright.config.js` | Menjalankan browser smoke test & end-to-end transaksi nyata (`npm run test:e2e`). |
+| **Browser Uji** | Google Chrome / Chromium lokal | `channel: 'chrome'` di `playwright.config.js` | Diperlukan oleh Playwright untuk merender halaman, menguji CSS offline, memeriksa kontras, dan mengambil screenshot uji. |
+| **Skrip Penjaga Internal** | PHP CLI (`C:\xampp\php\php.exe`) | `dokumentasi/06-aturan-agen/skrip/` | Menjalankan `gerbang_handover_agen.php`, `periksa_kepatuhan_agen.php`, `periksa-konsistensi.ps1`, dan `naikkan_versi.php`. |
+
+### 4.3 Daftar Perintah Verifikasi Lingkungan Baru
+
+```powershell
+# 1. Validasi Entry Gate & Prasyarat Runtime (PHP, Ekstensi, Vendor, Node)
+C:\xampp\php\php.exe C:\xampp\htdocs\www\bankmini\dokumentasi\06-aturan-agen\skrip\gerbang_handover_agen.php
+
+# 2. Pasang dependensi Dev/QA (jika kloning repo baru)
+composer install
+npm install
+
+# 3. Jalankan Quality Gate lengkap sebelum commit
+composer lint
+composer stan
+composer test
+composer patuh
+npm run test:e2e
 ```

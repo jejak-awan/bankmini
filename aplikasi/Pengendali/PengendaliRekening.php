@@ -52,11 +52,13 @@ class PengendaliRekening extends PengendaliDasar
      */
     public function bukaRekening(): void
     {
+        // [Langkah 1 - Konsep RPL]: Verifikasi otorisasi peran (admin/teller) serta validitas token CSRF.
         MiddlewareAutentikasi::wajibPeran(['admin', 'teller']);
 
         try {
             $this->wajibValidasiCsrf();
 
+            // [Langkah 2 - Konsep RPL]: Injeksi dependensi Model ke LayananRekening untuk menjaga Separation of Concerns.
             $layananRekening = new LayananRekening(
                 new ModelNasabah(),
                 new ModelProduk(),

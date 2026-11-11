@@ -12,7 +12,8 @@ Projek ini digunakan sebagai **bahan pembelajaran siswa Rekayasa Perangkat Lunak
    - Class: `PascalCase` Bahasa Indonesia (`LayananTransaksi`, `ModelRekening`, `PengendaliNasabah`).
    - Method & Variabel: `camelCase` Bahasa Indonesia (`prosesSetorTunai()`, `$nominalSetoran`, `$saldoSesudah`). Dilarang memakai `$snake_case` atau nama variabel bahasa Inggris.
    - Tabel & Kolom DB: `snake_case` Bahasa Indonesia (`pengguna`, `nasabah`, `produk_tabungan`, `rekening`, `mutasi_transaksi`, `log_audit`).
-   - **Wajib Edukasi RPL**: Setiap class di `aplikasi/` wajib menyertakan `declare(strict_types=1);`, blok anotasi PHPDoc (`/** ... */`) Bahasa Indonesia dengan tag `@konsep_rpl`, serta komentar penjelasan blok kode per langkah untuk pembelajaran siswa RPL.
+   - **Wajib Edukasi RPL**: Setiap class di `aplikasi/` wajib menyertakan `declare(strict_types=1);`, blok anotasi PHPDoc (`/** ... */`) Bahasa Indonesia dengan tag `@konsep_rpl` (>= 40 karakter), header `<?php /** ... */ ?>` (>= 20 karakter) di seluruh file `aplikasi/Tampilan/`, komentar langkah logika (`// [Langkah X - Konsep RPL]: ...`) di seluruh `aplikasi/Layanan/` & `aplikasi/Pengendali/`, serta komentar/JSDoc pada JS & E2E.
+   - **Prasyarat Lingkungan & Aset Luring**: Patuhi daftar kebutuhan runtime, ekstensi PHP, library vendor Bootstrap 5 luring (`public/aset/vendor/`), Composer (`phpcs`, `phpstan`), dan Node/Playwright di `dokumentasi/02-panduan-dev/arsitektur-sistem.md`.
 2. **Arsitektur SoT & SoC**:
    - `Tampilan` dilarang memanggil query DB/Model.
    - `Pengendali` dilarang menulis query PDO atau mengelola transaksi DB.
@@ -27,4 +28,5 @@ Projek ini digunakan sebagai **bahan pembelajaran siswa Rekayasa Perangkat Lunak
    - **EXIT / HANDOVER GATE (Sebelum Menyelesaikan Tugas)**: Agen **WAJIB**:
      1. Memperbarui `01-panduan-pengguna/` dan `02-panduan-dev/` sesuai perubahan tugas.
      2. Memperbarui versi (`VERSION` & `CHANGELOG.md` via `naikkan_versi.php`), `04-work-log/`, dan `status-handover-agen.md`.
-     3. Menjalankan `C:\xampp\php\php.exe C:\xampp\htdocs\www\bankmini\dokumentasi\06-aturan-agen\skrip\periksa_kepatuhan_agen.php` dan `C:\xampp\php\php.exe C:\xampp\htdocs\www\bankmini\pengujian\jalankan_semua_tes.php` hingga **0 Pelanggaran (LULUS 100%)**.
+     3. Menjalankan Quality Gate terpadu (`periksa_kepatuhan_agen.php`, `jalankan_semua_tes.php` strict `E_ALL`, `composer lint` / PHPCS PSR-12 **0 Error & 0 Warning**, `composer stan` / **PHPStan Level 8**, serta `npm run test:e2e` / Playwright **0 Console Error & Warning**) hingga **LULUS 100%**.
+     4. **Gerbang Pemblokir Commit & Push**: Dilarang menjalankan `git commit` atau `git push` selama masih ada 1 error, warning, atau bug QA (terproteksi oleh `.githooks/pre-commit`, `.githooks/pre-push`, dan `gerbang_komit_dan_push.ps1`).

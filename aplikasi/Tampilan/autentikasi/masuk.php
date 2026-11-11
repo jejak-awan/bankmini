@@ -1,9 +1,17 @@
+<?php
+/**
+ * Tampilan Halaman Masuk (Login) Petugas Bank Mini.
+ * Menyajikan kartu autentikasi terpusat dengan proteksi CSRF, tombol toggle
+ * visibilitas kata sandi, dan pencegahan double-submit.
+ */
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= amankanHtml($judulHalaman ?? 'Masuk Sistem Bank Mini') ?></title>
+    <link rel="icon" type="image/svg+xml" href="<?= amankanHtml(urlDasar('aset/favicon.svg')) ?>">
     <link rel="stylesheet" href="<?= amankanHtml(urlDasar('aset/vendor/bootstrap/css/bootstrap.min.css')) ?>">
     <link rel="stylesheet" href="<?= amankanHtml(urlDasar('aset/vendor/bootstrap-icons/font/bootstrap-icons.min.css')) ?>">
     <link rel="stylesheet" href="<?= amankanHtml(urlDasar('aset/css/gaya.css')) ?>">
