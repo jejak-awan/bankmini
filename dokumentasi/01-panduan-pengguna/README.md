@@ -28,3 +28,6 @@ Folder ini berisi dokumentasi operasional penggunaan aplikasi **Bank Mini** berd
 ## Kamus Istilah Perbankan & Sistem
 Bingung dengan istilah seperti **Saldo Efektif**, **Saldo Mengendap Minimum**, **Kredit vs Debit**, atau **Jurnal Koreksi (Reversal)**? Silakan buka [**Glosarium & Daftar Istilah Teknis (`glosarium-dan-daftar-istilah.md`)**](../02-panduan-dev/glosarium-dan-daftar-istilah.md).
 
+## Persiapan Praktikum Lab Sekolah (Siswa & Guru RPL)
+Untuk menyiapkan database awal, akun petugas uji (`admin`, `teller1`, `supervisor1`), serta latihan praktikum siswa secara cepat, gunakan skrip `siapkan-projek.ps1` dan baca [**Alur Belajar & Modul Praktikum Siswa RPL (`alur-belajar-dan-modul-praktikum-rpl.md`)**](../02-panduan-dev/alur-belajar-dan-modul-praktikum-rpl.md).
+

@@ -31,9 +31,13 @@ Selamat datang di dokumentasi teknis pengembangan **Bank Mini (PHP Native)**. Do
    - Penjelasan kamus data lengkap tabel & kolom Bank Mini serta definisi konsep fundamental RPL (`MVC`, `ACID`, `Row Lock`, `Immutable Ledger`, `CSRF`, `PRG`, `XSS`, `SemVer`, dll.)
 9. [**Standar Frontend & UI/UX (`standar-frontend-ui-ux.md`)**](./standar-frontend-ui-ux.md)
    - Arsitektur **Bootstrap 5 Offline**, **Bootstrap Icons**, **Vanilla JS**, atribut UX perbankan (`data-pratinjau-rupiah`, `data-cari-select`, `data-target-info-saldo`, modal konfirmasi), angka tabular, dan aturan `@media print`
-   - Penjelasan lengkap istilah fundamental RPL & arsitektur (`SoT`, `SoC`, `MVC-Lite`, `PSR-4`, `PSR-12`, `Singleton`)
-   - Penjelasan istilah basis data & kamus data (`InnoDB`, `PK`, `FK`, `Self-Referencing FK`, `DECIMAL(15,2)`, `1NF-3NF`, `DFD`, `ERD`)
-   - Penjelasan istilah transaksi keuangan (`ACID`, `Row Locking`, `Race Condition`, `Deadlock`, `Immutable Ledger`, `KREDIT/DEBIT`, `Saldo Efektif`, `Reversal`), keamanan web (`SQLi`, `XSS`, `CSRF`, `PRG`, `Session Fixation`, `RBAC`), serta QA, Versioning, dan Git
+10. [**Alur Belajar 5 Modul, Bedah Kode Hulu-ke-Hilir, & Modul Praktikum Siswa RPL (`alur-belajar-dan-modul-praktikum-rpl.md`)**](./alur-belajar-dan-modul-praktikum-rpl.md)
+    - Urutan belajar bertahap 5 modul untuk siswa SMK RPL dari hari pertama
+    - Bedah alur kode *End-to-End* transaksi Setor Tunai Rp 50.000 baris demi baris
+    - Resep 6 langkah menambah fitur baru + 5 tantangan latihan praktikum siswa
+11. [**Panduan CI/CD Lokal Berbasis Docker & Native (`panduan-ci-cd-lokal-docker.md`)**](./panduan-ci-cd-lokal-docker.md)
+    - Arsitektur *Dual-Engine Local CI/CD* (`docker-compose.ci.yml` & Native XAMPP) tanpa memakai kuota menit GitHub Runner
+    - Cara menjalankan aplikasi di Docker (`docker compose up -d`) dan mengeksekusi `jalankan-ci-lokal.ps1`
 
 ---
 

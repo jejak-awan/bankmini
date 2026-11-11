@@ -1,0 +1,50 @@
+# ==============================================================================
+# Docker Compose Pengembangan & Pembelajaran Lokal - Projek Bank Mini
+# Menjalankan Aplikasi Web (Port 8080) + MySQL 8.0 InnoDB tanpa XAMPP.
+# Cara pakai: docker compose up -d --build
+# ==============================================================================
+services:
+  basis_data:
+    image: mysql:8.0
+    container_name: bankmini_mysql_dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: bankmini_db
+      TZ: Asia/Jakarta
+    ports:
+      - "33060:3306"
+    volumes:
+      - data_mysql_bankmini:/var/lib/mysql
+      - ./basis_data/skema.sql:/docker-entrypoint-initdb.d/01-skema.sql:ro
+      - ./basis_data/data_awal.sql:/docker-entrypoint-initdb.d/02-data-awal.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  aplikasi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bankmini_app_dev
+    restart: unless-stopped
+    depends_on:
+      basis_data:
+        condition: service_healthy
+    environment:
+      BANKMINI_URL_DASAR: http://localhost:8080
+      BANKMINI_MODE_DEBUG: "true"
+      BANKMINI_DB_HOST: basis_data
+      BANKMINI_DB_PORT: "3306"
+      BANKMINI_DB_NAMA: bankmini_db
+      BANKMINI_DB_PENGGUNA: root
+      BANKMINI_DB_SANDI: ""
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+
+volumes:
+  data_mysql_bankmini:

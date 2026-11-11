@@ -6,6 +6,13 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.4.0] - 2026-11-11
+
+### Diperbarui (Changed)
+- Tambahkan Paket Pembelajaran & Praktikum Siswa RPL, Skrip Onboarding Satu Klik, Konfigurasi Env Fleksibel, serta Pipeline CI/CD Lokal Berbasis Docker/Native Tanpa Kuota GitHub Runner
+
+---
+
 ## [1.3.1] - 2026-11-11
 
 ### Diperbarui (Changed)

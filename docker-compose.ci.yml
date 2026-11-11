@@ -1,0 +1,39 @@
+# ==============================================================================
+# Docker Compose Pipeline CI/CD Lokal (Bebas Limit GitHub Actions Runner)
+# Menjalankan Database MySQL 8.0 bersih di memori (tmpfs) + Container Uji QA PHP
+# Cara pakai otomatis: .\dokumentasi\06-aturan-agen\skrip\jalankan-ci-lokal.ps1
+# ==============================================================================
+services:
+  ci_basis_data:
+    image: mysql:8.0
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: bankmini_db
+      TZ: Asia/Jakarta
+    tmpfs:
+      - /var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 3s
+      timeout: 3s
+      retries: 15
+
+  ci_aplikasi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      ci_basis_data:
+        condition: service_healthy
+    environment:
+      BANKMINI_URL_DASAR: http://localhost:8088
+      BANKMINI_MODE_DEBUG: "false"
+      BANKMINI_DB_HOST: ci_basis_data
+      BANKMINI_DB_PORT: "3306"
+      BANKMINI_DB_NAMA: bankmini_db
+      BANKMINI_DB_PENGGUNA: root
+      BANKMINI_DB_SANDI: ""
+    ports:
+      - "8088:80"
+    volumes:
+      - .:/var/www/html
