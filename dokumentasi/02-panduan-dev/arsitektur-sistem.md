@@ -92,9 +92,11 @@ C:\xampp\htdocs\www\bankmini\
 │   │   ├── PengendaliProduk.php
 │   │   ├── PengendaliRekening.php
 │   │   ├── PengendaliTransaksi.php
-│   │   └── PengendaliLaporan.php
+│   │   ├── PengendaliLaporan.php
+│   │   └── PengendaliDokumentasi.php # Pembaca & pencari dokumentasi terindeks di browser (/dokumentasi)
 │   ├── Layanan/                   # Lapisan Logika Bisnis & Batas Transaksi ACID (Services)
 │   │   ├── LayananAutentikasi.php
+│   │   ├── LayananDokumentasi.php # Pengindeks katalog .md, parser Markdown, & Anti-Path Traversal
 │   │   ├── LayananRekening.php    # Registrasi & pembuatan nomor rekening unik
 │   │   └── LayananTransaksi.php   # Setor, Tarik, Transfer, & Jurnal Koreksi (Rupiah/IDR)
 │   ├── Model/                     # Lapisan Akses Data (PDO Prepared Statements)
@@ -105,7 +107,7 @@ C:\xampp\htdocs\www\bankmini\
 │   │   ├── ModelMutasi.php
 │   │   └── ModelLogAudit.php
 │   ├── Pembantu/                  # Fungsi utilitas murni (stateless)
-│   │   └── fungsi_umum.php        # amankanHtml(), formatRupiah(), formatTanggalIndonesia()
+│   │   └── fungsi_umum.php        # amankanHtml(), formatRupiah(), formatTanggalIndonesia(), keStringNumerik()
 │   └── Tampilan/                  # Template Antarmuka (HTML murni + variabel ter-escape)
 │       ├── tata_letak/            # kepala.php, bilah_sisi.php, kaki.php
 │       ├── autentikasi/
@@ -114,15 +116,16 @@ C:\xampp\htdocs\www\bankmini\
 │       ├── produk/
 │       ├── rekening/
 │       ├── transaksi/
-│       └── laporan/
+│       ├── laporan/
+│       └── dokumentasi/           # Pembaca dokumen 3-kolom + daftar isi otomatis (indeks.php)
 ├── basis_data/                    # SoT Skema & Data Awal Database
 │   ├── skema.sql                  # DDL InnoDB berbahasa Indonesia (nominal IDR DECIMAL(15,2))
 │   └── data_awal.sql              # Data awal (Admin, Teller, Produk Tabungan IDR)
 ├── pengujian/                     # Suite Pengujian Otomatis QA (Bahasa Indonesia)
-│   ├── jalankan_semua_tes.php     # Test Runner CLI tunggal
+│   ├── jalankan_semua_tes.php     # Test Runner CLI tunggal (strict E_ALL Zero Warning)
 │   ├── PembantuPengujian/         # KasusUjiDasar.php & BasisDataMemoriUji.php
 │   ├── Unit/                      # TesFungsiUmum.php, TesTokenCsrf.php
-│   ├── Integrasi/                 # TesLayananAutentikasi.php, TesLayananRekening.php, TesLayananTransaksi.php
+│   ├── Integrasi/                 # TesLayananAutentikasi.php, TesLayananDokumentasi.php, TesLayananRekening.php, TesLayananTransaksi.php
 │   ├── Keamanan/                  # TesKeamananAplikasi.php
 │   └── e2e/                       # Smoke Test & E2E Playwright (smoke.spec.js, alur_keuangan.spec.js)
 ├── penyimpanan/                   # Penyimpanan internal aplikasi

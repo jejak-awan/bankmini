@@ -57,6 +57,7 @@ spl_autoload_register(
 );
 
 use Pengujian\Integrasi\TesLayananAutentikasi;
+use Pengujian\Integrasi\TesLayananDokumentasi;
 use Pengujian\Integrasi\TesLayananRekening;
 use Pengujian\Integrasi\TesLayananTransaksi;
 use Pengujian\Keamanan\TesKeamananAplikasi;
@@ -67,6 +68,7 @@ $daftarClassTes = [
     TesFungsiUmum::class,
     TesTokenCsrf::class,
     TesLayananAutentikasi::class,
+    TesLayananDokumentasi::class,
     TesLayananRekening::class,
     TesLayananTransaksi::class,
     TesKeamananAplikasi::class,

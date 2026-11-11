@@ -20,6 +20,9 @@ $grupMenu = [
         ['tampilan' => 'transaksi/koreksi', 'url' => 'transaksi/koreksi', 'ikon' => 'bi-arrow-counterclockwise', 'label' => 'Jurnal Koreksi', 'hanyaSupervisor' => true],
         ['tampilan' => 'laporan/mutasi', 'url' => 'laporan/mutasi', 'ikon' => 'bi-file-earmark-spreadsheet', 'label' => 'Laporan Mutasi'],
     ],
+    'Materi & Dokumentasi RPL' => [
+        ['tampilan' => 'dokumentasi/indeks', 'url' => 'dokumentasi', 'ikon' => 'bi-book-half', 'label' => 'Pusat Dokumentasi'],
+    ],
 ];
 ?>
 <aside

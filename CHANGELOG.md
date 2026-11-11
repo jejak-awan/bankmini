@@ -6,6 +6,13 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.5.0] - 2026-11-11
+
+### Diperbarui (Changed)
+- Tambahkan Modul Pusat Dokumentasi & Materi RPL Terindeks di Browser (/dokumentasi) Lengkap dengan Pencarian Kata Kunci, Daftar Isi Otomatis, Proteksi Anti-Path Traversal, & Pengujian QA
+
+---
+
 ## [1.4.0] - 2026-11-11
 
 ### Diperbarui (Changed)

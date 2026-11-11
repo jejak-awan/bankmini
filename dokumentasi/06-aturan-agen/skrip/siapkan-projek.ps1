@@ -47,3 +47,4 @@ Write-Host "  - Akun Uji     : admin / teller1 / supervisor1 (Kata Sandi: passwo
 Write-Host "  - Mulai Belajar: dokumentasi/02-panduan-dev/alur-belajar-dan-modul-praktikum-rpl.md" -ForegroundColor Yellow
 Write-Host "======================================================================" -ForegroundColor Green
 exit 0
+

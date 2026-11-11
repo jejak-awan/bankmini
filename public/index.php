@@ -46,6 +46,7 @@ use Aplikasi\Inti\Perute;
 use Aplikasi\Inti\Sesi;
 use Aplikasi\Pengendali\PengendaliAutentikasi;
 use Aplikasi\Pengendali\PengendaliDasbor;
+use Aplikasi\Pengendali\PengendaliDokumentasi;
 use Aplikasi\Pengendali\PengendaliLaporan;
 use Aplikasi\Pengendali\PengendaliNasabah;
 use Aplikasi\Pengendali\PengendaliProduk;
@@ -82,8 +83,9 @@ $perute->daftarPost('/transaksi/transfer', [PengendaliTransaksi::class, 'prosesT
 $perute->daftarGet('/transaksi/koreksi', [PengendaliTransaksi::class, 'tampilkanKoreksi']);
 $perute->daftarPost('/transaksi/koreksi', [PengendaliTransaksi::class, 'prosesKoreksi']);
 
-// Rute Laporan Buku Besar Mutasi
+// Rute Laporan Buku Besar Mutasi & Pusat Dokumentasi RPL
 $perute->daftarGet('/laporan/mutasi', [PengendaliLaporan::class, 'mutasi']);
+$perute->daftarGet('/dokumentasi', [PengendaliDokumentasi::class, 'indeks']);
 
 // [Langkah 3 - Konsep RPL]: Eksekusi rute berdasarkan metode HTTP dan URI yang diminta browser
 $metodeHttp = (string) ($_SERVER['REQUEST_METHOD'] ?? 'GET');

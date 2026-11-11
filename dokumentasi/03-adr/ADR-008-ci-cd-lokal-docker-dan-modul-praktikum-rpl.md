@@ -28,3 +28,4 @@
   - Kualitas repositori selalu terjaga 100% (`0 Error & 0 Warning`) berkat kombinasi Local CI/CD + Git Hooks + PHPStan Level 8.
 - **Negatif / Mitigasi**:
   - Membutuhkan aktivasi `git config core.hooksPath .githooks` satu kali saat *clone*, yang telah diotomatisasi melalui skrip `siapkan-projek.ps1`.
+

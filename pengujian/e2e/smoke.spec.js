@@ -82,6 +82,8 @@ test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
       { url: '/transaksi/tarik', tangkap: null },
       { url: '/transaksi/transfer', tangkap: null },
       { url: '/laporan/mutasi', tangkap: 'test-results/smoke-laporan.png' },
+      { url: '/dokumentasi', tangkap: 'test-results/smoke-dokumentasi.png' },
+      { url: '/dokumentasi?dok=02-panduan-dev/alur-belajar-dan-modul-praktikum-rpl.md&cari=ACID', tangkap: null },
     ];
 
     for (const itemRute of ruteTeller) {

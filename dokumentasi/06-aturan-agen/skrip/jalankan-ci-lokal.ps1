@@ -104,3 +104,4 @@ Write-Host "`n==================================================================
 Write-Host "  [CI/CD LOKAL SUKSES 100%] Durasi: $DurasiDetik detik | 0 Error & 0 Warning" -ForegroundColor Green
 Write-Host "======================================================================" -ForegroundColor Green
 exit 0
+

@@ -35,3 +35,6 @@
 ## 6. Prosedur Jika Terjadi Kesalahan Input (Reversal)
 > [!IMPORTANT]
 > Transaksi yang sudah tersimpan **tidak dapat dihapus atau diedit nominalnya**. Jika terjadi salah ketik nominal oleh Teller, catat **Kode Referensi Transaksi** lalu minta **Supervisor / Admin** memproses pembalikan melalui menu **Jurnal Koreksi (`/transaksi/koreksi`)**.
+
+## 7. Membuka Panduan & Glosarium Langsung di Browser (`/dokumentasi`)
+Petugas maupun siswa praktikum dapat membaca seluruh panduan operasional, kamus data, DFD/ERD, dan modul praktikum tanpa keluar dari aplikasi dengan membuka menu **Pusat Dokumentasi** (`/dokumentasi`) pada bilah sisi kiri.
