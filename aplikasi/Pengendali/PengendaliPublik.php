@@ -15,8 +15,8 @@ use Throwable;
  * PengendaliPublik
  *
  * @konsep_rpl Pemisahan Tata Letak Publik & Dasbor serta Health Check Observabilitas
- * Menampilkan halaman Portal Informasi Publik (`GET /portal`) secara ringan dan menyediakan
- * endpoint pemantauan kesehatan sistem (`GET /kesehatan`) tanpa membocorkan kredensial sensitif.
+ * Menampilkan halaman Portal Informasi Publik (`GET /` dan `GET /portal`) secara ringan dan
+ * menyediakan endpoint pemantauan kesehatan sistem (`GET /kesehatan`) tanpa membocorkan kredensial sensitif.
  */
 class PengendaliPublik extends PengendaliDasar
 {
@@ -77,7 +77,7 @@ class PengendaliPublik extends PengendaliDasar
     }
 
     /**
-     * Menampilkan Portal Informasi Publik Bank Mini Sekolah (GET /portal).
+     * Menampilkan Portal Informasi Publik Bank Mini Sekolah (GET / dan GET /portal).
      *
      * @return void
      */

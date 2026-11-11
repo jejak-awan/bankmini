@@ -72,7 +72,8 @@ Sesi::mulaiSesiAman();
 // [Langkah 2 - Konsep RPL]: Daftarkan seluruh peta rute HTTP GET dan POST pada Perute tunggal
 $perute = new Perute();
 
-// Rute Portal Publik, Pemantauan Kesehatan, & Autentikasi (Masuk / Keluar Sistem)
+// Rute Portal Publik (Default Root / & /portal), Pemantauan Kesehatan, & Autentikasi (Masuk / Keluar Sistem)
+$perute->daftarGet('/', [PengendaliPublik::class, 'portal']);
 $perute->daftarGet('/portal', [PengendaliPublik::class, 'portal']);
 $perute->daftarGet('/kesehatan', [PengendaliPublik::class, 'kesehatan']);
 $perute->daftarGet('/masuk', [PengendaliAutentikasi::class, 'tampilkanHalamanMasuk']);
@@ -80,7 +81,6 @@ $perute->daftarPost('/masuk', [PengendaliAutentikasi::class, 'prosesMasuk']);
 $perute->daftarPost('/keluar', [PengendaliAutentikasi::class, 'prosesKeluar']);
 
 // Rute Dasbor & Master Data
-$perute->daftarGet('/', [PengendaliDasbor::class, 'indeks']);
 $perute->daftarGet('/dasbor', [PengendaliDasbor::class, 'indeks']);
 $perute->daftarGet('/nasabah', [PengendaliNasabah::class, 'indeks']);
 $perute->daftarPost('/nasabah/tambah', [PengendaliNasabah::class, 'simpanNasabah']);

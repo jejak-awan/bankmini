@@ -7,7 +7,7 @@
 ?>
 <header class="navbar navbar-expand-lg navbar-publik-bankmini sticky-top py-3">
     <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-2 text-dark" href="<?= amankanHtml(urlDasar('portal')) ?>">
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2 text-dark" href="<?= amankanHtml(urlDasar('')) ?>">
             <span class="merek-ikon-bankmini"><i class="bi bi-bank2"></i></span>
             <span>Bank Mini Sekolah <span class="badge text-bg-primary ms-1">IDR</span></span>
         </a>

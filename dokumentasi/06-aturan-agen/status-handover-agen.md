@@ -3,9 +3,9 @@
 > **PERINGATAN UNTUK AGEN BARU**: Bacalah dokumen ini sebagai kebenaran kondisi projek saat ini (*Current State*). Jangan menebak atau mengulang fitur yang sudah ditandai selesai tanpa memeriksa implementasinya.
 
 - **Terakhir Diperbarui**: 2026-11-12
-- **Versi Projek Saat Ini**: `1.8.0`
+- **Versi Projek Saat Ini**: `1.8.1`
 - **Work Log Terakhir**: [`2026-11-12-fondasi-keamanan-performa-logging-dan-galat.md`](../04-work-log/2026-11-12-fondasi-keamanan-performa-logging-dan-galat.md)
-- **Fase Projek Saat Ini**: **Fase 10 — Fondasi Keamanan Berlapis, Performa Kueri/Aset, Logging Terpusat, Halaman Galat, & Health Check (Selesai)**
+- **Fase Projek Saat Ini**: **Fase 10 — Fondasi Keamanan Berlapis, Performa Kueri/Aset, Logging Terpusat, Halaman Galat, & Default Portal `/` (Selesai)**
 
 ---
 
@@ -27,7 +27,7 @@
 - **Design System Berlapis, Komponen UI Bersama, & Pemisahan Shell Publik vs Dasbor (`v1.7.0`)**:
   - Aset CSS/JS terpisah: Shared (`token-desain.css`, `komponen-ui.css`, `inti-ui.js`), Publik (`publik.css`), dan Dasbor (`dasbor.css`, `dasbor-interaktif.js`).
   - Helper `komponenUi()` di `fungsi_umum.php` dengan 6 komponen terstandarisasi di `aplikasi/Tampilan/komponen/` (`pesan_kilat`, `kartu_kpi`, `lencana_status`, `kepala_kartu`, `pencarian_tabel`, `kop_surat`).
-  - Multi-shell tata letak `'dasbor'`, `'publik'`, `'cetak'` di `PengendaliDasar.php` serta halaman Portal Publik ringan `/portal` (`PengendaliPublik.php`).
+  - Multi-shell tata letak `'dasbor'`, `'publik'`, `'cetak'` di `PengendaliDasar.php` serta halaman Portal Publik ringan sebagai rute default `/` maupun `/portal` (`PengendaliPublik.php`).
 - **Pustaka & Layanan Ekspor/Impor/Cetak Dokumen (`LayananDokumenKantor.php`)**:
   - Dependensi Composer terpasang penuh: `dompdf/dompdf` (`^3.1`), `phpoffice/phpspreadsheet` (`^5.11`), `shuchkin/simplexlsxgen` (`^1.5`), `shuchkin/simplexlsx` (`^1.1`), dan `phpoffice/phpword` (`^1.4`).
   - `LayananDokumenKantor.php` menyediakan fondasi pembuatan PDF (`buatPdfDariHtml`), ekspor & impor Excel `.xlsx`/`.csv` (`buatExcelDariTabel`, `bacaDataDariExcel`, `buatCsvDariTabel`, `bacaDataDariCsv`), pembuatan dokumen Word `.docx` (`buatDokumenWord` dengan fallback `PCLZip`), serta template HTML siap cetak (`siapkanHtmlCetak`), diuji oleh `TesLayananDokumenKantor.php` (`QA-UNIT-006` s.d. `QA-UNIT-008`).

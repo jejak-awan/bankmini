@@ -6,6 +6,13 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.8.1] - 2026-11-11
+
+### Diperbarui (Changed)
+- Jadikan halaman Portal Informasi Publik (/portal) sebagai rute default domain utama (GET /) agar pengunjung umum langsung disambut halaman publik yang ringan
+
+---
+
 ## [1.8.0] - 2026-11-11
 
 ### Ditambahkan (Added)

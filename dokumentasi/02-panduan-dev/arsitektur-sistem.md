@@ -94,7 +94,7 @@ C:\xampp\htdocs\www\bankmini\
 │   │   ├── PengendaliDasbor.php
 │   │   ├── PengendaliNasabah.php
 │   │   ├── PengendaliProduk.php
-│   │   ├── PengendaliPublik.php      # Portal Informasi Publik (/portal) & Health Check JSON (/kesehatan)
+│   │   ├── PengendaliPublik.php      # Portal Informasi Publik (/ & /portal) & Health Check JSON (/kesehatan)
 │   │   ├── PengendaliRekening.php
 │   │   ├── PengendaliTransaksi.php
 │   │   ├── PengendaliLaporan.php

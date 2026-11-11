@@ -31,3 +31,4 @@
 5. **Dokumentasi Pembelajaran RPL & Suite QA (`v1.8.0`)**
    - Memperbarui [`standar-kode-dan-keamanan.md`](../02-panduan-dev/standar-kode-dan-keamanan.md), [`arsitektur-sistem.md`](../02-panduan-dev/arsitektur-sistem.md), [`skema-database.md`](../02-panduan-dev/skema-database.md), [`glosarium-dan-daftar-istilah.md`](../02-panduan-dev/glosarium-dan-daftar-istilah.md), serta menambahkan `ADR-009`.
    - Menambahkan 6 skenario unit/keamanan di [`TesFondasiSistem.php`](../../pengujian/Unit/TesFondasiSistem.php) (`QA-FND-001` s.d. `QA-FND-006`) serta verifikasi Playwright `/kesehatan`, halaman `404`, dan header CSP di [`smoke.spec.js`](../../pengujian/e2e/smoke.spec.js).
+

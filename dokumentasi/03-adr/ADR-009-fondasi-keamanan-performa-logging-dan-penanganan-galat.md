@@ -25,3 +25,4 @@ Kami menerapkan **Paket Fondasi Inti `v1.8.0`** yang terdiri atas:
 ## Konsekuensi & Langkah Siswa RPL
 - Seluruh tombol interaktif di HTML (`aplikasi/Tampilan/`) dilarang memakai atribut event inline (`onclick=...`), melainkan wajib menggunakan atribut `data-*` yang ditangani oleh `inti-ui.js` / `dasbor-interaktif.js` agar CSP ketat `script-src 'self'` tidak pernah memicu pelanggaran.
 - Kueri rentang tanggal wajib menggunakan perbandingan batas waktu (`>= YYYY-MM-DD 00:00:00 AND <= YYYY-MM-DD 23:59:59`) agar MySQL InnoDB dapat memanfaatkan indeks B-Tree secara optimal.
+

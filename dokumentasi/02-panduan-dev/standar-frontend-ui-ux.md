@@ -6,7 +6,7 @@ Dokumen ini menjelaskan arsitektur antarmuka (**Frontend**) dan pola interaksi (
 
 ## 1. Struktur Design System & Aset Frontend (`public/aset/`)
 
-Agar halaman **Publik** (`/portal` & `/masuk`) tetap ringan dan tidak ikut mengunduh gaya maupun skrip **Dasbor Admin/Teller**, CSS dan JavaScript dipisah menjadi **3 lapisan terstandar**:
+Agar halaman **Publik** (`/`, `/portal`, & `/masuk`) tetap ringan dan tidak ikut mengunduh gaya maupun skrip **Dasbor Admin/Teller**, CSS dan JavaScript dipisah menjadi **3 lapisan terstandar**:
 
 ```text
 public/aset/
@@ -38,7 +38,7 @@ public/aset/
 | Tata Letak | Berkas | Aset yang Dimuat | Peruntukan |
 | :--- | :--- | :--- | :--- |
 | **`dasbor`** | [`kepala_dasbor.php`](../../aplikasi/Tampilan/tata_letak/kepala_dasbor.php), [`bilah_sisi.php`](../../aplikasi/Tampilan/tata_letak/bilah_sisi.php), [`kaki_dasbor.php`](../../aplikasi/Tampilan/tata_letak/kaki_dasbor.php) | `token-desain.css` + `komponen-ui.css` + `dasbor.css`, `inti-ui.js` + `dasbor-interaktif.js`, Modal `#modalKonfirmasiTransaksi` | Seluruh modul operasional Admin, Supervisor, Teller, & Dokumentasi. |
-| **`publik`** | [`kepala_publik.php`](../../aplikasi/Tampilan/tata_letak/kepala_publik.php), [`kaki_publik.php`](../../aplikasi/Tampilan/tata_letak/kaki_publik.php) | `token-desain.css` + `komponen-ui.css` + `publik.css`, `inti-ui.js` (0 byte aset dasbor!) | Halaman `/portal` & `/masuk`. |
+| **`publik`** | [`kepala_publik.php`](../../aplikasi/Tampilan/tata_letak/kepala_publik.php), [`kaki_publik.php`](../../aplikasi/Tampilan/tata_letak/kaki_publik.php) | `token-desain.css` + `komponen-ui.css` + `publik.css`, `inti-ui.js` (0 byte aset dasbor!) | Halaman utama domain `/`, `/portal`, & `/masuk`. |
 | **`cetak`** | [`kepala_cetak.php`](../../aplikasi/Tampilan/tata_letak/kepala_cetak.php), [`kaki_cetak.php`](../../aplikasi/Tampilan/tata_letak/kaki_cetak.php) | `token-desain.css` + `komponen-ui.css` (tanpa navbar/JS) | Tampilan siap cetak/PDF mandiri. |
 
 ### 2.2 Slicing Komponen UI Terstandar (`aplikasi/Tampilan/komponen/`)

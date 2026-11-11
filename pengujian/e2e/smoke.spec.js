@@ -38,11 +38,14 @@ test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
       }
     });
 
-    // 1. Uji Portal Publik (/portal)
-    await page.goto('/portal');
+    // 1. Uji Rute Default Domain (/) & Alias (/portal) merender Portal Informasi Publik ringan
+    await page.goto('/');
     await expect(page.locator('h1')).toContainText('Layanan Tabungan Sekolah');
     await expect(page.locator('#menuBilahSisi')).toHaveCount(0);
     await expect(page.locator('#modalKonfirmasiTransaksi')).toHaveCount(0);
+
+    await page.goto('/portal');
+    await expect(page.locator('h1')).toContainText('Layanan Tabungan Sekolah');
     await page.screenshot({ path: 'test-results/smoke-portal.png', fullPage: true });
 
     // 2. Uji Halaman Masuk (/masuk) dengan tata letak 'publik'
