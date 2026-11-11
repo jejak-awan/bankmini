@@ -114,3 +114,4 @@
         <span>Versi <?= amankanHtml($versiAplikasi ?? '1.0.0') ?> &bull; Design System Offline</span>
     </div>
 </footer>
+

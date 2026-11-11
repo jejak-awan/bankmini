@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Aplikasi\Inti;
 
 use PDO;
+use Throwable;
 
 /**
  * BasisData
@@ -74,5 +75,19 @@ final class BasisData
     public static function aturKoneksiPengujian(?PDO $koneksiUji): void
     {
         self::$instansiKoneksi = $koneksiUji;
+    }
+
+    /**
+     * Memeriksa kesiapan koneksi database secara ringan (`SELECT 1`) untuk endpoint `/kesehatan`.
+     *
+     * @return bool True jika koneksi PDO dapat merespons query uji
+     */
+    public static function periksaKesiapanKoneksi(): bool
+    {
+        try {
+            return self::ambilKoneksi()->query('SELECT 1') !== false;
+        } catch (Throwable) {
+            return false;
+        }
     }
 }

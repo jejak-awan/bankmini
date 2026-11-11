@@ -47,6 +47,7 @@ spl_autoload_register(
     }
 );
 
+use Aplikasi\Inti\PenanganGalat;
 use Aplikasi\Inti\Perute;
 use Aplikasi\Inti\Sesi;
 use Aplikasi\Pengendali\PengendaliAutentikasi;
@@ -59,14 +60,21 @@ use Aplikasi\Pengendali\PengendaliPublik;
 use Aplikasi\Pengendali\PengendaliRekening;
 use Aplikasi\Pengendali\PengendaliTransaksi;
 
-// [Langkah 1 - Konsep RPL]: Mulai sesi dengan cookie HttpOnly dan SameSite=Lax
+// [Langkah 1 - Konsep RPL]: Pasang penanganan galat terpusat, kirim header keamanan HTTP/CSP, dan mulai sesi aman
+PenanganGalat::pasang();
+$metodeHttp = (string) ($_SERVER['REQUEST_METHOD'] ?? 'GET');
+$uriRequest = (string) ($_SERVER['REQUEST_URI'] ?? '/');
+$jalurSementara = (string) (parse_url($uriRequest, PHP_URL_PATH) ?: '/');
+PenanganGalat::kirimHeaderKeamanan(str_ends_with(rtrim($jalurSementara, '/'), '/kesehatan'));
+PenanganGalat::periksaModePemeliharaan($jalurSementara);
 Sesi::mulaiSesiAman();
 
 // [Langkah 2 - Konsep RPL]: Daftarkan seluruh peta rute HTTP GET dan POST pada Perute tunggal
 $perute = new Perute();
 
-// Rute Portal Publik & Autentikasi (Masuk / Keluar Sistem)
+// Rute Portal Publik, Pemantauan Kesehatan, & Autentikasi (Masuk / Keluar Sistem)
 $perute->daftarGet('/portal', [PengendaliPublik::class, 'portal']);
+$perute->daftarGet('/kesehatan', [PengendaliPublik::class, 'kesehatan']);
 $perute->daftarGet('/masuk', [PengendaliAutentikasi::class, 'tampilkanHalamanMasuk']);
 $perute->daftarPost('/masuk', [PengendaliAutentikasi::class, 'prosesMasuk']);
 $perute->daftarPost('/keluar', [PengendaliAutentikasi::class, 'prosesKeluar']);
@@ -95,7 +103,4 @@ $perute->daftarGet('/laporan/mutasi', [PengendaliLaporan::class, 'mutasi']);
 $perute->daftarGet('/dokumentasi', [PengendaliDokumentasi::class, 'indeks']);
 
 // [Langkah 3 - Konsep RPL]: Eksekusi rute berdasarkan metode HTTP dan URI yang diminta browser
-$metodeHttp = (string) ($_SERVER['REQUEST_METHOD'] ?? 'GET');
-$uriRequest = (string) ($_SERVER['REQUEST_URI'] ?? '/');
-
 $perute->jalankanRute($metodeHttp, $uriRequest);

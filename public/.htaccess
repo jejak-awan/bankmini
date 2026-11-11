@@ -1,3 +1,6 @@
+# Larang directory listing di folder publik
+Options -Indexes
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     # Jika file atau direktori statis (css/js/gambar) ada, layani langsung
@@ -7,3 +10,17 @@
     RewriteRule ^ index.php [QSA,L]
 </IfModule>
 
+# Kompresi Gzip (Performa transfer aset teks & JSON)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Cache browser untuk aset statis berversi (?v=X.Y.Z)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType font/woff "access plus 90 days"
+    ExpiresByType font/woff2 "access plus 90 days"
+</IfModule>

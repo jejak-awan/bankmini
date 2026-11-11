@@ -39,4 +39,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    /**
+     * 3. Tombol Cetak Halaman Bebas Inline Script (Mendukung CSP Ketat `script-src 'self'`)
+     */
+    const daftarTombolCetak = document.querySelectorAll('button[data-cetak-halaman="ya"]');
+    daftarTombolCetak.forEach(function (tombol) {
+        tombol.addEventListener('click', function () {
+            window.print();
+        });
+    });
 });
+

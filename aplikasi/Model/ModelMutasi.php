@@ -127,6 +127,11 @@ class ModelMutasi
             $tanggalMulai !== null && $tanggalMulai !== ''
             && $tanggalAkhir !== null && $tanggalAkhir !== ''
         ) {
+            // [Konsep RPL - SARGable Query]: Hindari fungsi `DATE(kolom)` pada sisi kiri WHERE
+            // karena membungkus kolom dengan fungsi menonaktifkan indeks B-Tree `idx_mutasi_waktu`.
+            $waktuMulai = trim($tanggalMulai) . ' 00:00:00';
+            $waktuAkhir = trim($tanggalAkhir) . ' 23:59:59';
+
             $pernyataan = $this->koneksi->prepare(
                 'SELECT m.id, m.kode_referensi, m.id_rekening, m.jenis_transaksi, m.tipe_mutasi,
                         m.nominal, m.saldo_sebelum, m.saldo_sesudah, m.keterangan, m.waktu_transaksi,
@@ -135,12 +140,12 @@ class ModelMutasi
                  JOIN rekening r ON r.id = m.id_rekening
                  JOIN nasabah n ON n.id = r.id_nasabah
                  JOIN pengguna p ON p.id = m.id_petugas
-                 WHERE DATE(m.waktu_transaksi) BETWEEN :tanggal_mulai AND :tanggal_akhir
+                 WHERE m.waktu_transaksi >= :waktu_mulai AND m.waktu_transaksi <= :waktu_akhir
                  ORDER BY m.id DESC
                  LIMIT :batas_jumlah'
             );
-            $pernyataan->bindValue(':tanggal_mulai', $tanggalMulai, PDO::PARAM_STR);
-            $pernyataan->bindValue(':tanggal_akhir', $tanggalAkhir, PDO::PARAM_STR);
+            $pernyataan->bindValue(':waktu_mulai', $waktuMulai, PDO::PARAM_STR);
+            $pernyataan->bindValue(':waktu_akhir', $waktuAkhir, PDO::PARAM_STR);
             $pernyataan->bindValue(':batas_jumlah', $batasJumlah, PDO::PARAM_INT);
             $pernyataan->execute();
 

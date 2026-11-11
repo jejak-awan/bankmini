@@ -44,7 +44,7 @@
                 <button type="submit" class="btn tombol-bankmini fw-semibold">
                     <i class="bi bi-search me-1"></i>Tampilkan Mutasi
                 </button>
-                <button type="button" class="btn btn-success fw-semibold" onclick="window.print();">
+                <button type="button" class="btn btn-success fw-semibold" data-cetak-halaman="ya">
                     <i class="bi bi-printer me-1"></i>Cetak Laporan
                 </button>
             </div>

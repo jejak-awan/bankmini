@@ -15,3 +15,4 @@ $subjudulDokumen = (string) ($subjudulDokumen ?? '');
         <div class="small"><?= amankanHtml($subjudulDokumen) ?></div>
     <?php endif; ?>
 </div>
+

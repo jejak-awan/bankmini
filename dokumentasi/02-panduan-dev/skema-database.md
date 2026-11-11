@@ -196,3 +196,30 @@ Secara teori murni, saldo rekening bisa dihitung kapan saja dengan menjumlahkan 
 Oleh karena itu, dalam rekayasa sistem perbankan digunakan teknik **Cached Balance (`rekening.saldo`)** yang dijaga konsistensinya 100% melalui **Database Transaction ACID** di dalam `LayananTransaksi`:
 $$\text{Saldo Sesudah} = \text{Saldo Sebelum} \pm \text{Nominal Transaksi}$$
 Kolom `rekening.saldo` **wajib selalu diperbarui dalam satu transaksi `beginTransaction()` yang sama** dengan perintah `INSERT INTO mutasi_transaksi`.
+
+---
+
+## 5. Indeks B-Tree & Optimasi Kueri SARGable (*Search Argument Able*)
+
+Untuk menjaga performa tetap cepat saat jumlah baris transaksi membesar menjadi ratusan ribu baris, skema `bankmini_db` mendefinisikan indeks pencarian utama pada tabel aktif:
+
+| Nama Indeks | Tabel (`Kolom`) | Tujuan Optimasi |
+| :--- | :--- | :--- |
+| `idx_nasabah_nama` | `nasabah` (`nama_lengkap`) | Mempercepat pencarian dan pengurutan daftar nama nasabah. |
+| `idx_rekening_status` | `rekening` (`status`) | Mempercepat penyaringan rekening berstatus `aktif`, `dibekukan`, atau `tutup`. |
+| `idx_mutasi_rekening_waktu` | `mutasi_transaksi` (`id_rekening`, `waktu_transaksi`) | Composite index untuk riwayat mutasi per rekening berurutan waktu. |
+| `idx_mutasi_waktu` | `mutasi_transaksi` (`waktu_transaksi`) | Standalone range index untuk laporan mutasi harian/bulanan lintas seluruh rekening. |
+| `idx_audit_waktu` | `log_audit` (`dibuat_pada`) | Mempercepat penelusuran jejak audit berdasarkan tanggal kejadian. |
+
+### Studi Kasus Pembelajaran RPL: Kueri Non-SARGable vs SARGable
+- **Salah (Non-SARGable — Lambat, Full Table Scan):**
+  ```sql
+  WHERE DATE(m.waktu_transaksi) BETWEEN '2026-11-01' AND '2026-11-30'
+  ```
+  Membungkus kolom `m.waktu_transaksi` dengan fungsi `DATE(...)` memaksa MySQL membaca dan menghitung setiap baris dari awal tabel karena struktur pohon indeks `idx_mutasi_waktu` tidak bisa langsung dipakai.
+- **Benar (SARGable — Cepat, Index Range Scan):**
+  ```sql
+  WHERE m.waktu_transaksi >= '2026-11-01 00:00:00'
+    AND m.waktu_transaksi <= '2026-11-30 23:59:59'
+  ```
+  Digunakan di [`ModelMutasi::ambilMutasiBerdasarkanTanggal()`](../../aplikasi/Model/ModelMutasi.php) sehingga MySQL langsung melompat ke rentang tanggal yang tepat melalui indeks B-Tree.

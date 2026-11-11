@@ -62,9 +62,11 @@ final class Perute
         $tujuanRute = $this->daftarRute[$metodeBersih][$jalurBersih] ?? null;
 
         if ($tujuanRute === null) {
-            http_response_code(404);
-            echo '<h1>404 - Halaman Tidak Ditemukan</h1>';
-            return;
+            throw new PengecualianHttp(
+                404,
+                'Halaman Tidak Ditemukan (404)',
+                'Rute halaman yang Anda akses tidak terdaftar pada sistem Bank Mini.'
+            );
         }
 
         [$namaClassPengendali, $namaMethod] = $tujuanRute;

@@ -79,18 +79,22 @@ C:\xampp\htdocs\www\bankmini\
 │   └── basis_data.php             # Konfigurasi koneksi PDO MySQL InnoDB
 ├── aplikasi/                      # Kode inti aplikasi (terproteksi dari akses URL langsung)
 │   ├── Inti/                      # Pondasi infrastruktur (Core)
-│   │   ├── Perute.php             # SoT Pemetaan rute URL & metode HTTP
+│   │   ├── Perute.php             # SoT Pemetaan rute URL & metode HTTP (melempar 404 PengecualianHttp)
 │   │   ├── BasisData.php          # SoT Koneksi PDO Singleton
-│   │   ├── Sesi.php               # SoT Manajemen Sesi & Pesan Kilat (Flash Message)
+│   │   ├── Sesi.php               # SoT Manajemen Sesi, Idle Timeout 30 menit, & Pesan Kilat PRG
 │   │   ├── TokenCsrf.php          # Generator & validator token CSRF
-│   │   ├── MiddlewareAutentikasi.php # SoT Autentikasi & Pemeriksaan Peran (RBAC)
+│   │   ├── PencatatLog.php        # Pencatatan log harian + Correlation ID + redaksi rahasia
+│   │   ├── PenanganGalat.php      # Global error/exception handler (403/404/500/503) & Security Headers/CSP
+│   │   ├── PengecualianHttp.php   # Typed HTTP Exception untuk status galat terstruktur
+│   │   ├── PembatasLaju.php       # Anti brute-force login rate limiter
+│   │   ├── MiddlewareAutentikasi.php # SoT Autentikasi, Idle Timeout, & Pemeriksaan Peran (RBAC 403)
 │   │   └── PengendaliDasar.php    # Class induk Pengendali (tampilkanView, alihkan PRG)
 │   ├── Pengendali/                # Lapisan HTTP (Controllers)
 │   │   ├── PengendaliAutentikasi.php
 │   │   ├── PengendaliDasbor.php
 │   │   ├── PengendaliNasabah.php
 │   │   ├── PengendaliProduk.php
-│   │   ├── PengendaliPublik.php      # Portal Informasi Publik ringan (/portal) terisolasi dari dasbor admin
+│   │   ├── PengendaliPublik.php      # Portal Informasi Publik (/portal) & Health Check JSON (/kesehatan)
 │   │   ├── PengendaliRekening.php
 │   │   ├── PengendaliTransaksi.php
 │   │   ├── PengendaliLaporan.php
@@ -113,6 +117,7 @@ C:\xampp\htdocs\www\bankmini\
 │   └── Tampilan/                  # Template Antarmuka (HTML murni + variabel ter-escape)
 │       ├── komponen/              # Komponen UI bersama (kartu_kpi, lencana_status, pesan_kilat, pencarian_tabel, kepala_kartu, kop_surat)
 │       ├── tata_letak/            # Pemisahan shell: kepala/kaki_dasbor.php, bilah_sisi.php, kepala/kaki_publik.php, kepala/kaki_cetak.php
+│       ├── galat/                 # Halaman galat terpusat 403/404/500/503 (halaman_galat.php)
 │       ├── publik/                # Halaman Portal Informasi Publik (portal.php)
 │       ├── autentikasi/
 │       ├── dasbor/

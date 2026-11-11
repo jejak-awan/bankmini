@@ -92,6 +92,15 @@ Dokumen ini merupakan **kamus referensi istilah lengkap** bagi siswa **Rekayasa 
 | **Hashing Kata Sandi (BCrypt)** | Mengubah kata sandi teks biasa menjadi sidik jari kriptografis satu arah (`password_hash(..., PASSWORD_BCRYPT)`) yang tidak bisa dikembalikan ke teks asli dan hanya diverifikasi menggunakan `password_verify()`. |
 | **Autentikasi vs Otorisasi (RBAC)** | **Autentikasi** memverifikasi *siapa Anda* (login); **Otorisasi / RBAC (*Role-Based Access Control*)** memverifikasi *hak akses peran Anda* (`admin`, `teller`, `supervisor`). |
 | **Audit Trail (`log_audit`)** | Catatan kronologis seluruh aktivitas penting sistem (siapa pelakunya, kapan, dari IP mana, serta data sebelum dan sesudah) untuk investigasi keamanan. |
+| **CSP (*Content-Security-Policy*)** | Header keamanan HTTP yang memberi tahu browser sumber skrip mana yang sah dieksekusi (`script-src 'self'`), memblokir skrip injeksi inline (XSS). |
+| **Rate Limiting & Brute-Force** | Pembatasan jumlah percobaan gagal login per jangka waktu (`PembatasLaju`: maks 5 kali dalam 5 menit) untuk menggagalkan serangan tebak kata sandi otomatis (*Brute-Force*). |
+| **Idle Timeout** | Batas waktu diam maksimum (30 menit / 1800 detik di `Sesi`) sebelum sesi pengguna diakhiri otomatis demi mencegah penyalahgunaan komputer teller yang ditinggalkan terbuka. |
+| **Logging Harian & Secret Masking** | Pencatatan error dan aktivitas ke berkas harian terotasi (`penyimpanan/log/aplikasi-YYYY-MM-DD.log`) oleh `PencatatLog` dengan menyensor field rahasia menjadi `[DIRAHASIAKAN]`. |
+| **Correlation ID** | Kode unik per siklus permintaan HTTP (`req-YYYYMMDD-...`) yang tampil di halaman galat dan tercatat di log server untuk mencocokkan laporan pengguna dengan bukti teknis. |
+| **Maintenance Mode (`503`)** | Mode pemeliharaan sementara (aktif saat file `penyimpanan/pemeliharaan.flag` ada) yang menampilkan halaman HTTP `503 Service Unavailable` secara tertib saat pembaruan server. |
+| **SARGable Query** | *Search Argument Able* — Penulisan klausa `WHERE` tanpa membungkus kolom terindeks dengan fungsi SQL (memakai `>= 00:00:00 AND <= 23:59:59`, bukan `DATE(kolom)`) agar indeks B-Tree MySQL bekerja optimal. |
+| **Cache-Busting & Gzip Compression** | Penambahan parameter versi `?v=X.Y.Z` pada URL CSS/JS agar browser langsung memuat aset terbaru saat aplikasi naik versi, dikombinasikan dengan kompresi `mod_deflate` Apache. |
+| **Health Check Endpoint (`/kesehatan`)** | Alamat khusus (`GET /kesehatan`) yang mengembalikan status JSON kesiapan PHP, koneksi InnoDB, dan disk log untuk pemantauan otomatis (*uptime monitoring* & Docker `HEALTHCHECK`). |
 
 ---
 

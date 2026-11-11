@@ -3,9 +3,9 @@
 > **PERINGATAN UNTUK AGEN BARU**: Bacalah dokumen ini sebagai kebenaran kondisi projek saat ini (*Current State*). Jangan menebak atau mengulang fitur yang sudah ditandai selesai tanpa memeriksa implementasinya.
 
 - **Terakhir Diperbarui**: 2026-11-12
-- **Versi Projek Saat Ini**: `1.7.0`
-- **Work Log Terakhir**: [`2026-11-12-design-system-komponen-ui-dan-pemisahan-publik-dasbor.md`](../04-work-log/2026-11-12-design-system-komponen-ui-dan-pemisahan-publik-dasbor.md)
-- **Fase Projek Saat Ini**: **Fase 9 — Design System Berlapis, Komponen UI Bersama, & Pemisahan Publik vs Dasbor (Selesai)**
+- **Versi Projek Saat Ini**: `1.8.0`
+- **Work Log Terakhir**: [`2026-11-12-fondasi-keamanan-performa-logging-dan-galat.md`](../04-work-log/2026-11-12-fondasi-keamanan-performa-logging-dan-galat.md)
+- **Fase Projek Saat Ini**: **Fase 10 — Fondasi Keamanan Berlapis, Performa Kueri/Aset, Logging Terpusat, Halaman Galat, & Health Check (Selesai)**
 
 ---
 
@@ -19,6 +19,11 @@
 ---
 
 ## 2. Komponen yang Sudah Selesai & Terverifikasi
+- **Fondasi Keamanan Berlapis, Performa, Logging, Halaman Galat, & Observabilitas (`v1.8.0`)**:
+  - `PencatatLog.php` (log rotasi harian di `penyimpanan/log/`, Correlation ID, dan redaksi rahasia `[DIRAHASIAKAN]`).
+  - `PenanganGalat.php` & `PengecualianHttp.php` (halaman galat Design System `403`, `404`, `500`, `503` via `galat/halaman_galat.php`, sakelar `mode_debug`, header OWASP + CSP `script-src 'self'`).
+  - `PembatasLaju.php` (anti brute-force login maks 5x/5 menit), *Idle Timeout* 30 menit + flag `secure` HTTPS di `Sesi.php`, dan proteksi `.htaccess` pada seluruh direktori internal.
+  - Indeks DB (`idx_nasabah_nama`, `idx_rekening_status`, `idx_mutasi_waktu`), refactor kueri SARGable di `ModelMutasi`, *cache-busting* `?v=VERSI`, Gzip/Expires, endpoint `GET /kesehatan`, serta `HEALTHCHECK` di `Dockerfile`.
 - **Design System Berlapis, Komponen UI Bersama, & Pemisahan Shell Publik vs Dasbor (`v1.7.0`)**:
   - Aset CSS/JS terpisah: Shared (`token-desain.css`, `komponen-ui.css`, `inti-ui.js`), Publik (`publik.css`), dan Dasbor (`dasbor.css`, `dasbor-interaktif.js`).
   - Helper `komponenUi()` di `fungsi_umum.php` dengan 6 komponen terstandarisasi di `aplikasi/Tampilan/komponen/` (`pesan_kilat`, `kartu_kpi`, `lencana_status`, `kepala_kartu`, `pencarian_tabel`, `kop_surat`).
@@ -39,7 +44,7 @@
 ---
 
 ## 3. Tugas Aktif / Sedang Dikerjakan
-- Tidak ada tugas tertunda pada Fase 9 (`v1.7.0`). Seluruh arsitektur Design System, Komponen UI Bersama, serta pemisahan shell/aset Publik dan Dasbor telah terverifikasi lulus 100% QA & E2E.
+- Tidak ada tugas tertunda pada Fase 10 (`v1.8.0`). Seluruh fondasi keamanan berlapis, performa kueri/aset, logging harian, halaman galat terpusat, dan health check telah terverifikasi lulus 100% QA & E2E.
 
 ---
 

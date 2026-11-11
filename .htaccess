@@ -1,7 +1,19 @@
+Options -Indexes
+
+# Tolak akses HTTP langsung ke berkas konfigurasi sensitif & metadata projek
+<FilesMatch "(^\.(env|git|htaccess)|composer\.(json|lock)|VERSION|phpstan\.neon|phpcs\.xml)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     # Arahkan seluruh request dari root folder bankmini ke folder public/
     RewriteRule ^$ public/ [L]
     RewriteRule (.*) public/$1 [L]
 </IfModule>
-

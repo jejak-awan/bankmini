@@ -12,3 +12,4 @@ $ikonKartu = (string) ($ikon ?? 'bi-card-list');
         <?= amankanHtml($judulKartu) ?>
     </h2>
 </div>
+

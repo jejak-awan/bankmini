@@ -39,3 +39,4 @@ $gayaAktif = $petaAksen[$aksenKartu] ?? $petaAksen['biru'];
         </div>
     </div>
 </div>
+

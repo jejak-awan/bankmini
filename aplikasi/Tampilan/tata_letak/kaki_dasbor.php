@@ -40,8 +40,12 @@
     </div>
 </div>
 
-<script src="<?= amankanHtml(urlDasar('aset/vendor/bootstrap/js/bootstrap.bundle.min.js')) ?>"></script>
-<script src="<?= amankanHtml(urlDasar('aset/js/inti-ui.js')) ?>"></script>
-<script src="<?= amankanHtml(urlDasar('aset/js/dasbor-interaktif.js')) ?>"></script>
+<?php
+$versiAsetKaki = (string) ($versiAplikasi ?? '1.0.0');
+?>
+<script src="<?= amankanHtml(urlDasar('aset/vendor/bootstrap/js/bootstrap.bundle.min.js?v=' . $versiAsetKaki)) ?>"></script>
+<script src="<?= amankanHtml(urlDasar('aset/js/inti-ui.js?v=' . $versiAsetKaki)) ?>"></script>
+<script src="<?= amankanHtml(urlDasar('aset/js/dasbor-interaktif.js?v=' . $versiAsetKaki)) ?>"></script>
 </body>
 </html>
+

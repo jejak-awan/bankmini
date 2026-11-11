@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `nasabah` (
     `hash_kata_sandi` VARCHAR(255) DEFAULT NULL,
     `status` ENUM('aktif', 'nonaktif') NOT NULL DEFAULT 'aktif',
     `dibuat_pada` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `diperbarui_pada` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    `diperbarui_pada` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX `idx_nasabah_nama` (`nama_lengkap`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 3. Tabel produk_tabungan (Master Produk Simpanan Rupiah IDR)
@@ -60,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `rekening` (
     `tanggal_buka` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `tanggal_tutup` DATETIME DEFAULT NULL,
     `diperbarui_pada` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX `idx_rekening_status` (`status`),
     CONSTRAINT `fk_rekening_nasabah` FOREIGN KEY (`id_nasabah`) REFERENCES `nasabah` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT `fk_rekening_produk` FOREIGN KEY (`id_produk`) REFERENCES `produk_tabungan` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -79,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `mutasi_transaksi` (
     `id_petugas` INT UNSIGNED NOT NULL,
     `waktu_transaksi` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     INDEX `idx_mutasi_rekening_waktu` (`id_rekening`, `waktu_transaksi`),
+    INDEX `idx_mutasi_waktu` (`waktu_transaksi`),
     CONSTRAINT `fk_mutasi_rekening` FOREIGN KEY (`id_rekening`) REFERENCES `rekening` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT `fk_mutasi_petugas` FOREIGN KEY (`id_petugas`) REFERENCES `pengguna` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT `fk_mutasi_referensi` FOREIGN KEY (`id_referensi_transaksi`) REFERENCES `mutasi_transaksi` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE

@@ -65,6 +65,7 @@ use Pengujian\Integrasi\TesLayananDokumentasi;
 use Pengujian\Integrasi\TesLayananRekening;
 use Pengujian\Integrasi\TesLayananTransaksi;
 use Pengujian\Keamanan\TesKeamananAplikasi;
+use Pengujian\Unit\TesFondasiSistem;
 use Pengujian\Unit\TesFungsiUmum;
 use Pengujian\Unit\TesLayananDokumenKantor;
 use Pengujian\Unit\TesTokenCsrf;
@@ -72,6 +73,7 @@ use Pengujian\Unit\TesTokenCsrf;
 $daftarClassTes = [
     TesFungsiUmum::class,
     TesTokenCsrf::class,
+    TesFondasiSistem::class,
     TesLayananDokumenKantor::class,
     TesLayananAutentikasi::class,
     TesLayananDokumentasi::class,

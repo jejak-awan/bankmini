@@ -137,7 +137,42 @@ $this->modelRekening->kunciRekeningUntukPembaruan($idKedua);
          return htmlspecialchars((string) $nilai, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
      }
      ```
-4. **Hardening Sesi & Autentikasi**:
+4. **Hardening Sesi, Idle Timeout, & Anti Brute-Force**:
    - Gunakan `password_hash($kataSandi, PASSWORD_BCRYPT)` dan `password_verify()` pada kolom `hash_kata_sandi`.
    - Panggil `session_regenerate_id(true)` setiap kali pengguna berhasil masuk (*login*) atau terjadi perubahan peran.
-   - Cookie sesi wajib menggunakan atribut `httponly = true`, `use_strict_mode = 1`, dan `samesite = 'Lax'`.
+   - Cookie sesi wajib menggunakan atribut `httponly = true`, `use_strict_mode = 1`, `samesite = 'Lax'`, dan `secure` otomatis saat berjalan di atas HTTPS.
+   - `Sesi::periksaKedaluwarsaSesi(1800)` menghancurkan sesi secara otomatis bila petugas tidak aktif selama 30 menit (*idle timeout*).
+   - `PembatasLaju` di `LayananAutentikasi` membatasi percobaan login gagal (maksimal 5 kali per 300 detik per `nama_pengguna + IP`) lalu mencatat insiden melalui `PencatatLog::keamanan()`.
+
+---
+
+## 4. Header Keamanan HTTP (OWASP) & Content-Security-Policy (CSP)
+
+Melalui `PenanganGalat::kirimHeaderKeamanan()` di `public/index.php`, setiap respons HTTP menyertakan header perlindungan browser modern:
+1. **`X-Frame-Options: SAMEORIGIN`** — Mencegah halaman dasbor disisipkan ke dalam `<iframe>` situs pihak ketiga (*Clickjacking*).
+2. **`X-Content-Type-Options: nosniff`** — Melarang browser menebak tipe MIME secara sembarangan.
+3. **`Referrer-Policy: strict-origin-when-cross-origin`** — Melindungi kebocoran URL internal saat membuka tautan eksternal.
+4. **`Permissions-Policy`** — Menonaktifkan akses kamera, mikrofon, geolokasi, dan sensor pembayaran yang tidak dibutuhkan.
+5. **`Content-Security-Policy` Ketat (`script-src 'self'`)** — Browser hanya mengizinkan eksekusi file `.js` yang berasal dari domain sendiri. Oleh karena itu, **dilarang menulis `<script>...</script>` inline maupun atribut `onclick="..."` di file `Tampilan/`**; gunakan atribut `data-*` yang ditangani oleh `inti-ui.js` atau `dasbor-interaktif.js`.
+
+---
+
+## 5. Logging Terpusat, Penanganan Galat (403/404/500/503), & Proteksi Direktori
+
+1. **Pencatatan Log Harian (`PencatatLog`)**:
+   - Seluruh error PHP, peringatan rute, dan kejadian keamanan ditulis ke `penyimpanan/log/aplikasi-YYYY-MM-DD.log` disertai `idKorelasi` (`req-YYYYMMDD-...`).
+   - Kata kunci sensitif (`kata_sandi`, `hash_kata_sandi`, `token_csrf`, `token`, `rahasia`) disensor otomatis menjadi **`[DIRAHASIAKAN]`**.
+2. **Halaman Galat Terpusat & Sakelar `mode_debug` (`PenanganGalat`)**:
+   - Kode status `403` (RBAC), `404` (rute tidak ada), `500` (galat internal), dan `503` (mode pemeliharaan via file `penyimpanan/pemeliharaan.flag`) dirender rapi memakai Design System di `aplikasi/Tampilan/galat/halaman_galat.php`.
+   - Saat **`mode_debug = true`** (pengembangan RPL), kelas pengecualian, berkas, nomor baris, dan *stack trace* ditampilkan untuk memudahkan pembelajaran/debugging.
+   - Saat **`mode_debug = false`** (produksi via `BANKMINI_MODE_DEBUG=false`), rincian teknis disembunyikan total dan pengguna hanya melihat pesan ramah + **ID Korelasi** untuk dilaporkan ke admin.
+3. **Isolasi Folder Non-Publik (`.htaccess`)**:
+   - Folder internal (`aplikasi/`, `konfigurasi/`, `penyimpanan/`, `basis_data/`, `pengujian/`) dan berkas sensitif (`.env`, `.git`, `composer.*`) diblokir akses HTTP langsungnya dengan `Require all denied` serta `Options -Indexes`.
+
+---
+
+## 6. Standar Performa (SARGable SQL, Cache-Busting, Gzip, & `/kesehatan`)
+
+1. **Kueri SARGable (*Search Argument Able*)**: Di `ModelMutasi::ambilMutasiBerdasarkanTanggal()`, filter tanggal wajib membandingkan kolom langsung (`WHERE m.waktu_transaksi >= :waktu_mulai AND m.waktu_transaksi <= :waktu_akhir`), **bukan** membungkus kolom dengan fungsi seperti `WHERE DATE(m.waktu_transaksi) ...` yang menonaktifkan indeks `idx_mutasi_waktu`.
+2. **Cache-Busting & Kompresi Aset**: Seluruh CSS dan JS menyertakan parameter `?v=VERSI` dari `VERSION` (`$versiAplikasi`) dan dilayani dengan `mod_deflate` (Gzip) + `mod_expires` di `public/.htaccess`.
+3. **Pemantauan Kesehatan (`GET /kesehatan`)**: Menyediakan JSON kesiapan server (status database InnoDB `SELECT 1`, kesiapan tulis `penyimpanan/log`, versi aplikasi, dan status mode pemeliharaan) untuk probe Docker `HEALTHCHECK` tanpa membocorkan kredensial database.

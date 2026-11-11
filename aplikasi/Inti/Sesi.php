@@ -27,17 +27,41 @@ final class Sesi
     {
         if (session_status() === PHP_SESSION_NONE) {
             if (!headers_sent()) {
+                $apakahHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                    || (($_SERVER['SERVER_PORT'] ?? '') === '443');
                 ini_set('session.use_strict_mode', '1');
                 ini_set('session.cookie_httponly', '1');
                 session_set_cookie_params([
                     'lifetime' => 0,
                     'path'     => '/',
+                    'secure'   => $apakahHttps,
                     'httponly' => true,
                     'samesite' => 'Lax',
                 ]);
                 session_start();
             }
         }
+    }
+
+    /**
+     * Memeriksa dan memperbarui batas waktu diam sesi (Idle Timeout) demi keamanan akun petugas.
+     *
+     * @param int      $batasDetik    Durasi idle maksimum dalam detik (bawaan: 1800 detik / 30 menit)
+     * @param int|null $waktuSekarang Timestamp UNIX opsional untuk pengujian unit
+     * @return bool False jika sesi sudah kedaluwarsa dan dihancurkan, True jika masih sah
+     */
+    public static function periksaKedaluwarsaSesi(int $batasDetik = 1800, ?int $waktuSekarang = null): bool
+    {
+        $sekarang = $waktuSekarang ?? time();
+        $aktivitasTerakhir = $_SESSION['waktu_aktivitas_terakhir'] ?? null;
+
+        if (is_int($aktivitasTerakhir) && ($sekarang - $aktivitasTerakhir) > $batasDetik) {
+            self::hancurkanSesi();
+            return false;
+        }
+
+        $_SESSION['waktu_aktivitas_terakhir'] = $sekarang;
+        return true;
     }
 
     /**

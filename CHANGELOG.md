@@ -6,6 +6,17 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.8.0] - 2026-11-11
+
+### Ditambahkan (Added)
+- **Logging Terpusat & Aman (`PencatatLog.php`)**: Rotasi berkas log harian di `penyimpanan/log/aplikasi-YYYY-MM-DD.log`, pembangkitan *Correlation ID* per permintaan HTTP, serta redaksi otomatis kata kunci sensitif (`kata_sandi`, `token_csrf`) menjadi `[DIRAHASIAKAN]`.
+- **Penanganan Galat Global & Halaman Galat Kustom (`PenanganGalat.php`, `PengecualianHttp.php`, `galat/halaman_galat.php`)**: Menangani HTTP `403`, `404`, `500`, dan `503` (Mode Pemeliharaan via `penyimpanan/pemeliharaan.flag`) dengan tata letak Design System serta sakelar `mode_debug` edukatif.
+- **Keamanan Berlapis & Pertahanan Sesi**: Header keamanan HTTP + **Content-Security-Policy (`script-src 'self'`)**, pembatas laju anti brute-force login (`PembatasLaju.php`), *idle timeout* sesi 30 menit + flag cookie `secure` di [`Sesi.php`](./aplikasi/Inti/Sesi.php), serta proteksi `.htaccess` untuk direktori non-publik (`aplikasi/`, `konfigurasi/`, `penyimpanan/`, `basis_data/`, `pengujian/`).
+- **Optimasi Performa & Endpoint Kesehatan (`/kesehatan`)**: Penambahan indeks B-Tree pada `skema.sql` (`idx_nasabah_nama`, `idx_rekening_status`, `idx_mutasi_waktu`), refactor kueri SARGable di [`ModelMutasi.php`](./aplikasi/Model/ModelMutasi.php), *cache-busting* `?v=VERSI`, kompresi Gzip/Expires di [`public/.htaccess`](./public/.htaccess), rute JSON `GET /kesehatan`, serta `HEALTHCHECK` pada [`Dockerfile`](./Dockerfile).
+- **Dokumentasi Pembelajaran RPL & Pengujian QA (`QA-FND-001` s.d. `QA-FND-006`)**: Pembaruan panduan keamanan, arsitektur, optimasi SARGable database, glosarium istilah teknis, `ADR-009`, unit test [`TesFondasiSistem.php`](./pengujian/Unit/TesFondasiSistem.php), serta Playwright test untuk `/kesehatan`, `404`, dan header CSP.
+
+---
+
 ## [1.7.0] - 2026-11-11
 
 ### Ditambahkan (Added)

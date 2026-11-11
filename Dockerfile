@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libfreetype6-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_mysql bcmath zip gd \
-    && a2enmod rewrite \
+    && a2enmod rewrite headers expires deflate \
     && rm -rf /var/lib/apt/lists/*
 
 # Arahkan DocumentRoot Apache langsung ke folder public/ (Single Entry Point)
@@ -31,4 +31,7 @@ COPY . /var/www/html
 RUN chown -R www-data:www-data /var/www/html/penyimpanan
 
 EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD php -r "exit(@file_get_contents('http://localhost/kesehatan') !== false ? 0 : 1);"
 

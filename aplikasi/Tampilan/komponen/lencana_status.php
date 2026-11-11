@@ -22,3 +22,4 @@ $kelasLencana = (string) ($kelasTambahan ?? ($petaKelasLencana[$teksStatus] ?? '
 <span class="badge <?= amankanHtml($kelasLencana) ?>">
     <?= amankanHtml($teksStatus !== '' ? $teksStatus : '-') ?>
 </span>
+

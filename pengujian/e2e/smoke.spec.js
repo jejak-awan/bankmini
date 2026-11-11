@@ -142,4 +142,36 @@ test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
     expect(daftarErrorKonsol).toEqual([]);
     expect(daftarErrorHalaman).toEqual([]);
   });
+
+  test('Endpoint /kesehatan, halaman galat 404 kustom, & header keamanan CSP aktif tanpa error konsol', async ({ page }) => {
+    const daftarErrorKonsol = [];
+    const daftarErrorHalaman = [];
+
+    page.on('console', (pesan) => {
+      if (pesan.type() === 'error' || pesan.type() === 'warning') {
+        daftarErrorKonsol.push(`[${pesan.type()}] ${pesan.text()}`);
+      }
+    });
+    page.on('pageerror', (galat) => daftarErrorHalaman.push(galat.message));
+
+    // 1. Verifikasi Health Check Endpoint GET /kesehatan
+    const responsKesehatan = await page.request.get('/kesehatan');
+    expect(responsKesehatan.status()).toBe(200);
+    expect(responsKesehatan.headers()['x-content-type-options']).toBe('nosniff');
+    const jsonKesehatan = await responsKesehatan.json();
+    expect(jsonKesehatan.status).toBe('sehat');
+    expect(jsonKesehatan.pemeriksaan.basis_data).toBe('siap');
+
+    // 2. Verifikasi Halaman 404 Kustom memakai Design System & Header Keamanan CSP
+    const respons404 = await page.goto('/rute-tidak-tersedia-uji-404');
+    expect(respons404).not.toBeNull();
+    expect(respons404?.status()).toBe(404);
+    expect(respons404?.headers()['x-frame-options']).toBe('SAMEORIGIN');
+    expect(respons404?.headers()['content-security-policy']).toContain("script-src 'self'");
+    await expect(page.locator('h1')).toContainText('Halaman Tidak Ditemukan');
+    await expect(page.locator('body')).toContainText('ID Korelasi Log:');
+
+    expect(daftarErrorKonsol).toEqual([]);
+    expect(daftarErrorHalaman).toEqual([]);
+  });
 });
