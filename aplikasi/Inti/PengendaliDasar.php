@@ -47,6 +47,15 @@ abstract class PengendaliDasar
         $pesanKilat = Sesi::ambilPesanKilat();
         $tokenCsrfAktif = TokenCsrf::ambilToken();
 
+        $konfigurasiAplikasi = require dirname(__DIR__, 2)
+            . DIRECTORY_SEPARATOR . 'konfigurasi'
+            . DIRECTORY_SEPARATOR . 'aplikasi.php';
+        $versiAplikasi = (string) ($konfigurasiAplikasi['versi'] ?? '1.0.0');
+        $namaAplikasi = (string) ($konfigurasiAplikasi['nama_aplikasi'] ?? 'Sistem Informasi Bank Mini');
+        $namaPenggunaAktif = (string) Sesi::ambil('nama_lengkap_pengguna', '');
+        $peranPenggunaAktif = (string) Sesi::ambil('peran_pengguna', '');
+        $tampilanAktif = $namaTampilan;
+
         extract($dataTampilan, EXTR_SKIP);
 
         if ($gunakanTataLetak) {

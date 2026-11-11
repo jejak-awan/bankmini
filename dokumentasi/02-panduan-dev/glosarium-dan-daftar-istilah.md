@@ -111,3 +111,4 @@ Dokumen ini merupakan **kamus referensi istilah lengkap** bagi siswa **Rekayasa 
 | **Repository, Commit, Branch, Remote** | **Repository** adalah ruang penyimpanan projek Git; **Commit** adalah titik simpan riwayat perubahan kode; **Branch (`main`)** adalah jalur pengembangan; **Remote (`origin`)** adalah alamat repositori di server GitHub. |
 | **`.gitignore`** | File konfigurasi yang memberi tahu Git daftar file/folder yang tidak boleh ikut diunggah ke GitHub (seperti file `.env`, kredensial lokal, log runtime, dan file sementara OS). |
 | **Entry Gate & Exit/Handover Gate** | Gerbang kontrol kualitas wajib bagi AI Agent: **Entry Gate** (`gerbang_handover_agen.php`) dijalankan saat memulai sesi agar memahami konteks terakhir; **Exit Gate** (`periksa_kepatuhan_agen.php` + `jalankan_semua_tes.php`) dijalankan sebelum menyelesaikan tugas. |
+

@@ -28,6 +28,9 @@ Selamat datang di dokumentasi teknis pengembangan **Bank Mini (PHP Native)**. Do
    - Perbandingan SemVer vs CalVer untuk siswa RPL
    - Aturan *Single Source of Truth* file `VERSION`, `CHANGELOG.md`, `LICENSE` (MIT), dan cara menggunakan skrip *bump version* (`naikkan_versi.php`)
 8. [**Glosarium & Daftar Istilah Teknis, Kamus Data, dan Fundamental RPL (`glosarium-dan-daftar-istilah.md`)**](./glosarium-dan-daftar-istilah.md)
+   - Penjelasan kamus data lengkap tabel & kolom Bank Mini serta definisi konsep fundamental RPL (`MVC`, `ACID`, `Row Lock`, `Immutable Ledger`, `CSRF`, `PRG`, `XSS`, `SemVer`, dll.)
+9. [**Standar Frontend & UI/UX (`standar-frontend-ui-ux.md`)**](./standar-frontend-ui-ux.md)
+   - Arsitektur **Bootstrap 5 Offline**, **Bootstrap Icons**, **Vanilla JS**, atribut UX perbankan (`data-pratinjau-rupiah`, `data-cari-select`, `data-target-info-saldo`, modal konfirmasi), angka tabular, dan aturan `@media print`
    - Penjelasan lengkap istilah fundamental RPL & arsitektur (`SoT`, `SoC`, `MVC-Lite`, `PSR-4`, `PSR-12`, `Singleton`)
    - Penjelasan istilah basis data & kamus data (`InnoDB`, `PK`, `FK`, `Self-Referencing FK`, `DECIMAL(15,2)`, `1NF-3NF`, `DFD`, `ERD`)
    - Penjelasan istilah transaksi keuangan (`ACID`, `Row Locking`, `Race Condition`, `Deadlock`, `Immutable Ledger`, `KREDIT/DEBIT`, `Saldo Efektif`, `Reversal`), keamanan web (`SQLi`, `XSS`, `CSRF`, `PRG`, `Session Fixation`, `RBAC`), serta QA, Versioning, dan Git

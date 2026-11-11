@@ -6,6 +6,13 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.2.0] - 2026-11-11
+
+### Diperbarui (Changed)
+- Upgrade Frontend dan UI/UX Bootstrap 5 Offline, Pratinjau Rupiah Live, Modal Konfirmasi Transaksi, dan Tata Letak Siap Cetak
+
+---
+
 ## [1.1.1] - 2026-11-11
 
 ### Diperbarui (Changed)

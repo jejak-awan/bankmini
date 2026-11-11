@@ -12,6 +12,7 @@ Folder ini menyimpan seluruh keputusan arsitektur penting dalam pengembangan **B
 | [ADR-004](./ADR-004-konvensi-penamaan-bahasa-indonesia.md) | Konvensi Penamaan, Struktur Folder, Tabel, & Anotasi dalam Bahasa Indonesia | **Disetujui (Accepted)** | 2026-11-11 |
 | [ADR-005](./ADR-005-standar-qa-dan-skrip-penjaga-konsistensi.md) | Standar Pengujian QA & Skrip Otomatis Penjaga Konsistensi Aturan Agen | **Disetujui (Accepted)** | 2026-11-11 |
 | [ADR-006](./ADR-006-manajemen-versi-changelog-dan-lisensi.md) | Standar Manajemen Versi (SemVer + Tanggal), Changelog, Bump Version, & Lisensi MIT | **Disetujui (Accepted)** | 2026-11-11 |
+| [ADR-007](./ADR-007-arsitektur-frontend-dan-standar-ui-ux.md) | Arsitektur Frontend & Standar UI/UX (Bootstrap 5 Offline + Vanilla JS) | **Disetujui (Accepted)** | 2026-11-11 |
 
 ## Cara Menambahkan ADR Baru
-Salin template dari [`../05-template-dokumentasi/template-adr.md`](../05-template-dokumentasi/template-adr.md), beri nomor urut berikutnya (`ADR-007-...`), dan daftarkan pada tabel indeks di atas.
+Salin template dari [`../05-template-dokumentasi/template-adr.md`](../05-template-dokumentasi/template-adr.md), beri nomor urut berikutnya (`ADR-008-...`), dan daftarkan pada tabel indeks di atas.

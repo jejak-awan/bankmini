@@ -21,3 +21,4 @@ Menambahkan dokumen **Glosarium & Daftar Istilah** yang menjelaskan seluruh isti
 - [x] Skrip `periksa_kepatuhan_agen.php` memverifikasi sinkronisasi `VERSION` (`1.1.1`), `CHANGELOG.md`, dan seluruh dokumen dengan **0 Pelanggaran**.
 - [x] Suite QA `jalankan_semua_tes.php` lulus 14/14 skenario.
 - [x] Skrip `gerbang_handover_agen.php` lulus verifikasi.
+

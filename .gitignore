@@ -30,8 +30,9 @@ $RECYCLE.BIN/
 *.swo
 *~
 
-# 5. Paket Pihak Ketiga & Artefak Sementara
-vendor/
+# 5. Paket Pihak Ketiga & Artefak Sementara (kecuali aset UI offline di public/aset/vendor/)
+/vendor/
+!public/aset/vendor/
 node_modules/
 *.log
 *.tmp

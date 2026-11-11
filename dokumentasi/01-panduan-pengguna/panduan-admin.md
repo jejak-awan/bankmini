@@ -17,13 +17,14 @@ Peran **Administrator (`admin`)** dan **Supervisor (`supervisor`)** bertanggung 
 
 ### 2.2 Eksekusi Jurnal Koreksi / Reversal (`/transaksi/koreksi`)
 Sesuai aturan **Immutable Ledger (*Append-Only*)**, transaksi yang salah diinput oleh Teller tidak boleh dihapus dari database, melainkan dibalik menggunakan **Jurnal Koreksi**:
-1. Masuk menggunakan akun berperan `admin` atau `supervisor`.
+1. Masuk menggunakan akun berperan `admin` atau `supervisor` (menu **Jurnal Koreksi** pada bilah sisi kiri hanya muncul untuk kedua peran ini).
 2. Buka menu **Jurnal Koreksi** (`/transaksi/koreksi`).
-3. Pilih **Kode Referensi Transaksi** yang akan dikoreksi dari daftar.
+3. Gunakan kotak pencarian di atas dropdown untuk mencari **Kode Referensi Transaksi**, nomor rekening, atau nama nasabah yang akan dikoreksi.
 4. Isi **Alasan Koreksi** secara jelas (wajib untuk pencatatan `log_audit`).
-5. Klik **Proses Jurnal Koreksi**. Sistem akan otomatis membuat mutasi pembalik (`KOREKSI`) dan mengembalikan saldo rekening secara atomik.
+5. Klik **Proses Jurnal Koreksi** dan konfirmasikan pada **Modal Konfirmasi**. Sistem akan otomatis membuat mutasi pembalik (`KOREKSI`) dan mengembalikan saldo rekening secara atomik.
 
-### 2.3 Filter Rentang Tanggal & Cetak Laporan Mutasi (`/laporan/mutasi`)
+### 2.3 Filter Rentang Tanggal, Pencarian Cepat, & Cetak Laporan Mutasi (`/laporan/mutasi`)
 1. Buka menu **Laporan Mutasi** (`/laporan/mutasi`).
 2. Pilih **Tanggal Mulai** dan **Tanggal Akhir**, lalu klik **Tampilkan Mutasi**.
-3. Klik tombol **Cetak Laporan** untuk mencetak atau menyimpan buku besar mutasi ke PDF.
+3. Gunakan kotak pencarian cepat di pojok kanan tabel untuk menyaring kode referensi, nama nasabah, atau keterangan secara langsung.
+4. Klik tombol **Cetak Laporan** untuk mencetak atau menyimpan buku besar mutasi ke PDF; bilah navigasi, form filter, dan tombol akan otomatis disembunyikan dan digantikan kop cetak resmi.

@@ -1,9 +1,9 @@
 # Status Handover & Konteks Aktif Agen (SSOT Lintas Sesi)
 
 - **Pembaruan Terakhir**: 2026-11-11
-- **Versi Aplikasi Saat Ini**: `1.1.1` (SoT di `VERSION` & `CHANGELOG.md`)
-- **Work Log Terakhir**: [`2026-11-11-glosarium-dan-daftar-istilah-rpl.md`](../04-work-log/2026-11-11-glosarium-dan-daftar-istilah-rpl.md)
-- **Fase Projek Saat Ini**: Fase 1 & 2 Selesai (v1.1.1) — Aplikasi `bankmini` + Bahan Belajar RPL Lengkap (`@konsep_rpl`, DFD, ERD, Kamus Data, Glosarium Istilah) + Manajemen Versi & Suite QA
+- **Versi Aplikasi Saat Ini**: `1.2.0` (SoT di `VERSION` & `CHANGELOG.md`)
+- **Work Log Terakhir**: [`2026-11-11-upgrade-frontend-bootstrap5-ui-ux.md`](../04-work-log/2026-11-11-upgrade-frontend-bootstrap5-ui-ux.md)
+- **Fase Projek Saat Ini**: Fase 1, 2, & 3 Selesai (v1.2.0) — Aplikasi `bankmini` + UI/UX Bootstrap 5 Offline & Vanilla JS + Bahan Belajar RPL Lengkap (`@konsep_rpl`, DFD, ERD, Kamus Data, Glosarium, Standar UI/UX) + Manajemen Versi & Suite QA
 - **Status Kepatuhan & QA**: LULUS 100% (0 Pelanggaran, 14 Skenario QA Lulus)
 
 ---
@@ -17,17 +17,18 @@
 ---
 
 ## 2. Komponen yang Sudah Selesai & Terverifikasi
-- [x] **Pondasi Dokumentasi, 6 ADR, & Bahan Belajar RPL** (`dfd-dan-alur-sistem.md`, `skema-database.md`, `manajemen-versi-lisensi-dan-changelog.md`, `glosarium-dan-daftar-istilah.md`)
-- [x] **Manajemen Versi & Lisensi** (`VERSION` = `1.1.1`, `CHANGELOG.md`, `LICENSE` MIT, `naikkan_versi.php`)
+- [x] **Pondasi Dokumentasi, 7 ADR, & Bahan Belajar RPL** (`dfd-dan-alur-sistem.md`, `skema-database.md`, `manajemen-versi-lisensi-dan-changelog.md`, `glosarium-dan-daftar-istilah.md`, `standar-frontend-ui-ux.md`)
+- [x] **Manajemen Versi & Lisensi** (`VERSION` = `1.2.0`, `CHANGELOG.md`, `LICENSE` MIT, `naikkan_versi.php`)
 - [x] **Skrip Pemeriksa Kepatuhan & Gate Handover** (`06-aturan-agen/skrip/periksa_kepatuhan_agen.php`, `gerbang_handover_agen.php`, `periksa-konsistensi.ps1`)
 - [x] **Skema, Seeder, & Pemasang Database MySQL InnoDB Rupiah IDR** (`basis_data/skema.sql`, `basis_data/data_awal.sql`, `basis_data/pasang_basis_data.php` — sudah terpasang aktif di `bankmini_db`)
 - [x] **Seluruh Kode Inti, Model, Layanan, Pengendali, & Tampilan** lengkap dengan komentar edukasi `@konsep_rpl` untuk siswa RPL
+- [x] **Frontend & UI/UX Perbankan Bootstrap 5.3.3 Offline + Bootstrap Icons + Vanilla JS** (`public/aset/vendor/`, `gaya.css`, `aplikasi.js`, dan seluruh 13 file view di `aplikasi/Tampilan/`)
 - [x] **Suite Pengujian Otomatis QA (`pengujian/`)**: 14 skenario lulus 100%
 
 ---
 
 ## 3. Tugas Aktif / Sedang Dikerjakan
-- [ ] Tidak ada tugas yang menggantung (seluruh *deliverable* v1.1.1 selesai 100%).
+- [ ] Tidak ada tugas yang menggantung (seluruh *deliverable* v1.2.0 selesai 100%).
 
 ---
 
