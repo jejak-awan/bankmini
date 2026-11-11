@@ -58,3 +58,4 @@ C:\xampp\php\php.exe C:\xampp\htdocs\www\bankmini\dokumentasi\06-aturan-agen\skr
 Projek ini dilengkapi file [`LICENSE`](../../LICENSE) di direktori utama menggunakan **Lisensi MIT (MIT License)**:
 - Merupakan lisensi perangkat lunak bebas (*permissive open-source license*) yang paling banyak digunakan di dunia pendidikan dan industri.
 - Mengizinkan siswa RPL dan pengembang untuk mempelajari, memodifikasi, dan mengembangkan ulang kode selama tetap mencantumkan atribusi hak cipta asli.
+

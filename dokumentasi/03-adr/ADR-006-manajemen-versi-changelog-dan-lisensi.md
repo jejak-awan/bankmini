@@ -24,3 +24,4 @@ Sebagai projek standar rekayasa perangkat lunak sekaligus bahan ajar bagi siswa 
 ## 3. Konsekuensi
 - **Positif**: Siswa RPL dan pengembang dapat melacak evolusi fitur secara tertib, tidak ada perbedaan nomor versi antar file, dan repositori GitHub memenuhi standar projek *open-source* profesional.
 - **Negatif**: Setiap kenaikan versi fitur baru harus dijalankan melalui `naikkan_versi.php` atau menyinkronkan `VERSION` dan `CHANGELOG.md`.
+

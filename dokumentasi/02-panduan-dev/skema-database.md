@@ -2,6 +2,9 @@
 
 Dokumen ini merupakan referensi utama sekaligus **bahan ajar Rekayasa Perangkat Lunak (RPL)** untuk perancangan basis data relasional pada **Sistem Informasi Bank Mini**. Seluruh tabel dan kolom menggunakan **Bahasa Indonesia** (`snake_case`), mesin penyimpanan **InnoDB**, set karakter `utf8mb4_unicode_ci`, dan mata uang tunggal **Rupiah (`IDR`)** dengan tipe `DECIMAL(15,2)`.
 
+> [!TIP]
+> Untuk memahami definisi lengkap setiap istilah database dan kamus data (`PK`, `FK`, `Self-Referencing FK`, `UNSIGNED`, `DECIMAL(15,2)`, `ENUM`, `1NF-3NF`, `Cached Balance`, `ACID`), lihat [**Glosarium & Daftar Istilah Teknis (`glosarium-dan-daftar-istilah.md`)**](./glosarium-dan-daftar-istilah.md).
+
 ---
 
 ## 1. Arsitektur Mesin Penyimpanan MySQL InnoDB & Prinsip ACID (Konsep RPL)

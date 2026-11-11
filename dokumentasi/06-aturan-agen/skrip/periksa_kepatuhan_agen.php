@@ -80,6 +80,7 @@ final class PemeriksaKepatuhanAgen
             '02-panduan-dev/skema-database.md',
             '02-panduan-dev/standar-pengujian-qa.md',
             '02-panduan-dev/manajemen-versi-lisensi-dan-changelog.md',
+            '02-panduan-dev/glosarium-dan-daftar-istilah.md',
             '03-adr/README.md',
             '03-adr/ADR-001-php-native-mvc-lite.md',
             '03-adr/ADR-002-integritas-transaksi-keuangan.md',

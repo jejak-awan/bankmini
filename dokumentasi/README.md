@@ -4,7 +4,8 @@ Selamat datang di repositori dokumentasi resmi **Sistem Informasi Bank Mini**. D
 
 ## Lokasi Projek
 - **Source Code Aplikasi**: `C:\xampp\htdocs\www\bankmini`
-- **Pusat Dokumentasi**: `C:\xampp\htdocs\www\dokumentasi`
+- **Pusat Dokumentasi**: `C:\xampp\htdocs\www\bankmini\dokumentasi`
+- **Glosarium & Istilah RPL**: [`02-panduan-dev/glosarium-dan-daftar-istilah.md`](./02-panduan-dev/glosarium-dan-daftar-istilah.md)
 
 ---
 

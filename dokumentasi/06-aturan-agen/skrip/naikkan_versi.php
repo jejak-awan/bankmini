@@ -121,3 +121,4 @@ if (PHP_SAPI === 'cli' && realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === __FILE
     $penaik = new PenaikVersiAplikasi($akarProjek);
     exit($penaik->jalankanKenaikan($argumenJenis, $argumenPesan));
 }
+

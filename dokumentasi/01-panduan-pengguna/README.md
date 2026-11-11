@@ -23,3 +23,8 @@ Folder ini berisi dokumentasi operasional penggunaan aplikasi **Bank Mini** berd
    - Cek informasi saldo real-time
    - Riwayat mutasi rekening & unduh e-Statement
 
+---
+
+## Kamus Istilah Perbankan & Sistem
+Bingung dengan istilah seperti **Saldo Efektif**, **Saldo Mengendap Minimum**, **Kredit vs Debit**, atau **Jurnal Koreksi (Reversal)**? Silakan buka [**Glosarium & Daftar Istilah Teknis (`glosarium-dan-daftar-istilah.md`)**](../02-panduan-dev/glosarium-dan-daftar-istilah.md).
+

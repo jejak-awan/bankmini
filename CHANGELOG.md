@@ -6,6 +6,13 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.1.1] - 2026-11-11
+
+### Diperbarui (Changed)
+- Penambahan Glosarium & Daftar Istilah Teknis, Kamus Data, dan Fundamental RPL (glosarium-dan-daftar-istilah.md)
+
+---
+
 ## [1.1.0] - 2026-11-11
 
 ### Ditambahkan (Added)
@@ -37,3 +44,4 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 - Skema database MySQL InnoDB (`skema.sql`), seeder (`data_awal.sql`), dan installer CLI (`pasang_basis_data.php`) dengan mata uang tunggal **Rupiah (`IDR`)** `DECIMAL(15,2)`.
 - Suite pengujian otomatis Quality Assurance (`pengujian/`) dengan 14 skenario Unit, Integrasi ACID, dan Keamanan.
 - Skrip penjaga konsistensi (`periksa_kepatuhan_agen.php`) dan *Gate Handover* agen baru (`gerbang_handover_agen.php`).
+
