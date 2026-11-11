@@ -30,12 +30,13 @@ Selamat datang di dokumentasi teknis pengembangan **Bank Mini (PHP Native)**. Do
 8. [**Glosarium & Daftar Istilah Teknis, Kamus Data, dan Fundamental RPL (`glosarium-dan-daftar-istilah.md`)**](./glosarium-dan-daftar-istilah.md)
    - Penjelasan kamus data lengkap tabel & kolom Bank Mini serta definisi konsep fundamental RPL (`MVC`, `ACID`, `Row Lock`, `Immutable Ledger`, `CSRF`, `PRG`, `XSS`, `SemVer`, dll.)
 9. [**Standar Frontend & UI/UX (`standar-frontend-ui-ux.md`)**](./standar-frontend-ui-ux.md)
-   - Arsitektur **Bootstrap 5 Offline**, **Bootstrap Icons**, **Vanilla JS**, atribut UX perbankan (`data-pratinjau-rupiah`, `data-cari-select`, `data-target-info-saldo`, modal konfirmasi), angka tabular, dan aturan `@media print`
-10. [**Alur Belajar 5 Modul, Bedah Kode Hulu-ke-Hilir, & Modul Praktikum Siswa RPL (`alur-belajar-dan-modul-praktikum-rpl.md`)**](./alur-belajar-dan-modul-praktikum-rpl.md)
-    - Urutan belajar bertahap 5 modul untuk siswa SMK RPL dari hari pertama
-    - Bedah alur kode *End-to-End* transaksi Setor Tunai Rp 50.000 baris demi baris
-    - Resep 6 langkah menambah fitur baru + 5 tantangan latihan praktikum siswa
-11. [**Panduan CI/CD Lokal Berbasis Docker & Native (`panduan-ci-cd-lokal-docker.md`)**](./panduan-ci-cd-lokal-docker.md)
+   - Arsitektur **Bootstrap 5 Offline**, Design System Berlapis (`token-desain.css`, `komponen-ui.css`), komponen `komponenUi()`, tata letak multi-shell (`publik`, `dasbor`, `cetak`), & kepatuhan CSP ketat
+10. [**Rundown Belajar 8 Pertemuan, Bedah Kode Hulu-ke-Hilir, & Modul Praktikum Siswa RPL (`alur-belajar-dan-modul-praktikum-rpl.md`)**](./alur-belajar-dan-modul-praktikum-rpl.md)
+    - Kurikulum rundown belajar terstruktur 8 pertemuan SMK RPL (`v1.8.1+`) lengkap dengan file bacaan wajib dan *checkpoint* pemahaman
+    - Bedah alur kode *End-to-End* transaksi Setor Tunai Rp 50.000 baris demi baris & resep 6 langkah menambah fitur baru
+11. [**Katalog 12 Tugas Pengembangan Modul & Fitur RPL (`katalog-tugas-pengembangan-fitur-rpl.md`)**](./katalog-tugas-pengembangan-fitur-rpl.md)
+    - Backlog 12 tugas praktikum & proyek akhir UKK (`TUGAS-01` s.d. `TUGAS-12`) mencakup filter nasabah, cetak struk, siklus rekening ACID, ekspor/impor PDF/Excel/Word, audit log, portal mandiri siswa *anti-IDOR*, & pengujian E2E lengkap dengan rubrik penilaian
+12. [**Panduan CI/CD Lokal Berbasis Docker & Native (`panduan-ci-cd-lokal-docker.md`)**](./panduan-ci-cd-lokal-docker.md)
     - Arsitektur *Dual-Engine Local CI/CD* (`docker-compose.ci.yml` & Native XAMPP) tanpa memakai kuota menit GitHub Runner
     - Cara menjalankan aplikasi di Docker (`docker compose up -d`) dan mengeksekusi `jalankan-ci-lokal.ps1`
 

@@ -6,6 +6,14 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.8.2] - 2026-11-12
+
+### Ditambahkan & Diperbarui (Added & Changed)
+- **Rundown Belajar Terstruktur 8 Pertemuan (`alur-belajar-dan-modul-praktikum-rpl.md`)**: Pemutakhiran kurikulum belajar siswa SMK RPL mengikuti arsitektur terbaru `v1.8.1+` (Portal `/`, Multi-Shell Tata Letak, Design System, `PencatatLog`, `PenanganGalat`, `PembatasLaju`, SARGable SQL, `LayananDokumenKantor`, PHPStan Level 8, & Playwright), lengkap dengan target kompetensi, daftar bacaan berurutan, dan *checkpoint* pemahaman tiap pertemuan.
+- **Katalog 12 Tugas Pengembangan Modul & Fitur + Rubrik UKK (`katalog-tugas-pengembangan-fitur-rpl.md`)**: Backlog implementasi fitur terstruktur dalam 4 tingkatan (`TUGAS-01` s.d. `TUGAS-12`: Filter Nasabah, Kartu `KREDIT`/`DEBIT`, Cetak Struk, CRUD Nasabah/Produk, Siklus Rekening ACID, Ekspor/Impor PDF/Excel/Word, Halaman Log Audit, Proyek Akhir Portal Mandiri Siswa *Anti-IDOR*, & E2E Playwright) beserta rubrik penilaian skala 100.
+
+---
+
 ## [1.8.1] - 2026-11-11
 
 ### Diperbarui (Changed)

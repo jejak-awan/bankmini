@@ -3,9 +3,9 @@
 > **PERINGATAN UNTUK AGEN BARU**: Bacalah dokumen ini sebagai kebenaran kondisi projek saat ini (*Current State*). Jangan menebak atau mengulang fitur yang sudah ditandai selesai tanpa memeriksa implementasinya.
 
 - **Terakhir Diperbarui**: 2026-11-12
-- **Versi Projek Saat Ini**: `1.8.1`
-- **Work Log Terakhir**: [`2026-11-12-fondasi-keamanan-performa-logging-dan-galat.md`](../04-work-log/2026-11-12-fondasi-keamanan-performa-logging-dan-galat.md)
-- **Fase Projek Saat Ini**: **Fase 10 — Fondasi Keamanan Berlapis, Performa Kueri/Aset, Logging Terpusat, Halaman Galat, & Default Portal `/` (Selesai)**
+- **Versi Projek Saat Ini**: `1.8.2`
+- **Work Log Terakhir**: [`2026-11-12-rundown-belajar-dan-katalog-tugas-rpl.md`](../04-work-log/2026-11-12-rundown-belajar-dan-katalog-tugas-rpl.md)
+- **Fase Projek Saat Ini**: **Fase 11 — Kurikulum Rundown Belajar 8 Pertemuan & Katalog 12 Tugas Pengembangan Fitur RPL (Selesai)**
 
 ---
 
@@ -44,7 +44,7 @@
 ---
 
 ## 3. Tugas Aktif / Sedang Dikerjakan
-- Tidak ada tugas tertunda pada Fase 10 (`v1.8.0`). Seluruh fondasi keamanan berlapis, performa kueri/aset, logging harian, halaman galat terpusat, dan health check telah terverifikasi lulus 100% QA & E2E.
+- Tidak ada tugas tertunda pada Fase 11 (`v1.8.2`). Rundown belajar 8 pertemuan dan katalog 12 tugas pengembangan fitur/modul untuk siswa SMK RPL (`katalog-tugas-pengembangan-fitur-rpl.md`) telah tersedia dan terindeks di `/dokumentasi`.
 
 ---
 
