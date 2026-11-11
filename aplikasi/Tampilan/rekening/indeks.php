@@ -2,24 +2,17 @@
 /**
  * Tampilan Pembukaan & Daftar Rekening Tabungan Bank Mini.
  * Menggabungkan formulir pembukaan rekening (dengan pencarian cepat nasabah,
- * pratinjau Rupiah live, dan modal konfirmasi transaksi) beserta tabel daftar rekening.
+ * pratinjau Rupiah live, dan modal konfirmasi transaksi) beserta komponen UI bersama.
  */
-$petaStatusRekening = [
-    'AKTIF' => 'text-bg-success',
-    'TUTUP' => 'text-bg-danger',
-    'BEKU' => 'text-bg-warning',
-];
 ?>
 <div class="row g-4">
     <!-- Kolom Formulir Pembukaan Rekening -->
     <div class="col-12 col-lg-5">
         <div class="card kartu-bankmini">
-            <div class="card-header bg-white py-3">
-                <h2 class="h6 mb-0 fw-bold">
-                    <i class="bi bi-wallet2 me-1 text-primary"></i>
-                    Pembukaan Rekening Baru &amp; Setoran Awal
-                </h2>
-            </div>
+            <?= komponenUi('kepala_kartu', [
+                'judul' => 'Pembukaan Rekening Baru & Setoran Awal',
+                'ikon' => 'bi-wallet2',
+            ]) ?>
             <div class="card-body">
                 <form
                     method="POST"
@@ -110,15 +103,11 @@ $petaStatusRekening = [
                     <i class="bi bi-credit-card-2-front-fill me-1 text-primary"></i>
                     Daftar Rekening Tabungan
                 </h2>
-                <div class="input-group input-group-sm" style="max-width: 240px;">
-                    <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari no. rekening / nama..."
-                        data-cari-tabel="tabelRekening"
-                    >
-                </div>
+                <?= komponenUi('pencarian_tabel', [
+                    'idTabel' => 'tabelRekening',
+                    'placeholder' => 'Cari no. rekening / nama...',
+                    'lebarMaksimal' => '240px',
+                ]) ?>
             </div>
             <div class="table-responsive">
                 <table id="tabelRekening" class="table tabel-bankmini table-hover align-middle mb-0">
@@ -135,10 +124,6 @@ $petaStatusRekening = [
                     <tbody>
                         <?php if (!empty($daftarRekening) && is_array($daftarRekening)) : ?>
                             <?php foreach ($daftarRekening as $barisRekening) : ?>
-                                <?php
-                                $statusRekening = strtoupper((string) ($barisRekening['status'] ?? 'AKTIF'));
-                                $kelasStatus = $petaStatusRekening[$statusRekening] ?? 'text-bg-secondary';
-                                ?>
                                 <tr>
                                     <td class="angka-keuangan fw-semibold">
                                         <?= amankanHtml($barisRekening['nomor_rekening'] ?? '') ?>
@@ -152,9 +137,9 @@ $petaStatusRekening = [
                                         <?= amankanHtml(formatRupiah((string) ($barisRekening['saldo_mengendap_minimum'] ?? '0'))) ?>
                                     </td>
                                     <td>
-                                        <span class="badge <?= amankanHtml($kelasStatus) ?>">
-                                            <?= amankanHtml($statusRekening) ?>
-                                        </span>
+                                        <?= komponenUi('lencana_status', [
+                                            'status' => (string) ($barisRekening['status'] ?? 'AKTIF'),
+                                        ]) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

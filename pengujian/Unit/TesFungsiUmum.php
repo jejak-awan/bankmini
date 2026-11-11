@@ -73,4 +73,42 @@ class TesFungsiUmum extends KasusUjiDasar
 
         $this->pastikanBenar($gagalSesuaiHarapan, 'Input non-numerik wajib ditolak dengan InvalidArgumentException.');
     }
+
+    /**
+     * @skenario QA-UNT-005
+     * Memastikan komponenUi() merender komponen Design System dengan escaping XSS dan menolak traversal.
+     *
+     * @return void
+     */
+    public function ujiKomponenUiMerenderDanMenolakPathTraversal(): void
+    {
+        $htmlKartu = komponenUi('kartu_kpi', [
+            'judul' => 'Total Nasabah <script>',
+            'nilai' => '42',
+            'ikon' => 'bi-people-fill',
+            'aksen' => 'biru',
+        ]);
+        $this->pastikanBenar(
+            str_contains($htmlKartu, 'Total Nasabah &lt;script&gt;'),
+            'Properti komponenUi() wajib melewati amankanHtml().'
+        );
+        $this->pastikanBenar(
+            str_contains($htmlKartu, 'kartu-statistik-aksen-biru'),
+            'Komponen kartu_kpi harus menerapkan kelas aksen token desain.'
+        );
+
+        $htmlLencana = komponenUi('lencana_status', ['status' => 'kredit']);
+        $this->pastikanBenar(
+            str_contains($htmlLencana, 'text-bg-success') && str_contains($htmlLencana, 'KREDIT'),
+            'Komponen lencana_status harus memetakan KREDIT ke text-bg-success.'
+        );
+
+        $ditolakSesuaiHarapan = false;
+        try {
+            komponenUi('../konfigurasi/basis_data');
+        } catch (InvalidArgumentException) {
+            $ditolakSesuaiHarapan = true;
+        }
+        $this->pastikanBenar($ditolakSesuaiHarapan, 'Jalur traversal pada komponenUi() wajib ditolak.');
+    }
 }

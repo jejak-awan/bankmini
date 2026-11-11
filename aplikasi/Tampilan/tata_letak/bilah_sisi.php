@@ -134,14 +134,4 @@ $grupMenu = [
     </header>
 
     <div class="p-3 p-md-4 flex-grow-1">
-        <?php if (!empty($pesanKilat) && is_array($pesanKilat)) : ?>
-            <?php
-            $jenisPesan = $pesanKilat['jenis'] ?? 'kesalahan';
-            $kelasAlert = $jenisPesan === 'sukses' ? 'alert-success' : ($jenisPesan === 'peringatan' ? 'alert-warning' : 'alert-danger');
-            $ikonAlert = $jenisPesan === 'sukses' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill';
-            ?>
-            <div class="alert <?= amankanHtml($kelasAlert) ?> alert-dismissible fade show shadow-sm border-0 mb-4 tidak-cetak" role="alert">
-                <i class="bi <?= amankanHtml($ikonAlert) ?> me-2"></i><?= amankanHtml($pesanKilat['pesan'] ?? '') ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
-            </div>
-        <?php endif; ?>
+        <?= komponenUi('pesan_kilat', ['pesanKilat' => $pesanKilat ?? null]) ?>

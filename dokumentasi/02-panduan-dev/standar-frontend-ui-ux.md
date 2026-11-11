@@ -4,14 +4,20 @@ Dokumen ini menjelaskan arsitektur antarmuka (**Frontend**) dan pola interaksi (
 
 ---
 
-## 1. Struktur Aset Frontend (`public/aset/`)
+## 1. Struktur Design System & Aset Frontend (`public/aset/`)
+
+Agar halaman **Publik** (`/portal` & `/masuk`) tetap ringan dan tidak ikut mengunduh gaya maupun skrip **Dasbor Admin/Teller**, CSS dan JavaScript dipisah menjadi **3 lapisan terstandar**:
 
 ```text
 public/aset/
 ├── css/
-│   └── gaya.css                  <- Lapisan tema perbankan, .angka-keuangan, & @media print
+│   ├── token-desain.css          <- [SHARED] Design Tokens (:root warna, radius, bayangan), tipografi, .angka-keuangan
+│   ├── komponen-ui.css           <- [SHARED] .kartu-bankmini, .tombol-bankmini, fokus form, & @media print
+│   ├── publik.css                <- [PUBLIK] Gaya halaman /portal, navbar publik, & .halaman-masuk-bankmini
+│   └── dasbor.css                <- [DASBOR] Sidebar navy, topbar petugas, aksen KPI, .tabel-bankmini
 ├── js/
-│   └── aplikasi.js               <- Vanilla JS (pratinjau Rupiah, filter tabel/select, modal konfirmasi)
+│   ├── inti-ui.js                <- [SHARED] Toggle kata sandi (data-toggle-sandi) & cegah kirim ganda dasar
+│   └── dasbor-interaktif.js      <- [DASBOR] Pratinjau Rupiah, filter select/tabel, info saldo, modal konfirmasi
 └── vendor/                       <- Aset pihak ketiga OFFLINE (tanpa CDN internet)
     ├── bootstrap/
     │   ├── css/bootstrap.min.css
@@ -24,13 +30,28 @@ public/aset/
 
 ---
 
-## 2. Tata Letak Utama (`aplikasi/Tampilan/tata_letak/`)
+## 2. Tata Letak Multi-Shell & Komponen UI Bersama (`aplikasi/Tampilan/`)
 
-| File | Fungsi | Fitur Utama |
+### 2.1 Pemisahan Kerangka Tata Letak (`aplikasi/Tampilan/tata_letak/`)
+[`PengendaliDasar::tampilkanTampilan()`](../../aplikasi/Inti/PengendaliDasar.php) mendukung pemilihan kerangka secara eksplisit (`'dasbor'`, `'publik'`, `'cetak'`, atau `'kosong'`):
+
+| Tata Letak | Berkas | Aset yang Dimuat | Peruntukan |
+| :--- | :--- | :--- | :--- |
+| **`dasbor`** | [`kepala_dasbor.php`](../../aplikasi/Tampilan/tata_letak/kepala_dasbor.php), [`bilah_sisi.php`](../../aplikasi/Tampilan/tata_letak/bilah_sisi.php), [`kaki_dasbor.php`](../../aplikasi/Tampilan/tata_letak/kaki_dasbor.php) | `token-desain.css` + `komponen-ui.css` + `dasbor.css`, `inti-ui.js` + `dasbor-interaktif.js`, Modal `#modalKonfirmasiTransaksi` | Seluruh modul operasional Admin, Supervisor, Teller, & Dokumentasi. |
+| **`publik`** | [`kepala_publik.php`](../../aplikasi/Tampilan/tata_letak/kepala_publik.php), [`kaki_publik.php`](../../aplikasi/Tampilan/tata_letak/kaki_publik.php) | `token-desain.css` + `komponen-ui.css` + `publik.css`, `inti-ui.js` (0 byte aset dasbor!) | Halaman `/portal` & `/masuk`. |
+| **`cetak`** | [`kepala_cetak.php`](../../aplikasi/Tampilan/tata_letak/kepala_cetak.php), [`kaki_cetak.php`](../../aplikasi/Tampilan/tata_letak/kaki_cetak.php) | `token-desain.css` + `komponen-ui.css` (tanpa navbar/JS) | Tampilan siap cetak/PDF mandiri. |
+
+### 2.2 Slicing Komponen UI Terstandar (`aplikasi/Tampilan/komponen/`)
+Seluruh elemen UI yang dipakai ulang dirender melalui fungsi pembantu terisolasi [`komponenUi()`](../../aplikasi/Pembantu/fungsi_umum.php) agar konsistensi Design System terjaga di seluruh halaman:
+
+| Komponen | Fungsi Utama | Contoh Pemakaian |
 | :--- | :--- | :--- |
-| [`kepala.php`](../../aplikasi/Tampilan/tata_letak/kepala.php) | Bagian `<head>` & Navbar Mobile | Memuat `bootstrap.min.css`, `bootstrap-icons.min.css`, `gaya.css`, dan tombol *hamburger* offcanvas di layar kecil (`d-lg-none`). |
-| [`bilah_sisi.php`](../../aplikasi/Tampilan/tata_letak/bilah_sisi.php) | Navigasi Samping Responsif & Topbar | Menggunakan struktur resmi `.offcanvas-lg` -> `.offcanvas-body` dengan latar navy gelap kontras tinggi (`!important` menimpa default transparent Bootstrap), topbar putih bersih `.bilah-atas-bankmini`, serta kontrol menu berdasarkan `$peranPenggunaAktif`. |
-| [`kaki.php`](../../aplikasi/Tampilan/tata_letak/kaki.php) | Footer, Modal Global, & Skrip | Menyediakan modal konfirmasi global `#modalKonfirmasiTransaksi`, menampilkan `$versiAplikasi`, serta memuat `bootstrap.bundle.min.js` dan `aplikasi.js`. |
+| `pesan_kilat` | Alert notifikasi sukses/peringatan/kesalahan seragam | `komponenUi('pesan_kilat', ['pesanKilat' => $pesanKilat])` |
+| `kartu_kpi` | Kartu statistik KPI dengan aksen `biru`, `toska`, atau `hijau` | `komponenUi('kartu_kpi', ['judul' => ..., 'nilai' => ..., 'ikon' => ..., 'aksen' => 'biru'])` |
+| `lencana_status` | Badge semantik `KREDIT/AKTIF`, `DEBIT/TUTUP`, `KOREKSI/BEKU` | `komponenUi('lencana_status', ['status' => 'KREDIT'])` |
+| `kepala_kartu` | Header kartu standar dengan ikon & judul sejajar | `komponenUi('kepala_kartu', ['judul' => ..., 'ikon' => ...])` |
+| `pencarian_tabel` | Bilah filter pencarian instan terhubung dengan `data-cari-tabel` | `komponenUi('pencarian_tabel', ['idTabel' => 'tabelNasabah', 'placeholder' => ...])` |
+| `kop_surat` | Kop resmi Bank Mini Sekolah khusus saat dicetak (`.hanya-cetak`) | `komponenUi('kop_surat', ['judulDokumen' => ..., 'subjudulDokumen' => ...])` |
 
 ---
 

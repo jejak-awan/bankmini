@@ -1,0 +1,37 @@
+/**
+ * Gaya Antarmuka Portal Publik & Halaman Masuk - Sistem Informasi Bank Mini
+ * Lapisan 3a (Public Scope): Hanya dimuat pada tata letak 'publik' (/portal & /masuk)
+ * agar pengguna publik tidak ikut mengunduh CSS sidebar maupun dasbor admin/teller.
+ */
+
+/* Latar & Kartu Halaman Masuk Petugas */
+body.halaman-masuk-bankmini {
+    background: radial-gradient(circle at top right, var(--bm-biru-utama) 0%, var(--bm-navy) 55%, #071930 100%);
+}
+
+/* Navbar Portal Publik */
+.navbar-publik-bankmini {
+    background-color: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--bm-garis);
+    backdrop-filter: blur(8px);
+}
+
+/* Bagian Hero Portal Publik Bank Mini */
+.hero-publik-bankmini {
+    background: linear-gradient(135deg, var(--bm-navy) 0%, var(--bm-navy-mid) 55%, var(--bm-biru-utama) 100%);
+    color: #ffffff;
+    border-radius: var(--bm-radius-xl);
+    box-shadow: var(--bm-bayangan-sedang);
+}
+
+.kartu-produk-publik {
+    border: 1px solid var(--bm-garis);
+    border-radius: var(--bm-radius-lg);
+    background-color: var(--bm-permukaan);
+    transition: transform var(--bm-transisi-cepat), box-shadow var(--bm-transisi-cepat);
+}
+
+.kartu-produk-publik:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--bm-bayangan-sedang);
+}

@@ -1,0 +1,90 @@
+/**
+ * Komponen UI Bersama (Shared UI Layer) - Sistem Informasi Bank Mini
+ * Lapisan 2 (Shared): Gaya standar untuk kartu, tombol utama, merek ikon, input fokus,
+ * serta aturan dasar mode cetak (@media print) agar konsisten di seluruh halaman.
+ */
+
+/* Ikon Merek Bank Mini */
+.bilah-sisi-merek-ikon,
+.merek-ikon-bankmini {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--bm-radius-md);
+    background: linear-gradient(135deg, var(--bm-biru-cerah) 0%, var(--bm-langit) 100%);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    flex-shrink: 0;
+}
+
+/* Kartu Standar Bank Mini */
+.kartu-bankmini {
+    background-color: var(--bm-permukaan);
+    border: 1px solid var(--bm-garis);
+    border-radius: var(--bm-radius-lg);
+    box-shadow: var(--bm-bayangan-kartu);
+}
+
+.kartu-bankmini .card-header {
+    border-bottom: 1px solid var(--bm-garis-halus);
+    border-top-left-radius: var(--bm-radius-lg);
+    border-top-right-radius: var(--bm-radius-lg);
+}
+
+/* Fokus Formulir & Tombol Utama */
+.form-control:focus,
+.form-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 0.22rem rgba(37, 99, 235, 0.16);
+}
+
+.tombol-bankmini {
+    background: linear-gradient(135deg, var(--bm-biru-cerah) 0%, var(--bm-biru-utama) 100%);
+    border-color: var(--bm-biru-utama);
+    color: #ffffff;
+    transition: background var(--bm-transisi-cepat), transform var(--bm-transisi-cepat);
+}
+
+.tombol-bankmini:hover,
+.tombol-bankmini:focus {
+    background: linear-gradient(135deg, var(--bm-biru-utama) 0%, var(--bm-biru-gelap) 100%);
+    border-color: var(--bm-biru-gelap);
+    color: #ffffff;
+}
+
+/* Elemen Khusus Cetak (@media print) */
+.hanya-cetak {
+    display: none;
+}
+
+@media print {
+    body {
+        background-color: #ffffff !important;
+    }
+
+    .tidak-cetak,
+    .navbar,
+    .btn,
+    form {
+        display: none !important;
+    }
+
+    .hanya-cetak {
+        display: block !important;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #000000;
+        padding-bottom: 0.5rem;
+    }
+
+    .kartu-bankmini {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .table {
+        font-size: 11px;
+    }
+}

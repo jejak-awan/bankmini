@@ -2,62 +2,36 @@
 /**
  * Tampilan Dasbor Utama Bank Mini (PHP Native + Bootstrap 5 Offline).
  * Menampilkan ringkasan KPI (Total Nasabah, Rekening, Total Dana Tabungan),
- * tombol aksi cepat teller, dan 10 mutasi transaksi terbaru dengan angka tabular.
+ * tombol aksi cepat teller, dan 10 mutasi transaksi terbaru menggunakan komponen UI bersama.
  */
-$petaLencanaMutasi = [
-    'KREDIT' => 'text-bg-success',
-    'DEBIT' => 'text-bg-danger',
-    'KOREKSI' => 'text-bg-warning',
-];
 ?>
 <!-- Ringkasan Statistik Utama (KPI) -->
 <div class="row g-3 mb-4">
     <div class="col-12 col-md-4">
-        <div class="card kartu-bankmini kartu-statistik-aksen-biru h-100">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small fw-semibold text-uppercase">Total Nasabah</div>
-                    <div class="fs-3 fw-bold mt-1 angka-keuangan">
-                        <?= amankanHtml($jumlahNasabah ?? 0) ?>
-                    </div>
-                </div>
-                <div class="kartu-statistik-ikon bg-primary-subtle text-primary">
-                    <i class="bi bi-people-fill"></i>
-                </div>
-            </div>
-        </div>
+        <?= komponenUi('kartu_kpi', [
+            'judul' => 'Total Nasabah',
+            'nilai' => $jumlahNasabah ?? 0,
+            'ikon' => 'bi-people-fill',
+            'aksen' => 'biru',
+        ]) ?>
     </div>
 
     <div class="col-12 col-md-4">
-        <div class="card kartu-bankmini kartu-statistik-aksen-toska h-100">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small fw-semibold text-uppercase">Total Rekening Aktif</div>
-                    <div class="fs-3 fw-bold mt-1 angka-keuangan">
-                        <?= amankanHtml($jumlahRekening ?? 0) ?>
-                    </div>
-                </div>
-                <div class="kartu-statistik-ikon bg-info-subtle text-info">
-                    <i class="bi bi-credit-card-2-front-fill"></i>
-                </div>
-            </div>
-        </div>
+        <?= komponenUi('kartu_kpi', [
+            'judul' => 'Total Rekening Aktif',
+            'nilai' => $jumlahRekening ?? 0,
+            'ikon' => 'bi-credit-card-2-front-fill',
+            'aksen' => 'toska',
+        ]) ?>
     </div>
 
     <div class="col-12 col-md-4">
-        <div class="card kartu-bankmini kartu-statistik-aksen-hijau h-100">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div>
-                    <div class="text-muted small fw-semibold text-uppercase">Total Dana Tabungan (IDR)</div>
-                    <div class="fs-4 fw-bold mt-1 text-success angka-keuangan">
-                        <?= amankanHtml(formatRupiah((string) ($totalSaldoRupiah ?? '0.00'))) ?>
-                    </div>
-                </div>
-                <div class="kartu-statistik-ikon bg-success-subtle text-success">
-                    <i class="bi bi-safe-fill"></i>
-                </div>
-            </div>
-        </div>
+        <?= komponenUi('kartu_kpi', [
+            'judul' => 'Total Dana Tabungan (IDR)',
+            'nilai' => formatRupiah((string) ($totalSaldoRupiah ?? '0.00')),
+            'ikon' => 'bi-safe-fill',
+            'aksen' => 'hijau',
+        ]) ?>
     </div>
 </div>
 
@@ -116,8 +90,6 @@ $petaLencanaMutasi = [
                         <?php
                         $jenisTransaksi = (string) ($barisMutasi['jenis_transaksi'] ?? '');
                         $tipeMutasi = (string) ($barisMutasi['tipe_mutasi'] ?? '');
-                        $kunciBadge = $jenisTransaksi === 'KOREKSI' ? 'KOREKSI' : $tipeMutasi;
-                        $kelasBadge = $petaLencanaMutasi[$kunciBadge] ?? 'text-bg-secondary';
                         ?>
                         <tr>
                             <td class="small text-nowrap">
@@ -132,15 +104,15 @@ $petaLencanaMutasi = [
                             <td class="text-nowrap"><?= amankanHtml($barisMutasi['nama_nasabah'] ?? '') ?></td>
                             <td>
                                 <?php if ($jenisTransaksi === 'KOREKSI') : ?>
-                                    <span class="badge text-bg-warning">KOREKSI</span>
+                                    <?= komponenUi('lencana_status', ['status' => 'KOREKSI']) ?>
                                 <?php else : ?>
                                     <span class="small fw-semibold"><?= amankanHtml($jenisTransaksi) ?></span>
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <span class="badge <?= amankanHtml($kelasBadge) ?>">
-                                    <?= amankanHtml($tipeMutasi) ?>
-                                </span>
+                                <?= komponenUi('lencana_status', [
+                                    'status' => $jenisTransaksi === 'KOREKSI' ? 'KOREKSI' : $tipeMutasi,
+                                ]) ?>
                             </td>
                             <td class="angka-keuangan text-end fw-semibold">
                                 <?= amankanHtml(formatRupiah((string) ($barisMutasi['nominal'] ?? '0'))) ?>

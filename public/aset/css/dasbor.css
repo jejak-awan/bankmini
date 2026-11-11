@@ -1,0 +1,148 @@
+/**
+ * Gaya Antarmuka Dasbor Operasional Admin & Teller - Sistem Informasi Bank Mini
+ * Lapisan 3b (Dashboard Scope): Hanya dimuat pada tata letak 'dasbor'.
+ * Berisi tata letak sidebar navy gelap kontras tinggi, topbar, kartu statistik KPI,
+ * serta gaya tabel buku besar perbankan.
+ */
+
+/* Cegah flex overflow saat tabel panjang muncul di layar sedang */
+.konten-utama-bankmini {
+    min-width: 0;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Bilah Sisi Desktop & Offcanvas Mobile:
+   Paksa latar belakang gelap agar tidak tertimpa rule transparent Bootstrap `.offcanvas-lg` */
+.bilah-sisi-bankmini,
+.bilah-sisi-bankmini.offcanvas-lg {
+    background: linear-gradient(180deg, var(--bm-navy) 0%, var(--bm-navy-mid) 100%) !important;
+    color: #f8fafc !important;
+    width: 272px;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 4px 0 24px rgba(11, 37, 69, 0.14);
+}
+
+@media (min-width: 992px) {
+    .bilah-sisi-bankmini.offcanvas-lg {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+    }
+}
+
+.bilah-sisi-grup-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(203, 213, 225, 0.6);
+    padding: 0.65rem 0.85rem 0.25rem;
+}
+
+.bilah-sisi-bankmini .nav-link {
+    color: rgba(226, 232, 240, 0.85);
+    border-radius: 0.625rem;
+    padding: 0.58rem 0.85rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    transition: all var(--bm-transisi-cepat);
+}
+
+.bilah-sisi-bankmini .nav-link i {
+    font-size: 1.05rem;
+    opacity: 0.88;
+}
+
+.bilah-sisi-bankmini .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transform: translateX(2px);
+}
+
+.bilah-sisi-bankmini .nav-link.active {
+    background: linear-gradient(135deg, var(--bm-biru-cerah) 0%, var(--bm-biru-utama) 100%);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.38);
+}
+
+.bilah-sisi-bankmini .nav-link.active i {
+    opacity: 1;
+}
+
+.kartu-profil-petugas {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--bm-radius-md);
+}
+
+/* Topbar Header Konten Dasbor */
+.bilah-atas-bankmini {
+    background-color: var(--bm-permukaan);
+    border-bottom: 1px solid var(--bm-garis);
+}
+
+/* Aksen Kartu Statistik KPI */
+.kartu-statistik-aksen-biru {
+    border-top: 3px solid var(--bm-biru-cerah);
+}
+
+.kartu-statistik-aksen-toska {
+    border-top: 3px solid var(--bm-aksen-toska);
+}
+
+.kartu-statistik-aksen-hijau {
+    border-top: 3px solid #16a34a;
+}
+
+.kartu-statistik-ikon {
+    width: 50px;
+    height: 50px;
+    border-radius: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+/* Tabel Perbankan Rapi */
+.tabel-bankmini thead th {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bm-teks-sekunder);
+    background-color: var(--bm-permukaan-halus);
+    border-bottom: 1px solid var(--bm-garis);
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
+}
+
+.tabel-bankmini tbody td {
+    padding: 0.82rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+@media print {
+    .bilah-sisi-bankmini,
+    .bilah-atas-bankmini {
+        display: none !important;
+    }
+
+    .konten-utama-bankmini {
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: auto !important;
+    }
+}

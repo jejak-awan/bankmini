@@ -6,6 +6,16 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.7.0] - 2026-11-11
+
+### Ditambahkan (Added)
+- **Arsitektur Design System Berlapis (`public/aset/css/` & `public/aset/js/`)**: Memecah CSS & JS menjadi token terpusat ([`token-desain.css`](./public/aset/css/token-desain.css)), komponen bersama ([`komponen-ui.css`](./public/aset/css/komponen-ui.css)), skrip dasar ringan ([`inti-ui.js`](./public/aset/js/inti-ui.js)), serta bundel terpisah **Publik** ([`publik.css`](./public/aset/css/publik.css)) dan **Dasbor** ([`dasbor.css`](./public/aset/css/dasbor.css), [`dasbor-interaktif.js`](./public/aset/js/dasbor-interaktif.js)).
+- **Slicing Komponen UI Bersama (`aplikasi/Tampilan/komponen/` & `komponenUi()`)**: Menambahkan helper terisolasi `komponenUi()` di [`fungsi_umum.php`](./aplikasi/Pembantu/fungsi_umum.php) beserta 6 komponen standar (`kartu_kpi`, `lencana_status`, `pesan_kilat`, `kepala_kartu`, `pencarian_tabel`, `kop_surat`) yang dipakai seragam di `dasbor`, `nasabah`, `rekening`, `laporan`, `masuk`, dan `portal`.
+- **Pemisahan Kerangka Tata Letak Multi-Shell & Portal Publik (`/portal`)**: Memperluas [`PengendaliDasar::tampilkanTampilan()`](./aplikasi/Inti/PengendaliDasar.php) mendukung `'dasbor'`, `'publik'`, dan `'cetak'` serta menambahkan [`PengendaliPublik::portal()`](./aplikasi/Pengendali/PengendaliPublik.php) untuk rute `/portal` tanpa membawa beban UI dasbor admin.
+- **Pengujian Unit & E2E Pemisahan Aset**: Menambahkan `QA-UNT-005` di [`TesFungsiUmum.php`](./pengujian/Unit/TesFungsiUmum.php) dan verifikasi Playwright di [`smoke.spec.js`](./pengujian/e2e/smoke.spec.js) yang memastikan halaman `/portal` & `/masuk` bebas dari aset CSS/JS dasbor admin.
+
+---
+
 ## [1.6.0] - 2026-11-11
 
 ### Ditambahkan (Added)

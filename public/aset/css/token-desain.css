@@ -1,0 +1,57 @@
+/**
+ * Token Desain & Tipografi Terpusat (Design Tokens) - Sistem Informasi Bank Mini
+ * Lapisan 1 (Shared): Dimuat oleh antarmuka Publik, Dasbor, maupun Cetak.
+ * Mengatur palet warna terstandar, spasi, radius sudut, bayangan, & tipografi finansial.
+ */
+
+:root {
+    /* Palet Warna Merek & Permukaan */
+    --bm-navy: #0b2545;
+    --bm-navy-mid: #13315c;
+    --bm-biru-utama: #1d4ed8;
+    --bm-biru-cerah: #2563eb;
+    --bm-biru-gelap: #1e40af;
+    --bm-langit: #38bdf8;
+    --bm-latar: #f4f7fb;
+    --bm-permukaan: #ffffff;
+    --bm-permukaan-halus: #f8fafc;
+    --bm-garis: #e2e8f0;
+    --bm-garis-halus: #eef2f6;
+
+    /* Warna Semantik Teks & Status Keuangan */
+    --bm-teks-utama: #0f172a;
+    --bm-teks-sekunder: #64748b;
+    --bm-aksen-sukses: #15803d;
+    --bm-aksen-bahaya: #b91c1c;
+    --bm-aksen-peringatan: #b45309;
+    --bm-aksen-toska: #0891b2;
+
+    /* Skala Tipografi */
+    --bm-font-utama: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --bm-font-angka: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* Skala Radius & Elevasi Bayangan */
+    --bm-radius-sm: 0.5rem;
+    --bm-radius-md: 0.75rem;
+    --bm-radius-lg: 0.9rem;
+    --bm-radius-xl: 1.15rem;
+    --bm-bayangan-kartu: 0 2px 10px rgba(15, 23, 42, 0.04);
+    --bm-bayangan-sedang: 0 10px 28px rgba(15, 23, 42, 0.08);
+    --bm-transisi-cepat: 0.16s ease;
+}
+
+body {
+    font-family: var(--bm-font-utama);
+    background-color: var(--bm-latar);
+    color: var(--bm-teks-utama);
+    min-height: 100vh;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Tipografi Angka Tabular Wajib untuk Nominal Rupiah & Nomor Rekening */
+.angka-keuangan {
+    font-variant-numeric: tabular-nums;
+    font-family: var(--bm-font-angka);
+    white-space: nowrap;
+}

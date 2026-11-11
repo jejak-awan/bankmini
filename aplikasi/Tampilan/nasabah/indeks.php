@@ -2,23 +2,17 @@
 /**
  * Tampilan Manajemen Data Nasabah Bank Mini.
  * Menyediakan tata letak 2 kolom (Formulir Pendaftaran Nasabah + Tabel Pencarian Cepat)
- * berbasis Bootstrap 5 dengan proteksi CSRF dan anti double-submit.
+ * berbasis komponen UI bersama dengan proteksi CSRF dan anti double-submit.
  */
-$petaStatusBadge = [
-    'AKTIF' => 'text-bg-success',
-    'NONAKTIF' => 'text-bg-secondary',
-];
 ?>
 <div class="row g-4">
     <!-- Kolom Formulir Pendaftaran Nasabah -->
     <div class="col-12 col-lg-4">
         <div class="card kartu-bankmini">
-            <div class="card-header bg-white py-3">
-                <h2 class="h6 mb-0 fw-bold">
-                    <i class="bi bi-person-plus-fill me-1 text-primary"></i>
-                    Tambah Nasabah Baru
-                </h2>
-            </div>
+            <?= komponenUi('kepala_kartu', [
+                'judul' => 'Tambah Nasabah Baru',
+                'ikon' => 'bi-person-plus-fill',
+            ]) ?>
             <div class="card-body">
                 <form method="POST" action="<?= amankanHtml(urlDasar('nasabah/tambah')) ?>" data-cegah-ganda="ya">
                     <input type="hidden" name="token_csrf" value="<?= amankanHtml($tokenCsrfAktif ?? '') ?>">
@@ -108,15 +102,10 @@ $petaStatusBadge = [
                     <i class="bi bi-people-fill me-1 text-primary"></i>
                     Daftar Nasabah Terdaftar
                 </h2>
-                <div class="input-group input-group-sm" style="max-width: 260px;">
-                    <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Cari NIS / nama / kelas..."
-                        data-cari-tabel="tabelNasabah"
-                    >
-                </div>
+                <?= komponenUi('pencarian_tabel', [
+                    'idTabel' => 'tabelNasabah',
+                    'placeholder' => 'Cari NIS / nama / kelas...',
+                ]) ?>
             </div>
             <div class="table-responsive">
                 <table id="tabelNasabah" class="table tabel-bankmini table-hover align-middle mb-0">
@@ -132,10 +121,6 @@ $petaStatusBadge = [
                     <tbody>
                         <?php if (!empty($daftarNasabah) && is_array($daftarNasabah)) : ?>
                             <?php foreach ($daftarNasabah as $barisNasabah) : ?>
-                                <?php
-                                $statusNasabah = strtoupper((string) ($barisNasabah['status'] ?? 'AKTIF'));
-                                $kelasStatus = $petaStatusBadge[$statusNasabah] ?? 'text-bg-secondary';
-                                ?>
                                 <tr>
                                     <td class="angka-keuangan"><?= amankanHtml($barisNasabah['nomor_identitas'] ?? '') ?></td>
                                     <td class="fw-semibold"><?= amankanHtml($barisNasabah['nama_lengkap'] ?? '') ?></td>
@@ -146,9 +131,9 @@ $petaStatusBadge = [
                                     </td>
                                     <td><?= amankanHtml($barisNasabah['kelas_atau_unit'] ?? '') ?></td>
                                     <td>
-                                        <span class="badge <?= amankanHtml($kelasStatus) ?>">
-                                            <?= amankanHtml($statusNasabah) ?>
-                                        </span>
+                                        <?= komponenUi('lencana_status', [
+                                            'status' => (string) ($barisNasabah['status'] ?? 'AKTIF'),
+                                        ]) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

@@ -140,3 +140,44 @@ if (!function_exists('keStringNumerik')) {
         return $teks;
     }
 }
+
+if (!function_exists('komponenUi')) {
+    /**
+     * Merender komponen UI bersama di `aplikasi/Tampilan/komponen/` secara terisolasi
+     * untuk menjaga konsistensi Design System di seluruh halaman Publik maupun Dasbor.
+     *
+     * @param string               $namaKomponen Nama berkas komponen tanpa ekstensi (contoh: 'kartu_kpi')
+     * @param array<string, mixed> $properti     Daftar properti yang disuntikkan ke komponen
+     * @return string Untai HTML hasil render komponen
+     *
+     * @throws InvalidArgumentException Jika nama komponen tidak valid atau berkas tidak ditemukan
+     */
+    function komponenUi(string $namaKomponen, array $properti = []): string
+    {
+        $namaBersih = trim($namaKomponen, '/');
+        if ($namaBersih === '' || preg_match('/^[a-z0-9_\/-]+$/', $namaBersih) !== 1) {
+            throw new InvalidArgumentException('Nama komponen UI tidak sah.');
+        }
+
+        $jalurKomponen = dirname(__DIR__)
+            . DIRECTORY_SEPARATOR . 'Tampilan'
+            . DIRECTORY_SEPARATOR . 'komponen'
+            . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $namaBersih)
+            . '.php';
+
+        if (!is_file($jalurKomponen)) {
+            throw new InvalidArgumentException("Komponen UI tidak ditemukan: {$namaBersih}");
+        }
+
+        // [Konsep RPL]: Jalankan require dalam closure terisolasi agar variabel komponen
+        // tidak bocor atau menimpa variabel pada halaman Tampilan utama.
+        $perender = static function () use ($jalurKomponen, $properti): string {
+            extract($properti, EXTR_SKIP);
+            ob_start();
+            require $jalurKomponen;
+            return (string) ob_get_clean();
+        };
+
+        return $perender();
+    }
+}

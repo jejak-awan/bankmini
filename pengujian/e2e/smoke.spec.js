@@ -18,10 +18,11 @@ async function masukSebagai(halaman, namaPengguna, kataSandi) {
 }
 
 test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
-  test('Halaman login memuat CSS/JS lokal tanpa error dan lolos cek layout', async ({ page }) => {
+  test('Portal publik & halaman login hanya memuat aset publik tanpa beban CSS/JS dasbor admin', async ({ page }) => {
     const daftarErrorKonsol = [];
     const daftarErrorHalaman = [];
     const daftarAsetGagal = [];
+    const daftarAsetDimuat = [];
 
     page.on('console', (pesan) => {
       if (pesan.type() === 'error' || pesan.type() === 'warning') {
@@ -31,13 +32,24 @@ test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
     page.on('pageerror', (galat) => daftarErrorHalaman.push(galat.message));
     page.on('response', (respons) => {
       const url = respons.url();
+      daftarAsetDimuat.push(url);
       if ((url.includes('.css') || url.includes('.js') || url.includes('.woff')) && respons.status() >= 400) {
         daftarAsetGagal.push(`${respons.status()} ${url}`);
       }
     });
 
+    // 1. Uji Portal Publik (/portal)
+    await page.goto('/portal');
+    await expect(page.locator('h1')).toContainText('Layanan Tabungan Sekolah');
+    await expect(page.locator('#menuBilahSisi')).toHaveCount(0);
+    await expect(page.locator('#modalKonfirmasiTransaksi')).toHaveCount(0);
+    await page.screenshot({ path: 'test-results/smoke-portal.png', fullPage: true });
+
+    // 2. Uji Halaman Masuk (/masuk) dengan tata letak 'publik'
     await page.goto('/masuk');
     await expect(page.locator('h1')).toContainText('Bank Mini Sekolah');
+    await expect(page.locator('#menuBilahSisi')).toHaveCount(0);
+    await expect(page.locator('#modalKonfirmasiTransaksi')).toHaveCount(0);
 
     const inputSandi = page.locator('#kata_sandi');
     await expect(inputSandi).toHaveAttribute('type', 'password');
@@ -46,6 +58,14 @@ test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
     expect(overflow).toBeFalsy();
+
+    // Pastikan aset khusus dasbor admin tidak pernah ikut dimuat di rute publik
+    expect(daftarAsetDimuat.some((url) => url.includes('dasbor.css'))).toBeFalsy();
+    expect(daftarAsetDimuat.some((url) => url.includes('dasbor-interaktif.js'))).toBeFalsy();
+    expect(daftarAsetDimuat.some((url) => url.includes('token-desain.css'))).toBeTruthy();
+    expect(daftarAsetDimuat.some((url) => url.includes('komponen-ui.css'))).toBeTruthy();
+    expect(daftarAsetDimuat.some((url) => url.includes('publik.css'))).toBeTruthy();
+    expect(daftarAsetDimuat.some((url) => url.includes('inti-ui.js'))).toBeTruthy();
 
     await page.screenshot({ path: 'test-results/smoke-masuk.png', fullPage: true });
 

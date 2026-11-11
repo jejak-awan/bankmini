@@ -55,6 +55,7 @@ use Aplikasi\Pengendali\PengendaliDokumentasi;
 use Aplikasi\Pengendali\PengendaliLaporan;
 use Aplikasi\Pengendali\PengendaliNasabah;
 use Aplikasi\Pengendali\PengendaliProduk;
+use Aplikasi\Pengendali\PengendaliPublik;
 use Aplikasi\Pengendali\PengendaliRekening;
 use Aplikasi\Pengendali\PengendaliTransaksi;
 
@@ -64,7 +65,8 @@ Sesi::mulaiSesiAman();
 // [Langkah 2 - Konsep RPL]: Daftarkan seluruh peta rute HTTP GET dan POST pada Perute tunggal
 $perute = new Perute();
 
-// Rute Autentikasi (Masuk & Keluar Sistem)
+// Rute Portal Publik & Autentikasi (Masuk / Keluar Sistem)
+$perute->daftarGet('/portal', [PengendaliPublik::class, 'portal']);
 $perute->daftarGet('/masuk', [PengendaliAutentikasi::class, 'tampilkanHalamanMasuk']);
 $perute->daftarPost('/masuk', [PengendaliAutentikasi::class, 'prosesMasuk']);
 $perute->daftarPost('/keluar', [PengendaliAutentikasi::class, 'prosesKeluar']);

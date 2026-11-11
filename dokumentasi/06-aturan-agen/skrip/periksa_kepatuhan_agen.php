@@ -290,6 +290,17 @@ final class PemeriksaKepatuhanAgen
             'dokumentasi/03-adr/ADR-008-ci-cd-lokal-docker-dan-modul-praktikum-rpl.md',
             'aplikasi/Layanan/LayananDokumenKantor.php',
             'pengujian/Unit/TesLayananDokumenKantor.php',
+            'aplikasi/Tampilan/komponen/kartu_kpi.php',
+            'aplikasi/Tampilan/komponen/lencana_status.php',
+            'aplikasi/Tampilan/komponen/pesan_kilat.php',
+            'aplikasi/Tampilan/tata_letak/kepala_publik.php',
+            'aplikasi/Tampilan/tata_letak/kepala_dasbor.php',
+            'public/aset/css/token-desain.css',
+            'public/aset/css/komponen-ui.css',
+            'public/aset/css/publik.css',
+            'public/aset/css/dasbor.css',
+            'public/aset/js/inti-ui.js',
+            'public/aset/js/dasbor-interaktif.js',
             'public/aset/vendor/bootstrap/css/bootstrap.min.css',
             'public/aset/vendor/bootstrap-icons/font/bootstrap-icons.min.css',
         ];
@@ -347,7 +358,8 @@ final class PemeriksaKepatuhanAgen
 
         // Pastikan file JS aplikasi dan E2E memiliki komentar blok / penjelas berbahasa Indonesia
         $daftarFileJs = [
-            'public/aset/js/aplikasi.js',
+            'public/aset/js/inti-ui.js',
+            'public/aset/js/dasbor-interaktif.js',
             'pengujian/e2e/smoke.spec.js',
             'pengujian/e2e/alur_keuangan.spec.js',
         ];

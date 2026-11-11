@@ -90,6 +90,7 @@ C:\xampp\htdocs\www\bankmini\
 │   │   ├── PengendaliDasbor.php
 │   │   ├── PengendaliNasabah.php
 │   │   ├── PengendaliProduk.php
+│   │   ├── PengendaliPublik.php      # Portal Informasi Publik ringan (/portal) terisolasi dari dasbor admin
 │   │   ├── PengendaliRekening.php
 │   │   ├── PengendaliTransaksi.php
 │   │   ├── PengendaliLaporan.php
@@ -108,9 +109,11 @@ C:\xampp\htdocs\www\bankmini\
 │   │   ├── ModelMutasi.php
 │   │   └── ModelLogAudit.php
 │   ├── Pembantu/                  # Fungsi utilitas murni (stateless)
-│   │   └── fungsi_umum.php        # amankanHtml(), formatRupiah(), formatTanggalIndonesia(), keStringNumerik()
+│   │   └── fungsi_umum.php        # amankanHtml(), formatRupiah(), formatTanggalIndonesia(), keStringNumerik(), komponenUi()
 │   └── Tampilan/                  # Template Antarmuka (HTML murni + variabel ter-escape)
-│       ├── tata_letak/            # kepala.php, bilah_sisi.php, kaki.php
+│       ├── komponen/              # Komponen UI bersama (kartu_kpi, lencana_status, pesan_kilat, pencarian_tabel, kepala_kartu, kop_surat)
+│       ├── tata_letak/            # Pemisahan shell: kepala/kaki_dasbor.php, bilah_sisi.php, kepala/kaki_publik.php, kepala/kaki_cetak.php
+│       ├── publik/                # Halaman Portal Informasi Publik (portal.php)
 │       ├── autentikasi/
 │       ├── dasbor/
 │       ├── nasabah/

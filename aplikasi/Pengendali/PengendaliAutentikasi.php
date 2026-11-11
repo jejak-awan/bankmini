@@ -48,8 +48,11 @@ class PengendaliAutentikasi extends PengendaliDasar
 
         $this->tampilkanTampilan(
             'autentikasi/masuk',
-            ['judulHalaman' => 'Masuk Sistem Bank Mini'],
-            false
+            [
+                'judulHalaman' => 'Masuk Sistem Bank Mini',
+                'kelasBody' => 'halaman-masuk-bankmini d-flex align-items-center justify-content-center min-vh-100 p-3 p-md-4',
+            ],
+            'publik'
         );
     }
 

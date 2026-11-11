@@ -24,3 +24,4 @@ Menambahkan rangkaian dependensi Composer produksi untuk pemrosesan dokumen **PD
 ## 3. Verifikasi & Penutupan
 - Versi dinaikkan dari `1.5.0` -> `1.6.0` melalui `naikkan_versi.php`.
 - Diverifikasi lulus 100% pada `periksa_kepatuhan_agen.php` (`0` pelanggaran), `jalankan_semua_tes.php` (`20/20` skenario lulus, `0` warning), `phpcs` (`37/37` file lulus PSR-12 `0` warning), `phpstan` Level 8 (`37/37` file, `0` error), dan `playwright test` (`3/3` skenario E2E lulus).
+

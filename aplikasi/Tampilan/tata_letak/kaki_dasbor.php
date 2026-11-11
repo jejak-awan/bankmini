@@ -1,8 +1,8 @@
 <?php
 /**
- * Tata Letak Kaki HTML, Modal Konfirmasi Global, & Skrip JS Offline Bank Mini.
+ * Tata Letak Kaki Dasbor Operasional (Dashboard Shell Footer) Bank Mini.
  * Menyediakan dialog konfirmasi transaksi XSS-safe (#modalKonfirmasiTransaksi)
- * serta memuat bundle JavaScript Bootstrap 5 dan skrip interaksi lokal.
+ * serta memuat bundel skrip dasar dan interaktif khusus dasbor teller/admin.
  */
 ?>
     </div>
@@ -41,6 +41,7 @@
 </div>
 
 <script src="<?= amankanHtml(urlDasar('aset/vendor/bootstrap/js/bootstrap.bundle.min.js')) ?>"></script>
-<script src="<?= amankanHtml(urlDasar('aset/js/aplikasi.js')) ?>"></script>
+<script src="<?= amankanHtml(urlDasar('aset/js/inti-ui.js')) ?>"></script>
+<script src="<?= amankanHtml(urlDasar('aset/js/dasbor-interaktif.js')) ?>"></script>
 </body>
 </html>

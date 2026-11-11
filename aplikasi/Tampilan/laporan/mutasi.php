@@ -2,31 +2,22 @@
 /**
  * Tampilan Laporan Mutasi & Buku Besar Transaksi Bank Mini.
  * Mendukung filter rentang tanggal, pencarian instan pada tabel,
- * badge semantik KREDIT/DEBIT/KOREKSI, serta mode siap cetak (@media print).
+ * komponen lencana semantik, serta kop surat resmi siap cetak (@media print).
  */
-$petaLencanaMutasi = [
-    'KREDIT' => 'text-bg-success',
-    'DEBIT' => 'text-bg-danger',
-    'KOREKSI' => 'text-bg-warning',
-];
 ?>
-<!-- Kop Laporan Khusus Saat Dicetak (Tampil hanya di @media print) -->
-<div class="hanya-cetak mb-3 border-bottom pb-2">
-    <h2 class="h4 fw-bold mb-1">LAPORAN MUTASI TRANSAKSI BANK MINI SEKOLAH</h2>
-    <div class="small">
-        Periode: <?= amankanHtml($tanggalMulai ?? '-') ?> s.d. <?= amankanHtml($tanggalAkhir ?? '-') ?> |
-        Dicetak oleh: <?= amankanHtml($namaPenggunaAktif ?? 'Petugas') ?> (<?= amankanHtml($versiAplikasi ?? 'v1.0.0') ?>)
-    </div>
-</div>
+<?= komponenUi('kop_surat', [
+    'judulDokumen' => 'LAPORAN MUTASI TRANSAKSI BANK MINI SEKOLAH',
+    'subjudulDokumen' => 'Periode: ' . ($tanggalMulai ?? '-') . ' s.d. ' . ($tanggalAkhir ?? '-')
+        . ' | Dicetak oleh: ' . ($namaPenggunaAktif ?? 'Petugas')
+        . ' (' . ($versiAplikasi ?? 'v1.0.0') . ')',
+]) ?>
 
 <!-- Filter Rentang Tanggal & Aksi Cetak (Disembunyikan saat print) -->
 <div class="card kartu-bankmini mb-4 tidak-cetak">
-    <div class="card-header bg-white py-3">
-        <h2 class="h6 mb-0 fw-bold">
-            <i class="bi bi-funnel-fill text-primary me-1"></i>
-            Filter Rentang Tanggal &amp; Cetak Laporan Mutasi
-        </h2>
-    </div>
+    <?= komponenUi('kepala_kartu', [
+        'judul' => 'Filter Rentang Tanggal & Cetak Laporan Mutasi',
+        'ikon' => 'bi-funnel-fill',
+    ]) ?>
     <div class="card-body">
         <form method="GET" action="<?= amankanHtml(urlDasar('laporan/mutasi')) ?>" class="row g-3 align-items-end">
             <div class="col-12 col-sm-4 col-md-3">
@@ -68,15 +59,10 @@ $petaLencanaMutasi = [
             <i class="bi bi-file-earmark-spreadsheet-fill text-primary me-1"></i>
             Buku Besar Mutasi Transaksi (Immutable Ledger - Rupiah IDR)
         </h2>
-        <div class="input-group input-group-sm tidak-cetak" style="max-width: 260px;">
-            <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
-            <input
-                type="text"
-                class="form-control"
-                placeholder="Cari referensi / nama / keterangan..."
-                data-cari-tabel="tabelLaporanMutasi"
-            >
-        </div>
+        <?= komponenUi('pencarian_tabel', [
+            'idTabel' => 'tabelLaporanMutasi',
+            'placeholder' => 'Cari referensi / nama / keterangan...',
+        ]) ?>
     </div>
     <div class="table-responsive">
         <table id="tabelLaporanMutasi" class="table tabel-bankmini table-hover align-middle mb-0">
@@ -101,8 +87,6 @@ $petaLencanaMutasi = [
                         <?php
                         $jenisTransaksi = (string) ($barisMutasi['jenis_transaksi'] ?? '');
                         $tipeMutasi = (string) ($barisMutasi['tipe_mutasi'] ?? '');
-                        $kunciBadge = $jenisTransaksi === 'KOREKSI' ? 'KOREKSI' : $tipeMutasi;
-                        $kelasBadge = $petaLencanaMutasi[$kunciBadge] ?? 'text-bg-secondary';
                         ?>
                         <tr>
                             <td class="small text-nowrap">
@@ -117,15 +101,15 @@ $petaLencanaMutasi = [
                             <td class="text-nowrap"><?= amankanHtml($barisMutasi['nama_nasabah'] ?? '') ?></td>
                             <td>
                                 <?php if ($jenisTransaksi === 'KOREKSI') : ?>
-                                    <span class="badge text-bg-warning">KOREKSI</span>
+                                    <?= komponenUi('lencana_status', ['status' => 'KOREKSI']) ?>
                                 <?php else : ?>
                                     <span class="small fw-semibold"><?= amankanHtml($jenisTransaksi) ?></span>
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <span class="badge <?= amankanHtml($kelasBadge) ?>">
-                                    <?= amankanHtml($tipeMutasi) ?>
-                                </span>
+                                <?= komponenUi('lencana_status', [
+                                    'status' => $jenisTransaksi === 'KOREKSI' ? 'KOREKSI' : $tipeMutasi,
+                                ]) ?>
                             </td>
                             <td class="angka-keuangan text-end small">
                                 <?= amankanHtml(formatRupiah((string) ($barisMutasi['saldo_sebelum'] ?? '0'))) ?>

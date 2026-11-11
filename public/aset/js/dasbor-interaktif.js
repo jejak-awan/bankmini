@@ -1,6 +1,7 @@
 /**
- * Skrip Interaksi Antarmuka & Pencegahan Salah Input (UX Perbankan) - Bank Mini
- * Menggunakan Vanilla JS murni + Bootstrap 5 Modal API (100% Offline, Tanpa jQuery/Node.js)
+ * Skrip Interaksi Khusus Dasbor Operasional & Teller - Sistem Informasi Bank Mini
+ * Hanya dimuat pada tata letak 'dasbor' (Admin/Teller/Supervisor) agar halaman Publik tetap ringan.
+ * Fitur: Pratinjau Rupiah Live, Filter Dropdown Rekening, Info Saldo Efektif, Filter Tabel, & Modal Konfirmasi.
  */
 document.addEventListener('DOMContentLoaded', function () {
     const pemformatRupiah = new Intl.NumberFormat('id-ID');
@@ -158,13 +159,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    const daftarFormulir = document.querySelectorAll('form[data-cegah-ganda="ya"]');
-    daftarFormulir.forEach(function (formulir) {
+    const daftarFormulirTransaksi = document.querySelectorAll('form[data-konfirmasi-transaksi="ya"]');
+    daftarFormulirTransaksi.forEach(function (formulir) {
         formulir.addEventListener('submit', function (acara) {
-            const butuhKonfirmasi = formulir.getAttribute('data-konfirmasi-transaksi') === 'ya';
             const sudahDikonfirmasi = formulir.getAttribute('data-sudah-konfirmasi') === 'ya';
 
-            if (butuhKonfirmasi && !sudahDikonfirmasi && modalBootstrap) {
+            if (!sudahDikonfirmasi && modalBootstrap) {
                 acara.preventDefault();
                 formulirMenungguKonfirmasi = formulir;
 
@@ -238,24 +238,4 @@ document.addEventListener('DOMContentLoaded', function () {
             formulirMenungguKonfirmasi.submit();
         });
     }
-
-    /**
-     * 5. Toggle Tampilkan / Sembunyikan Kata Sandi
-     */
-    const tombolToggleSandi = document.querySelectorAll('button[data-toggle-sandi]');
-    tombolToggleSandi.forEach(function (tombol) {
-        tombol.addEventListener('click', function () {
-            const idInput = tombol.getAttribute('data-toggle-sandi');
-            const inputSandi = idInput ? document.getElementById(idInput) : null;
-            if (!inputSandi) {
-                return;
-            }
-            const apakahPassword = inputSandi.type === 'password';
-            inputSandi.type = apakahPassword ? 'text' : 'password';
-            const ikon = tombol.querySelector('i');
-            if (ikon) {
-                ikon.className = apakahPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
-            }
-        });
-    });
 });

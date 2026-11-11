@@ -20,11 +20,12 @@ use RuntimeException;
 abstract class PengendaliDasar
 {
     /**
-     * Merender file Tampilan (View) di dalam tata letak utama atau secara mandiri.
+     * Merender file Tampilan (View) di dalam kerangka tata letak ('dasbor', 'publik', 'cetak')
+     * atau secara mandiri ('kosong'/false) agar halaman publik tidak memuat beban UI dasbor admin.
      *
-     * @param string               $namaTampilan       Jalur relatif di dalam aplikasi/Tampilan/ (contoh: 'dasbor/indeks')
-     * @param array<string, mixed> $dataTampilan       Variabel yang dikirim ke Tampilan
-     * @param bool                 $gunakanTataLetak   True jika dibungkus kepala.php, bilah_sisi.php, dan kaki.php
+     * @param string               $namaTampilan Jalur relatif di dalam aplikasi/Tampilan/ (contoh: 'dasbor/indeks')
+     * @param array<string, mixed> $dataTampilan Variabel yang dikirim ke Tampilan
+     * @param bool|string          $tataLetak    Jenis kerangka: 'dasbor' (atau true), 'publik', 'cetak', atau 'kosong' (false)
      * @return void
      *
      * @throws RuntimeException Jika file tampilan tidak ditemukan
@@ -32,7 +33,7 @@ abstract class PengendaliDasar
     protected function tampilkanTampilan(
         string $namaTampilan,
         array $dataTampilan = [],
-        bool $gunakanTataLetak = true
+        bool|string $tataLetak = 'dasbor'
     ): void {
         $folderTampilan = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Tampilan';
         $jalurFileTampilan = $folderTampilan
@@ -58,11 +59,34 @@ abstract class PengendaliDasar
 
         extract($dataTampilan, EXTR_SKIP);
 
-        if ($gunakanTataLetak) {
-            require $folderTampilan . DIRECTORY_SEPARATOR . 'tata_letak' . DIRECTORY_SEPARATOR . 'kepala.php';
-            require $folderTampilan . DIRECTORY_SEPARATOR . 'tata_letak' . DIRECTORY_SEPARATOR . 'bilah_sisi.php';
+        // Normalisasi parameter tata letak agar tetap kompatibel dengan pemanggilan boolean lama
+        $modeTataLetak = match ($tataLetak) {
+            true => 'dasbor',
+            false, 'kosong' => 'kosong',
+            default => strtolower(trim((string) $tataLetak)),
+        };
+
+        $folderTataLetak = $folderTampilan . DIRECTORY_SEPARATOR . 'tata_letak';
+
+        if ($modeTataLetak === 'dasbor') {
+            require $folderTataLetak . DIRECTORY_SEPARATOR . 'kepala_dasbor.php';
+            require $folderTataLetak . DIRECTORY_SEPARATOR . 'bilah_sisi.php';
             require $jalurFileTampilan;
-            require $folderTampilan . DIRECTORY_SEPARATOR . 'tata_letak' . DIRECTORY_SEPARATOR . 'kaki.php';
+            require $folderTataLetak . DIRECTORY_SEPARATOR . 'kaki_dasbor.php';
+            return;
+        }
+
+        if ($modeTataLetak === 'publik') {
+            require $folderTataLetak . DIRECTORY_SEPARATOR . 'kepala_publik.php';
+            require $jalurFileTampilan;
+            require $folderTataLetak . DIRECTORY_SEPARATOR . 'kaki_publik.php';
+            return;
+        }
+
+        if ($modeTataLetak === 'cetak') {
+            require $folderTataLetak . DIRECTORY_SEPARATOR . 'kepala_cetak.php';
+            require $jalurFileTampilan;
+            require $folderTataLetak . DIRECTORY_SEPARATOR . 'kaki_cetak.php';
             return;
         }
 
