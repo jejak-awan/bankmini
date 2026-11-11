@@ -147,9 +147,14 @@ test.describe('Smoke Test UI & Kesiapan Aset Offline Bank Mini', () => {
     const daftarErrorKonsol = [];
     const daftarErrorHalaman = [];
 
+    // Kecualikan log HTTP 404 bawaan Chromium khusus pada skenario pengujian halaman 404
     page.on('console', (pesan) => {
-      if (pesan.type() === 'error' || pesan.type() === 'warning') {
-        daftarErrorKonsol.push(`[${pesan.type()}] ${pesan.text()}`);
+      const pesanTeks = pesan.text();
+      if (
+        (pesan.type() === 'error' || pesan.type() === 'warning')
+        && !pesanTeks.includes('status of 404 (Not Found)')
+      ) {
+        daftarErrorKonsol.push(`[${pesan.type()}] ${pesanTeks}`);
       }
     });
     page.on('pageerror', (galat) => daftarErrorHalaman.push(galat.message));
