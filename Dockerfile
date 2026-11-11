@@ -4,12 +4,16 @@
 # ==============================================================================
 FROM php:8.2-apache
 
-# Pasang dependensi sistem dan ekstensi PHP wajib (pdo_mysql, bcmath, zip)
+# Pasang dependensi sistem dan ekstensi PHP wajib (pdo_mysql, bcmath, zip, gd untuk PDF/Excel/Word)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     unzip \
     libzip-dev \
-    && docker-php-ext-install pdo_mysql bcmath zip \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql bcmath zip gd \
     && a2enmod rewrite \
     && rm -rf /var/lib/apt/lists/*
 

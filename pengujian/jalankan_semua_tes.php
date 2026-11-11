@@ -24,6 +24,10 @@ set_error_handler(
 );
 
 $akarProjek = dirname(__DIR__);
+$jalurAutoloadComposer = $akarProjek . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+if (is_file($jalurAutoloadComposer)) {
+    require_once $jalurAutoloadComposer;
+}
 
 require_once $akarProjek . DIRECTORY_SEPARATOR . 'aplikasi' . DIRECTORY_SEPARATOR . 'Pembantu' . DIRECTORY_SEPARATOR . 'fungsi_umum.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'PembantuPengujian' . DIRECTORY_SEPARATOR . 'KasusUjiDasar.php';
@@ -62,11 +66,13 @@ use Pengujian\Integrasi\TesLayananRekening;
 use Pengujian\Integrasi\TesLayananTransaksi;
 use Pengujian\Keamanan\TesKeamananAplikasi;
 use Pengujian\Unit\TesFungsiUmum;
+use Pengujian\Unit\TesLayananDokumenKantor;
 use Pengujian\Unit\TesTokenCsrf;
 
 $daftarClassTes = [
     TesFungsiUmum::class,
     TesTokenCsrf::class,
+    TesLayananDokumenKantor::class,
     TesLayananAutentikasi::class,
     TesLayananDokumentasi::class,
     TesLayananRekening::class,

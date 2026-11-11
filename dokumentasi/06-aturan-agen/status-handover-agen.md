@@ -3,9 +3,9 @@
 > **PERINGATAN UNTUK AGEN BARU**: Bacalah dokumen ini sebagai kebenaran kondisi projek saat ini (*Current State*). Jangan menebak atau mengulang fitur yang sudah ditandai selesai tanpa memeriksa implementasinya.
 
 - **Terakhir Diperbarui**: 2026-11-12
-- **Versi Projek Saat Ini**: `1.5.0`
-- **Work Log Terakhir**: [`2026-11-12-modul-pusat-dokumentasi-terindeks-web.md`](../04-work-log/2026-11-12-modul-pusat-dokumentasi-terindeks-web.md)
-- **Fase Projek Saat Ini**: **Fase 7 — Modul Pusat Dokumentasi & Materi RPL Terindeks di Browser `/dokumentasi` (Selesai)**
+- **Versi Projek Saat Ini**: `1.6.0`
+- **Work Log Terakhir**: [`2026-11-12-dependensi-dan-layanan-dokumen-pdf-excel-word.md`](../04-work-log/2026-11-12-dependensi-dan-layanan-dokumen-pdf-excel-word.md)
+- **Fase Projek Saat Ini**: **Fase 8 — Dependensi & Layanan Adapter Ekspor/Impor/Cetak Dokumen PDF, Excel, & Word (Selesai)**
 
 ---
 
@@ -19,6 +19,9 @@
 ---
 
 ## 2. Komponen yang Sudah Selesai & Terverifikasi
+- **Pustaka & Layanan Ekspor/Impor/Cetak Dokumen (`LayananDokumenKantor.php`)**:
+  - Dependensi Composer terpasang penuh: `dompdf/dompdf` (`^3.1`), `phpoffice/phpspreadsheet` (`^5.11`), `shuchkin/simplexlsxgen` (`^1.5`), `shuchkin/simplexlsx` (`^1.1`), dan `phpoffice/phpword` (`^1.4`).
+  - `LayananDokumenKantor.php` menyediakan fondasi pembuatan PDF (`buatPdfDariHtml`), ekspor & impor Excel `.xlsx`/`.csv` (`buatExcelDariTabel`, `bacaDataDariExcel`, `buatCsvDariTabel`, `bacaDataDariCsv`), pembuatan dokumen Word `.docx` (`buatDokumenWord` dengan fallback `PCLZip`), serta template HTML siap cetak (`siapkanHtmlCetak`), diuji oleh `TesLayananDokumenKantor.php` (`QA-UNIT-006` s.d. `QA-UNIT-008`).
 - **Modul Pusat Dokumentasi & Materi RPL di Browser (`/dokumentasi`)**:
   - `LayananDokumentasi.php` (pengindeks otomatis folder `dokumentasi/`, konverter Markdown ke HTML Bootstrap 5, daftar isi otomatis *On This Page*, pencarian kata kunci penuh, serta proteksi keamanan *Anti-Path Traversal* `realpath()`).
   - `PengendaliDokumentasi.php`, tampilan 3-kolom `aplikasi/Tampilan/dokumentasi/indeks.php`, menu **Pusat Dokumentasi** di sidebar, serta pengujian integrasi `TesLayananDokumentasi.php` + smoke test Playwright `/dokumentasi`.
@@ -32,7 +35,7 @@
 ---
 
 ## 3. Tugas Aktif / Sedang Dikerjakan
-- Tidak ada tugas tertunda pada Fase 7 (`v1.5.0`). Modul pembaca dokumentasi terindeks di browser beserta seluruh gerbang QA dan CI/CD lokal telah selesai dan terverifikasi.
+- Tidak ada tugas tertunda pada Fase 8 (`v1.6.0`). Seluruh dependensi dan layanan fondasi ekspor, impor, serta cetak dokumen (PDF, Excel, Word, CSV, & Print HTML) telah siap digunakan oleh fitur aplikasi.
 
 ---
 

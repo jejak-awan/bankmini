@@ -15,6 +15,11 @@ declare(strict_types=1);
  *    langsung ke lokasi file di folder `aplikasi/...` tanpa perlu menulis puluhan `require_once`.
  */
 
+$jalurAutoloadComposer = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+if (is_file($jalurAutoloadComposer)) {
+    require_once $jalurAutoloadComposer;
+}
+
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'aplikasi' . DIRECTORY_SEPARATOR . 'Pembantu' . DIRECTORY_SEPARATOR . 'fungsi_umum.php';
 
 spl_autoload_register(

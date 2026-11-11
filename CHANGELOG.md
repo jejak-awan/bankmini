@@ -6,6 +6,15 @@ Format dokumen ini mengacu pada standar [Keep a Changelog](https://keepachangelo
 
 ---
 
+## [1.6.0] - 2026-11-11
+
+### Ditambahkan (Added)
+- **Dependensi Composer Dokumen Kantor (PDF, Excel, Word)**: Menambahkan pustaka produksi `dompdf/dompdf` (`^3.1`), `phpoffice/phpspreadsheet` (`^5.11`), `shuchkin/simplexlsxgen` (`^1.5`), `shuchkin/simplexlsx` (`^1.1`), dan `phpoffice/phpword` (`^1.4`) pada [`composer.json`](./composer.json) beserta pemuatan otomatis `vendor/autoload.php` di [`public/index.php`](./public/index.php).
+- **Layanan Terpusat Ekspor/Impor/Cetak (`LayananDokumenKantor.php`)**: Menyediakan adapter siap pakai untuk pembangkitan PDF (`buatPdfDariHtml`), ekspor/impor Excel `.xlsx` & `.csv` (`buatExcelDariTabel`, `bacaDataDariExcel`, `buatCsvDariTabel`, `bacaDataDariCsv`), pembuatan dokumen Word `.docx` (`buatDokumenWord` dengan fallback otomatis `PCLZip`), serta pembungkus HTML Kop Surat siap cetak (`siapkanHtmlCetak`).
+- **Pengujian Unit Dokumen Kantor (`TesLayananDokumenKantor.php`)**: Menambahkan 3 skenario pengujian otomatis (`QA-UNIT-006` s.d. `QA-UNIT-008`) yang memvalidasi biner PDF, round-trip ekspor-impor Excel/CSV, dan pembuatan dokumen Word `.docx`.
+
+---
+
 ## [1.5.0] - 2026-11-11
 
 ### Diperbarui (Changed)

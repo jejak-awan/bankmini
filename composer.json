@@ -4,7 +4,12 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "dompdf/dompdf": "^3.1",
+        "phpoffice/phpspreadsheet": "^5.11",
+        "phpoffice/phpword": "^1.4",
+        "shuchkin/simplexlsx": "^1.1",
+        "shuchkin/simplexlsxgen": "^1.5"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.1",
@@ -37,7 +42,10 @@
         ]
     },
     "config": {
+        "platform": {
+            "ext-gd": "8.2.0",
+            "ext-zip": "1.21.0"
+        },
         "sort-packages": true
     }
 }
-

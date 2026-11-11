@@ -288,9 +288,32 @@ final class PemeriksaKepatuhanAgen
             'dokumentasi/02-panduan-dev/alur-belajar-dan-modul-praktikum-rpl.md',
             'dokumentasi/02-panduan-dev/panduan-ci-cd-lokal-docker.md',
             'dokumentasi/03-adr/ADR-008-ci-cd-lokal-docker-dan-modul-praktikum-rpl.md',
+            'aplikasi/Layanan/LayananDokumenKantor.php',
+            'pengujian/Unit/TesLayananDokumenKantor.php',
             'public/aset/vendor/bootstrap/css/bootstrap.min.css',
             'public/aset/vendor/bootstrap-icons/font/bootstrap-icons.min.css',
         ];
+
+        // Pastikan dependensi PDF, Excel, dan Word terdaftar pada composer.json
+        $jalurComposer = $this->jalurAplikasi . DIRECTORY_SEPARATOR . 'composer.json';
+        if (is_file($jalurComposer)) {
+            $isiComposer = (string) file_get_contents($jalurComposer);
+            $pustakaDokumenWajib = [
+                'dompdf/dompdf',
+                'phpoffice/phpspreadsheet',
+                'phpoffice/phpword',
+                'shuchkin/simplexlsx',
+                'shuchkin/simplexlsxgen',
+            ];
+            foreach ($pustakaDokumenWajib as $namaPaket) {
+                $this->jumlahPemeriksaan++;
+                if (!str_contains($isiComposer, $namaPaket)) {
+                    $this->catatPelanggaran(
+                        "[DEPENDENSI DOKUMEN] Paket '{$namaPaket}' belum terdaftar pada composer.json untuk fitur ekspor/impor/cetak."
+                    );
+                }
+            }
+        }
 
         // Pastikan level PHPStan minimal >= 8 (hasil kenaikan bertahap 5 -> 6 -> 7 -> 8)
         $jalurStan = $this->jalurAplikasi . DIRECTORY_SEPARATOR . 'phpstan.neon';

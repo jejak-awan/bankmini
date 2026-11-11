@@ -97,6 +97,11 @@ final class GerbangHandoverAgen
         $statusComposer = is_file($this->jalurAplikasi . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')
             ? 'TERPASANG (PHPCS + PHPStan)'
             : 'BELUM (jalankan composer install)';
+        $statusPustakaDokumen = is_dir($this->jalurAplikasi . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'dompdf')
+            && is_dir($this->jalurAplikasi . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'phpoffice')
+            && is_dir($this->jalurAplikasi . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'shuchkin')
+            ? 'TERPASANG (Dompdf + PhpSpreadsheet + SimpleXLSX + PhpWord)'
+            : 'BELUM LENGKAP (jalankan composer install)';
         $statusPlaywright = is_dir($this->jalurAplikasi . DIRECTORY_SEPARATOR . 'node_modules' . DIRECTORY_SEPARATOR . '@playwright' . DIRECTORY_SEPARATOR . 'test')
             ? 'TERPASANG (@playwright/test)'
             : 'BELUM (jalankan npm install)';
@@ -106,6 +111,7 @@ final class GerbangHandoverAgen
         echo "Versi PHP Runtime          : " . PHP_VERSION . (PHP_VERSION_ID >= 80200 ? ' (Memenuhi >= 8.2)' : ' (PERLU >= 8.2!)') . "\n";
         echo "Ekstensi PHP Wajib         : " . (count($ekstensiHilang) === 0 ? 'LENGKAP (' . implode(', ', $ekstensiWajib) . ')' : 'KURANG: ' . implode(', ', $ekstensiHilang)) . "\n";
         echo "Tooling Lint & PHPStan     : {$statusComposer}\n";
+        echo "Pustaka PDF/Excel/Word     : {$statusPustakaDokumen}\n";
         echo "Tooling E2E Playwright     : {$statusPlaywright}\n";
         echo "----------------------------------------------------------------------\n";
         echo $isiHandover . "\n";

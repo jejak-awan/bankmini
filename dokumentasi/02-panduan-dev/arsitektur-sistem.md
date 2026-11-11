@@ -96,6 +96,7 @@ C:\xampp\htdocs\www\bankmini\
 │   │   └── PengendaliDokumentasi.php # Pembaca & pencari dokumentasi terindeks di browser (/dokumentasi)
 │   ├── Layanan/                   # Lapisan Logika Bisnis & Batas Transaksi ACID (Services)
 │   │   ├── LayananAutentikasi.php
+│   │   ├── LayananDokumenKantor.php # Adapter Ekspor/Impor/Cetak PDF (Dompdf), Excel (SimpleXLSX/PhpSpreadsheet), & Word (PhpWord)
 │   │   ├── LayananDokumentasi.php # Pengindeks katalog .md, parser Markdown, & Anti-Path Traversal
 │   │   ├── LayananRekening.php    # Registrasi & pembuatan nomor rekening unik
 │   │   └── LayananTransaksi.php   # Setor, Tarik, Transfer, & Jurnal Koreksi (Rupiah/IDR)
@@ -124,7 +125,7 @@ C:\xampp\htdocs\www\bankmini\
 ├── pengujian/                     # Suite Pengujian Otomatis QA (Bahasa Indonesia)
 │   ├── jalankan_semua_tes.php     # Test Runner CLI tunggal (strict E_ALL Zero Warning)
 │   ├── PembantuPengujian/         # KasusUjiDasar.php & BasisDataMemoriUji.php
-│   ├── Unit/                      # TesFungsiUmum.php, TesTokenCsrf.php
+│   ├── Unit/                      # TesFungsiUmum.php, TesTokenCsrf.php, TesLayananDokumenKantor.php
 │   ├── Integrasi/                 # TesLayananAutentikasi.php, TesLayananDokumentasi.php, TesLayananRekening.php, TesLayananTransaksi.php
 │   ├── Keamanan/                  # TesKeamananAplikasi.php
 │   └── e2e/                       # Smoke Test & E2E Playwright (smoke.spec.js, alur_keuangan.spec.js)
@@ -151,7 +152,8 @@ Agar aplikasi **Bank Mini** dan seluruh gerbang verifikasi (*Quality Gate*) berj
 | :--- | :--- | :--- |
 | **Web Server** | Apache `2.4+` (XAMPP) atau PHP Built-in Server | Pastikan modul `mod_rewrite` aktif agar `public/.htaccess` mengarahkan seluruh request ke `public/index.php`. |
 | **PHP** | **PHP `>= 8.2`** (Teruji pada `8.5.12`) | Mendukung *strict types*, *named arguments*, dan union types modern. |
-| **Ekstensi PHP Wajib** | `pdo_mysql`, `bcmath`, `mbstring`, `openssl`, `tokenizer` | `pdo_mysql` (PDO native prepares), `bcmath` (kalkulasi akurat Rupiah `DECIMAL(15,2)`), `tokenizer` (dipakai skrip penjaga kepatuhan). |
+| **Ekstensi PHP Wajib** | `pdo_mysql`, `bcmath`, `mbstring`, `openssl`, `tokenizer`, `dom`, `zlib` | `pdo_mysql` (PDO native prepares), `bcmath` (kalkulasi akurat Rupiah `DECIMAL(15,2)`), `dom` & `zlib` (mesin PDF/Excel/Word tanpa wajib ubah `php.ini`). |
+| **Pustaka Dokumen (PDF, Excel, Word)** | `dompdf/dompdf` (`^3.1`), `phpoffice/phpspreadsheet` (`^5.11`), `shuchkin/simplexlsxgen` (`^1.5`), `shuchkin/simplexlsx` (`^1.1`), `phpoffice/phpword` (`^1.4`) | Dibungkus oleh `Aplikasi\Layanan\LayananDokumenKantor` dengan fallback otomatis `PCLZip` (`ext-zlib`) untuk ekspor, impor, dan cetak dokumen. |
 | **Basis Data** | MySQL `8.0+` / MariaDB `10.4+` | Wajib menggunakan engine **InnoDB** (`SELECT ... FOR UPDATE` & ACID) dan charset `utf8mb4`. |
 | **Aset Frontend** | **100% Offline** (`public/aset/vendor/`) | Bootstrap `5.3.3` & Bootstrap Icons `1.11.3` sudah terbundel lokal sehingga tidak bergantung internet / Node.js saat aplikasi dijalankan. |
 
