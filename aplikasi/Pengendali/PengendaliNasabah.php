@@ -13,7 +13,9 @@ use Throwable;
 /**
  * PengendaliNasabah
  *
- * Menangani tampilan daftar nasabah dan pendaftaran nasabah baru dengan pola PRG.
+ * @konsep_rpl Pengendali CRUD Master Data & Pola Post-Redirect-Get (PRG)
+ * Menangani tampilan daftar nasabah (`GET /nasabah`) dan penyimpanan data nasabah
+ * baru (`POST /nasabah/tambah`) dengan pemeriksaan peran (`admin` / `teller`) dan CSRF.
  */
 class PengendaliNasabah extends PengendaliDasar
 {

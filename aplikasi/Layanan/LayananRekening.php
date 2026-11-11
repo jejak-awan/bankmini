@@ -18,9 +18,12 @@ use Throwable;
 /**
  * LayananRekening
  *
- * Single Source of Truth (SoT) untuk pembukaan rekening tabungan baru
- * beserta pencatatan setoran awal dalam mata uang tunggal Rupiah (IDR)
- * di dalam satu transaksi database ACID.
+ * @konsep_rpl Atomisitas Pembukaan Rekening & Setoran Awal (ACID Transaction Boundary)
+ * Mengapa pembukaan rekening dan pencatatan mutasi setoran awal wajib dibungkus
+ * dalam satu `$this->koneksi->beginTransaction()`?
+ * Agar tidak pernah terjadi kondisi "Rekening berhasil dibuat dengan saldo Rp 25.000,
+ * tetapi baris mutasinya gagal tercatat di tabel `mutasi_transaksi`". Jika salah satu
+ * langkah gagal, seluruhnya dibatalkan (`rollBack()`).
  */
 class LayananRekening
 {

@@ -10,8 +10,10 @@ use PDO;
 /**
  * ModelLogAudit
  *
- * Lapisan akses data (Data Access Layer) untuk mencatat jejak audit aktivitas
- * sensitif ke dalam tabel `log_audit`.
+ * @konsep_rpl Jejak Audit Keamanan (Security Audit Trail) & Tipe Data JSON
+ * Setiap aksi penting (masuk sistem, buka rekening, setor, tarik, transfer, koreksi)
+ * wajib dicatat ke tabel `log_audit` lengkap dengan rekaman `data_lama` dan `data_baru`
+ * dalam format JSON serta `alamat_ip` petugas agar dapat ditelusuri saat audit.
  */
 class ModelLogAudit
 {

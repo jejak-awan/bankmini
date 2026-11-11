@@ -18,8 +18,9 @@ use Throwable;
 /**
  * PengendaliRekening
  *
- * Menangani tampilan daftar rekening nasabah serta pembukaan rekening baru
- * beserta setoran awal Rupiah (IDR) dengan pola Post-Redirect-Get (PRG).
+ * @konsep_rpl Delegasi Logika Bisnis dari Pengendali ke Layanan (Service Layer)
+ * Pengendali ini tidak membuka transaksi database secara langsung, melainkan
+ * menyerahkan proses pembukaan rekening & setoran awal ke `LayananRekening`.
  */
 class PengendaliRekening extends PengendaliDasar
 {

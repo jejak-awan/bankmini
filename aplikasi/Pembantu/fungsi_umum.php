@@ -5,8 +5,12 @@ declare(strict_types=1);
 /**
  * Kumpulan Fungsi Pembantu Umum (Stateless Helpers)
  *
- * Single Source of Truth (SoT) untuk sanitasi XSS HTML, pemformatan mata uang
- * tunggal Rupiah (IDR), pemformatan tanggal Indonesia, dan pembuatan URL dasar.
+ * @konsep_rpl Pure Function / Stateless Helper & Pencegahan XSS
+ * Fungsi di dalam file ini bersifat "murni" (tidak mengubah state database atau sesi):
+ * 1. `amankanHtml()`: Mencegah serangan Cross-Site Scripting (XSS) dengan mengubah karakter
+ *    `<`, `>`, `"`, `'` menjadi entitas HTML aman sebelum ditampilkan di browser.
+ * 2. `formatRupiah()`: Menjadi Single Source of Truth (SoT) pemformatan tampilan mata uang
+ *    Rupiah (`Rp 150.000`) sehingga lapisan Model dan Layanan tetap murni menyimpan angka desimal.
  */
 
 if (!function_exists('amankanHtml')) {
@@ -18,6 +22,7 @@ if (!function_exists('amankanHtml')) {
      */
     function amankanHtml(mixed $nilai): string
     {
+        // [Konsep RPL]: ENT_QUOTES mengamankan tanda kutip tunggal maupun ganda di atribut HTML
         return htmlspecialchars((string) $nilai, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 }
@@ -32,6 +37,7 @@ if (!function_exists('formatRupiah')) {
      */
     function formatRupiah(string|int|float $nominal, bool $tampilkanSen = false): string
     {
+        // [Konsep RPL]: Pemisah desimal di Indonesia adalah koma (,) dan pemisah ribuan adalah titik (.)
         $nilaiAngka = (float) $nominal;
         $jumlahDesimal = $tampilkanSen ? 2 : 0;
         return 'Rp ' . number_format($nilaiAngka, $jumlahDesimal, ',', '.');
@@ -101,4 +107,3 @@ if (!function_exists('urlDasar')) {
         return $jalurBersih === '' ? $dasar : $dasar . '/' . $jalurBersih;
     }
 }
-

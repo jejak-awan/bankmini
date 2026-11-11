@@ -10,8 +10,10 @@ use PDO;
 /**
  * ModelNasabah
  *
- * Lapisan akses data (Data Access Layer) murni untuk tabel `nasabah`.
- * Seluruh query menggunakan PDO Prepared Statements.
+ * @konsep_rpl Data Access Layer & Pemisahan Entitas Master Nasabah (Normalisasi 3NF)
+ * Mengelola penyimpanan dan pembacaan tabel `nasabah`. Data identitas nasabah
+ * dipisahkan dari tabel `rekening` agar satu nasabah dapat memiliki lebih dari
+ * satu rekening tanpa duplikasi data profil.
  */
 class ModelNasabah
 {

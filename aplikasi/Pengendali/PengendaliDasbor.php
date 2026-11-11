@@ -13,8 +13,10 @@ use Aplikasi\Model\ModelRekening;
 /**
  * PengendaliDasbor
  *
- * Menampilkan ringkasan statistik operasional Bank Mini (total nasabah,
- * total rekening, total dana tabungan Rupiah, dan mutasi terbaru).
+ * @konsep_rpl Agregasi Data Dasbor & Pemisahan Presentasi (View)
+ * Mengumpulkan statistik ringkasan (jumlah nasabah, jumlah rekening, total dana
+ * tabungan Rupiah aktif, dan 10 mutasi terakhir) untuk dikirimkan ke `dasbor/indeks.php`
+ * tanpa mencampur kode query di dalam file HTML.
  */
 class PengendaliDasbor extends PengendaliDasar
 {

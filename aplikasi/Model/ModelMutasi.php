@@ -10,9 +10,10 @@ use PDO;
 /**
  * ModelMutasi
  *
- * Lapisan akses data (Data Access Layer) untuk tabel `mutasi_transaksi` (Immutable Ledger).
- * Tabel ini bersifat Append-Only: hanya menyediakan operasi INSERT dan SELECT,
- * tanpa fungsi DELETE maupun UPDATE nominal.
+ * @konsep_rpl Buku Besar Abadi (Append-Only / Immutable Ledger)
+ * Dalam rekayasa sistem keuangan, tabel mutasi TIDAK BOLEH memiliki fungsi `DELETE`
+ * atau `UPDATE nominal`. Setiap transaksi baru ditambahkan sebagai baris baru (`INSERT`)
+ * yang menyimpan `saldo_sebelum`, `nominal`, dan `saldo_sesudah` secara berkesinambungan.
  */
 class ModelMutasi
 {

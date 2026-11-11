@@ -59,12 +59,14 @@ Seluruh penamaan domain aplikasi wajib menggunakan **Bahasa Indonesia** yang bak
 
 ---
 
-## 4. Standar Anotasi (PHPDoc & Komentar Bahasa Indonesia)
+## 4. Standar Anotasi & Komentar Edukasi Siswa RPL (`@konsep_rpl`)
 
-Setiap file class, properti, dan method **wajib** memiliki anotasi PHPDoc dalam Bahasa Indonesia yang menjelaskan:
-1. **Tujuan bisnis** dari class atau method tersebut.
-2. **Aturan SoT / SoC / ACID** yang berlaku (misal: apakah method ini membuka transaksi DB atau harus dipanggil di dalam transaksi).
-3. **Parameter (`@param`)**, **Nilai Kembalian (`@return`)**, dan **Pengecualian (`@throws`)** beserta satuan datanya (misal: nominal dalam Rupiah `IDR` format string desimal `'100000.00'`).
+Karena projek **Bank Mini** digunakan sebagai **bahan pembelajaran siswa Rekayasa Perangkat Lunak (RPL)**, setiap file class, properti, dan method **wajib** memiliki anotasi PHPDoc serta komentar blok kode dalam Bahasa Indonesia yang edukatif:
+1. **Tag Wajib `@konsep_rpl` pada PHPDoc Class**:
+   - Setiap deklarasi `class` di dalam folder `aplikasi/` **wajib** mencantumkan tag `@konsep_rpl` pada blok PHPDoc-nya untuk menjelaskan konsep rekayasa perangkat lunak yang diterapkan oleh class tersebut (misal: *Single Source of Truth*, *Singleton Pattern*, *Separation of Concerns*, *ACID Transaction & Row Locking*, *Immutable Ledger*, *PRG Pattern*).
+2. **Penjelasan Mengapa (*Why*), Bukan Sekadar Apa (*What*)**:
+   - Di dalam method penting, berikan komentar blok per langkah (`// [Langkah 1 - Konsep RPL]: ...`) yang menjelaskan **alasan teknis** di balik kode tersebut (contoh: mengapa memakai `SELECT ... FOR UPDATE`, mengapa memakai `bcsub`/`bcadd`, mengapa memakai `hash_equals`).
+3. **Parameter (`@param`)**, **Nilai Kembalian (`@return`)**, dan **Pengecualian (`@throws`)** beserta satuan datanya (nominal dalam Rupiah `IDR` format string desimal `'100000.00'`).
 
 ### Contoh Lengkap Standar Penulisan Kode & Anotasi (Layanan Transaksi)
 

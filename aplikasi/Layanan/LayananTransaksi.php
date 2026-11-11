@@ -16,10 +16,16 @@ use Throwable;
 /**
  * LayananTransaksi
  *
- * Single Source of Truth (SoT) untuk seluruh logika bisnis mutasi keuangan Bank Mini.
- * Setiap perubahan saldo rekening WAJIB melalui class ini di dalam transaksi ACID
- * (beginTransaction, SELECT ... FOR UPDATE, commit, rollBack) dengan satuan
- * mata uang tunggal Rupiah (IDR) DECIMAL(15,2).
+ * @konsep_rpl Transaksi Keuangan ACID, Presisi BCMath Rupiah, & Pencegahan Deadlock
+ * Class ini adalah jantung logika bisnis Bank Mini (Single Source of Truth mutasi saldo):
+ * 1. Presisi Desimal (`bcadd`, `bcsub`, `bccomp`): Menghindari galat pembulatan tipe `float`
+ *    pada perhitungan mata uang Rupiah (`DECIMAL(15,2)`).
+ * 2. Row Locking (`SELECT ... FOR UPDATE`): Mengunci baris rekening selama transaksi berlangsung.
+ * 3. Urutan Penguncian Transfer (`min()` lalu `max()`): Saat transfer antar 2 rekening, penguncian
+ *    selalu dimulai dari `id` rekening terkecil untuk mencegah Deadlock jika ada 2 transfer
+ *    silang di waktu bersamaan.
+ * 4. Jurnal Koreksi (*Reversal*): Kesalahan input tidak dihapus (`DELETE`), melainkan dibalik
+ *    dengan mutasi baru bertipe `KOREKSI`.
  */
 class LayananTransaksi
 {

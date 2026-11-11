@@ -11,7 +11,9 @@ use Aplikasi\Model\ModelProduk;
 /**
  * PengendaliProduk
  *
- * Menampilkan daftar master produk tabungan dalam satuan Rupiah (IDR).
+ * @konsep_rpl Penyajian Parameter Produk Tabungan Rupiah (IDR)
+ * Menampilkan daftar master produk simpanan beserta batas setoran awal minimum
+ * dan saldo mengendap minimum.
  */
 class PengendaliProduk extends PengendaliDasar
 {

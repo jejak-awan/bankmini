@@ -7,8 +7,12 @@ namespace Aplikasi\Inti;
 /**
  * TokenCsrf
  *
- * Single Source of Truth (SoT) untuk pembuatan, validasi waktu konstan (hash_equals),
- * dan rotasi token Cross-Site Request Forgery (CSRF) pada setiap form POST.
+ * @konsep_rpl Pencegahan Serangan Cross-Site Request Forgery (CSRF) & Timing Attack
+ * Mengapa setiap formulir POST wajib menyertakan `token_csrf`?
+ * 1. Memastikan formulir benar-benar dikirim oleh petugas dari halaman resmi Bank Mini,
+ *    bukan dipicu secara diam-diam oleh situs web pihak ketiga.
+ * 2. Menggunakan `hash_equals()` untuk membandingkan token dalam waktu konstan sehingga
+ *    penyerang tidak dapat menebak karakter token melalui pengukuran waktu (Timing Attack).
  */
 final class TokenCsrf
 {

@@ -9,9 +9,13 @@ use PDO;
 /**
  * BasisData
  *
- * Single Source of Truth (SoT) untuk koneksi PDO MySQL InnoDB.
- * Menggunakan pola Singleton agar seluruh proses transaksi ACID (beginTransaction,
- * commit, rollBack) berjalan pada satu instance koneksi yang sama.
+ * @konsep_rpl Pola Desain Singleton & Keamanan Koneksi PDO (Single Source of Truth)
+ * Mengapa koneksi database wajib menggunakan pola Singleton (`ambilKoneksi()`)?
+ * 1. Transaksi ACID: Ketika `LayananTransaksi` membuka `$koneksi->beginTransaction()`,
+ *    seluruh `ModelRekening`, `ModelMutasi`, dan `ModelLogAudit` harus berbagi koneksi PDO
+ *    yang persis sama agar berada di dalam satu transaksi atomik.
+ * 2. Keamanan Anti-SQL Injection: Mengaktifkan `PDO::ATTR_EMULATE_PREPARES => false`
+ *    memastikan parameter query dikirim terpisah dari perintah SQL asli ke server MySQL.
  */
 final class BasisData
 {

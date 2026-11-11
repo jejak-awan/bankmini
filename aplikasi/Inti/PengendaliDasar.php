@@ -9,9 +9,13 @@ use RuntimeException;
 /**
  * PengendaliDasar
  *
- * Class induk bagi seluruh Pengendali (Controller) pada lapisan presentasi HTTP.
- * Menyediakan fasilitas render Tampilan (View), pengalihan Post-Redirect-Get (PRG),
- * dan validasi token CSRF terpusat.
+ * @konsep_rpl Pewarisan (Inheritance), Separation of Concerns (SoC), & Pola PRG
+ * Seluruh class `Pengendali` mewarisi (`extends`) class abstrak ini agar memiliki:
+ * 1. `tampilkanTampilan()`: Mengirimkan variabel ke file HTML di `aplikasi/Tampilan/`
+ *    sekaligus menyuntikkan pesan kilat dan token CSRF secara konsisten.
+ * 2. `alihkan()`: Melakukan redirect HTTP `303 See Other` setelah `POST` (pola
+ *    Post-Redirect-Get / PRG) agar menekan tombol Refresh (F5) di browser tidak
+ *    mengirim ulang transaksi uang.
  */
 abstract class PengendaliDasar
 {

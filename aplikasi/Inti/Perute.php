@@ -7,8 +7,11 @@ namespace Aplikasi\Inti;
 /**
  * Perute
  *
- * Single Source of Truth (SoT) untuk pemetaan rute URL HTTP (GET & POST)
- * ke pasangan class Pengendali dan method aksi yang sesuai.
+ * @konsep_rpl Pemetaan Rute HTTP (HTTP Routing) & Pemisahan Metode GET vs POST
+ * Memetakan alamat URL yang diminta pengguna (contoh: `GET /transaksi/setor` atau
+ * `POST /transaksi/setor`) ke class `Pengendali` dan method aksi yang tepat.
+ * Permintaan `GET` hanya digunakan untuk menampilkan data, sedangkan `POST` digunakan
+ * untuk mengubah data di server.
  */
 final class Perute
 {

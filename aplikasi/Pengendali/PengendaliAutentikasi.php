@@ -15,8 +15,10 @@ use Throwable;
 /**
  * PengendaliAutentikasi
  *
- * Menangani permintaan HTTP untuk halaman masuk (login) dan proses keluar (logout)
- * dengan pola Post-Redirect-Get (PRG) serta proteksi CSRF.
+ * @konsep_rpl Lapisan Pengendali HTTP (Controller), Validasi CSRF, & Alur Masuk/Keluar
+ * Bertugas menerima input `$_POST` dari formulir login/logout, memvalidasi token CSRF,
+ * mendelegasikan verifikasi ke `LayananAutentikasi`, lalu mengarahkan pengguna dengan
+ * pola Post-Redirect-Get (PRG).
  */
 class PengendaliAutentikasi extends PengendaliDasar
 {

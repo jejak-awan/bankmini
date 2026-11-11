@@ -10,8 +10,10 @@ use PDO;
 /**
  * ModelPengguna
  *
- * Lapisan akses data (Data Access Layer) murni untuk tabel `pengguna`.
- * Seluruh query menggunakan PDO Prepared Statements.
+ * @konsep_rpl Data Access Layer (Model) & PDO Prepared Statements
+ * Class Model ini hanya bertugas menjalankan query SQL (`SELECT`, `INSERT`, `UPDATE`)
+ * ke tabel `pengguna` menggunakan parameter terikat (`:nama_pengguna`) untuk
+ * mencegah serangan SQL Injection 100%.
  */
 class ModelPengguna
 {

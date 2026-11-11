@@ -17,8 +17,12 @@ Setiap baris kode yang ditulis oleh AI Agent di dalam `C:\xampp\htdocs\www\bankm
    - Tabel wajib menggunakan nama: `pengguna`, `nasabah`, `produk_tabungan`, `rekening`, `mutasi_transaksi`, `log_audit`.
    - Kolom Foreign Key wajib berpola `id_<entitas>` (`id_nasabah`, `id_produk`, `id_rekening`, `id_petugas`, `id_pengguna`).
    - Kolom waktu menggunakan `dibuat_pada`, `diperbarui_pada`, `waktu_transaksi`.
-4. **Anotasi PHPDoc & Komentar Bahasa Indonesia**:
-   - Setiap class dan method wajib dilengkapi blok anotasi PHPDoc (`@param`, `@return`, `@throws`) dengan penjelasan tujuan bisnis serta aturan transaksi dalam Bahasa Indonesia sesuai contoh di [`../02-panduan-dev/konvensi-penamaan-dan-anotasi.md`](../02-panduan-dev/konvensi-penamaan-dan-anotasi.md).
+4. **Anotasi PHPDoc & Komentar Edukasi Siswa RPL (`@konsep_rpl`)**:
+   - Karena projek ini digunakan sebagai bahan pembelajaran siswa **Rekayasa Perangkat Lunak (RPL)**, setiap class di dalam `aplikasi/` **wajib** mencantumkan tag `@konsep_rpl` pada blok PHPDoc-nya untuk menjelaskan konsep arsitektur/keamanan yang diterapkan.
+   - Setiap method wajib dilengkapi blok anotasi PHPDoc (`@param`, `@return`, `@throws`) serta komentar penjelasan langkah logika (`// [Langkah X - Konsep RPL]: ...`) dalam Bahasa Indonesia sesuai [`../02-panduan-dev/konvensi-penamaan-dan-anotasi.md`](../02-panduan-dev/konvensi-penamaan-dan-anotasi.md).
+5. **Manajemen Versi (`VERSION`), `CHANGELOG.md`, & `LICENSE`**:
+   - Nomor versi aktif disimpan di file tunggal `VERSION` (SoT) dalam format SemVer (`MAJOR.MINOR.PATCH`).
+   - Setiap penambahan fitur atau perbaikan bug wajib dicatat di `CHANGELOG.md` (atau melalui skrip `naikkan_versi.php`).
 
 ---
 

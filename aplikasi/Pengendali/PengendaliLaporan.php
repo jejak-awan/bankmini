@@ -11,8 +11,9 @@ use Aplikasi\Model\ModelMutasi;
 /**
  * PengendaliLaporan
  *
- * Menampilkan laporan buku besar mutasi transaksi (Immutable Ledger) dalam Rupiah (IDR)
- * beserta filter rentang tanggal.
+ * @konsep_rpl Pelaporan Buku Besar (Ledger Reporting) & Filter Parameter GET
+ * Menggunakan metode HTTP `GET` untuk filter rentang tanggal (`tanggal_mulai` & `tanggal_akhir`)
+ * karena proses pencarian/pelaporan tidak mengubah data di server (bersifat Idempotent).
  */
 class PengendaliLaporan extends PengendaliDasar
 {

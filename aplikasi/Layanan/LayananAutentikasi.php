@@ -12,8 +12,12 @@ use DomainException;
 /**
  * LayananAutentikasi
  *
- * Single Source of Truth (SoT) untuk proses verifikasi masuk (login),
- * keluar (logout), dan pencatatan jejak audit autentikasi pengguna internal.
+ * @konsep_rpl Service Layer, Verifikasi Hash BCrypt (`password_verify`), & Anti-Session Fixation
+ * Memisahkan logika autentikasi dari `PengendaliAutentikasi`:
+ * 1. Kata sandi tidak pernah dibandingkan dengan operator `==`, melainkan menggunakan
+ *    `password_verify()` terhadap `hash_kata_sandi` BCrypt di database.
+ * 2. Setelah autentikasi berhasil, `Sesi::regenerasiIdSesi()` wajib dipanggil sebelum
+ *    menyimpan data pengguna ke sesi.
  */
 class LayananAutentikasi
 {

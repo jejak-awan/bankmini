@@ -10,8 +10,10 @@ use PDO;
 /**
  * ModelProduk
  *
- * Lapisan akses data (Data Access Layer) murni untuk tabel `produk_tabungan`.
- * Seluruh parameter produk disimpan dalam satuan Rupiah (IDR) DECIMAL(15,2).
+ * @konsep_rpl Parameter Bisnis Terpusat & Tipe DECIMAL(15,2) Rupiah (IDR)
+ * Menyimpan aturan produk simpanan seperti `setoran_awal_minimum` dan
+ * `saldo_mengendap_minimum` dalam satuan Rupiah (`DECIMAL(15,2)`) agar aturan
+ * tersebut tidak ditulis statis (hardcode) di dalam kode PHP.
  */
 class ModelProduk
 {

@@ -5,12 +5,14 @@ declare(strict_types=1);
 /**
  * PemeriksaKepatuhanAgen
  *
+ * @konsep_rpl Penjaga Kualitas Otomatis (Automated Quality Gate & Static Analysis)
  * Skrip otomatis penjaga konsistensi arsitektur (SoT & SoC), konvensi penamaan
- * dan anotasi Bahasa Indonesia, keamanan finansial Rupiah (ACID), sinkronisasi
- * dokumentasi, serta kepatuhan pembuatan file tes QA pada projek Bank Mini.
+ * dan anotasi edukasi Bahasa Indonesia (@konsep_rpl), keamanan finansial Rupiah (ACID),
+ * manajemen versi (VERSION, CHANGELOG.md, LICENSE), sinkronisasi dokumentasi,
+ * serta kepatuhan pembuatan file tes QA pada projek Bank Mini.
  *
  * Cara menjalankan:
- * php C:\xampp\htdocs\www\dokumentasi\06-aturan-agen\skrip\periksa_kepatuhan_agen.php
+ * php C:\xampp\htdocs\www\bankmini\dokumentasi\06-aturan-agen\skrip\periksa_kepatuhan_agen.php
  */
 final class PemeriksaKepatuhanAgen
 {
@@ -48,6 +50,7 @@ final class PemeriksaKepatuhanAgen
 
         $this->periksaKelengkapanDokumentasi();
         $this->periksaSinkronisasiIndeksAdrDanWorkLog();
+        $this->periksaVersiChangelogDanLisensi();
         $this->periksaStrukturFolderAplikasi();
         $this->periksaSkemaBasisData();
         $this->periksaKodePhpDanBatasSoc();
@@ -71,16 +74,19 @@ final class PemeriksaKepatuhanAgen
             '01-panduan-pengguna/panduan-nasabah.md',
             '02-panduan-dev/README.md',
             '02-panduan-dev/arsitektur-sistem.md',
+            '02-panduan-dev/dfd-dan-alur-sistem.md',
             '02-panduan-dev/konvensi-penamaan-dan-anotasi.md',
             '02-panduan-dev/standar-kode-dan-keamanan.md',
             '02-panduan-dev/skema-database.md',
             '02-panduan-dev/standar-pengujian-qa.md',
+            '02-panduan-dev/manajemen-versi-lisensi-dan-changelog.md',
             '03-adr/README.md',
             '03-adr/ADR-001-php-native-mvc-lite.md',
             '03-adr/ADR-002-integritas-transaksi-keuangan.md',
             '03-adr/ADR-003-standar-keamanan-aplikasi-keuangan.md',
             '03-adr/ADR-004-konvensi-penamaan-bahasa-indonesia.md',
             '03-adr/ADR-005-standar-qa-dan-skrip-penjaga-konsistensi.md',
+            '03-adr/ADR-006-manajemen-versi-changelog-dan-lisensi.md',
             '04-work-log/README.md',
             '05-template-dokumentasi/template-adr.md',
             '05-template-dokumentasi/template-work-log.md',
@@ -94,6 +100,7 @@ final class PemeriksaKepatuhanAgen
             '06-aturan-agen/alur-kerja-dokumentasi.md',
             '06-aturan-agen/protokol-handover-dan-gate-agen.md',
             '06-aturan-agen/status-handover-agen.md',
+            '06-aturan-agen/skrip/naikkan_versi.php',
         ];
 
         foreach ($fileDokumentasiWajib as $jalurRelatif) {
@@ -140,6 +147,44 @@ final class PemeriksaKepatuhanAgen
                 if (!str_contains($isiReadmeLog, $namaFile)) {
                     $this->catatPelanggaran("[SINKRONISASI WORK LOG] File {$namaFile} belum didaftarkan di 04-work-log/README.md");
                 }
+            }
+        }
+    }
+
+    /**
+     * 2b. Memeriksa keberadaan dan sinkronisasi VERSION, CHANGELOG.md, dan LICENSE.
+     *
+     * @return void
+     */
+    private function periksaVersiChangelogDanLisensi(): void
+    {
+        $jalurVersi = $this->jalurAplikasi . DIRECTORY_SEPARATOR . 'VERSION';
+        $jalurChangelog = $this->jalurAplikasi . DIRECTORY_SEPARATOR . 'CHANGELOG.md';
+        $jalurLisensi = $this->jalurAplikasi . DIRECTORY_SEPARATOR . 'LICENSE';
+
+        $this->jumlahPemeriksaan += 3;
+
+        if (!is_file($jalurVersi)) {
+            $this->catatPelanggaran('[MANAJEMEN VERSI] File VERSION (Single Source of Truth versi) tidak ditemukan di root bankmini.');
+        }
+
+        if (!is_file($jalurChangelog)) {
+            $this->catatPelanggaran('[MANAJEMEN VERSI] File CHANGELOG.md tidak ditemukan di root bankmini.');
+        }
+
+        if (!is_file($jalurLisensi)) {
+            $this->catatPelanggaran('[LISENSI] File LICENSE tidak ditemukan di root bankmini.');
+        }
+
+        if (is_file($jalurVersi) && is_file($jalurChangelog)) {
+            $this->jumlahPemeriksaan++;
+            $versiAktif = trim((string) file_get_contents($jalurVersi));
+            $isiChangelog = (string) file_get_contents($jalurChangelog);
+
+            if (!preg_match('/^\d+\.\d+\.\d+$/', $versiAktif)) {
+                $this->catatPelanggaran("[MANAJEMEN VERSI] Isi file VERSION ('{$versiAktif}') tidak sesuai format SemVer (MAJOR.MINOR.PATCH).");
+            } elseif (!str_contains($isiChangelog, "## [{$versiAktif}]")) {
+                $this->catatPelanggaran("[MANAJEMEN VERSI] Versi aktif di VERSION ('{$versiAktif}') belum tercatat pada judul rilis '## [{$versiAktif}]' di CHANGELOG.md.");
             }
         }
     }
@@ -424,17 +469,28 @@ final class PemeriksaKepatuhanAgen
                     $this->catatPelanggaran(
                         "[ANOTASI PHPDOC] {$jenis} '{$namaIdentifier}' pada '{$jalurRelatifNormal}' baris {$baris} belum dilengkapi blok anotasi PHPDoc (/** ... */) Bahasa Indonesia."
                     );
-                } elseif (
-                    str_starts_with($jalurRelatifNormal, 'pengujian/Unit/')
-                    || str_starts_with($jalurRelatifNormal, 'pengujian/Integrasi/')
-                    || str_starts_with($jalurRelatifNormal, 'pengujian/Keamanan/')
-                ) {
-                    // Jika ini adalah method uji...() di dalam file tes QA, pastikan ada anotasi @skenario
-                    if ($idToken === T_FUNCTION) {
-                        if (str_starts_with($namaIdentifier, 'uji') && !str_contains($isiDocCommentTerakhir, '@skenario')) {
+                } else {
+                    // Jika ini adalah Class di dalam aplikasi/, wajib memuat anotasi edukasi @konsep_rpl untuk siswa RPL
+                    if ($idToken === T_CLASS && str_starts_with($jalurRelatifNormal, 'aplikasi/')) {
+                        if (!str_contains($isiDocCommentTerakhir, '@konsep_rpl')) {
                             $this->catatPelanggaran(
-                                "[STANDAR QA] Method uji '{$namaIdentifier}()' di '{$jalurRelatifNormal}' baris {$baris} wajib mencantumkan anotasi '@skenario' pada PHPDoc-nya."
+                                "[EDUKASI RPL] Class '{$namaIdentifier}' di '{$jalurRelatifNormal}' baris {$baris} wajib mencantumkan anotasi '@konsep_rpl' pada PHPDoc-nya sebagai bahan belajar siswa RPL."
                             );
+                        }
+                    }
+
+                    // Jika ini adalah method uji...() di dalam file tes QA, pastikan ada anotasi @skenario
+                    if (
+                        str_starts_with($jalurRelatifNormal, 'pengujian/Unit/')
+                        || str_starts_with($jalurRelatifNormal, 'pengujian/Integrasi/')
+                        || str_starts_with($jalurRelatifNormal, 'pengujian/Keamanan/')
+                    ) {
+                        if ($idToken === T_FUNCTION) {
+                            if (str_starts_with($namaIdentifier, 'uji') && !str_contains($isiDocCommentTerakhir, '@skenario')) {
+                                $this->catatPelanggaran(
+                                    "[STANDAR QA] Method uji '{$namaIdentifier}()' di '{$jalurRelatifNormal}' baris {$baris} wajib mencantumkan anotasi '@skenario' pada PHPDoc-nya."
+                                );
+                            }
                         }
                     }
                 }

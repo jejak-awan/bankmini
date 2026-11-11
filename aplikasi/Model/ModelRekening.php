@@ -10,9 +10,11 @@ use PDO;
 /**
  * ModelRekening
  *
- * Lapisan akses data (Data Access Layer) murni untuk tabel `rekening`.
- * Menyediakan query penguncian baris (SELECT ... FOR UPDATE) yang dipanggil
- * dari dalam transaksi ACID pada LayananTransaksi.
+ * @konsep_rpl Penguncian Baris Pesimistis (Pessimistic Row Locking: SELECT ... FOR UPDATE)
+ * Method `kunciRekeningUntukPembaruan()` menggunakan klausa `FOR UPDATE` pada MySQL InnoDB.
+ * Ketika dijalankan di dalam transaksi (`beginTransaction()`), baris rekening ini dikunci
+ * sehingga request lain yang mencoba mengubah saldo rekening yang sama harus menunggu
+ * hingga transaksi selesai (`commit()` / `rollBack()`), mencegah bug Double Spending!
  */
 class ModelRekening
 {

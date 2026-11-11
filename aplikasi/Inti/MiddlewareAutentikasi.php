@@ -9,8 +9,12 @@ use RuntimeException;
 /**
  * MiddlewareAutentikasi
  *
- * Single Source of Truth (SoT) untuk pemeriksaan status autentikasi pengguna
- * dan otorisasi berbasis peran (Role-Based Access Control / RBAC).
+ * @konsep_rpl Autentikasi vs Otorisasi (Role-Based Access Control / RBAC)
+ * Dalam keamanan perangkat lunak terdapat dua tahap pemeriksaan:
+ * 1. Autentikasi (`wajibMasuk()`): Memastikan pengguna sudah teridentifikasi (login).
+ * 2. Otorisasi (`wajibPeran()`): Memastikan peran pengguna (`admin`, `teller`, `supervisor`)
+ *    memiliki wewenang terhadap fitur tersebut (contoh: hanya `supervisor` dan `admin` yang
+ *    boleh mengeksekusi Jurnal Koreksi).
  */
 final class MiddlewareAutentikasi
 {

@@ -7,8 +7,14 @@ namespace Aplikasi\Inti;
 /**
  * Sesi
  *
- * Single Source of Truth (SoT) untuk pengelolaan sesi pengguna, keamanan cookie sesi,
- * regenerasi ID sesi saat autentikasi, dan penyimpanan pesan kilat (Flash Message) PRG.
+ * @konsep_rpl Keamanan Sesi (Session Hardening) & Pesan Kilat (Flash Message PRG)
+ * Mengapa kita membungkus `$_SESSION` di dalam class `Sesi`?
+ * 1. Mencegah Pencurian Cookie Sesi (XSS): Mengatur `cookie_httponly = 1` agar JavaScript
+ *    berbahaya tidak dapat membaca `document.cookie`.
+ * 2. Mencegah Session Fixation: Method `regenerasiIdSesi()` mengganti ID sesi lama dengan
+ *    yang baru sesaat setelah pengguna berhasil masuk (login).
+ * 3. Pesan Kilat (Flash Message): Menyimpan pesan sukses/gagal di sesi yang otomatis terhapus
+ *    setelah dibaca satu kali pada halaman hasil redirect (pola Post-Redirect-Get).
  */
 final class Sesi
 {

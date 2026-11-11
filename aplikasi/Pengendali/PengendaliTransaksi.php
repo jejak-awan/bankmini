@@ -16,8 +16,11 @@ use Throwable;
 /**
  * PengendaliTransaksi
  *
- * Menangani permintaan HTTP untuk transaksi Setor Tunai, Tarik Tunai,
- * Transfer Antar Rekening, dan Jurnal Koreksi dengan pola Post-Redirect-Get (PRG).
+ * @konsep_rpl Orkestrasi HTTP Transaksi Keuangan & Otorisasi Berjenjang (RBAC)
+ * Mengatur hak akses berdasarkan jenis transaksi:
+ * - Setor, Tarik, dan Transfer dapat diproses oleh `teller` maupun `admin`.
+ * - Jurnal Koreksi / Reversal (`/transaksi/koreksi`) hanya dapat diakses oleh
+ *   `supervisor` dan `admin` sebagai bentuk pengendalian internal (Internal Control).
  */
 class PengendaliTransaksi extends PengendaliDasar
 {
