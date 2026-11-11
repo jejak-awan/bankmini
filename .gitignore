@@ -21,8 +21,10 @@ Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
 
-# 4. Editor & IDE
-.vscode/
+# 4. Editor & IDE (kecuali rekomendasi ekstensi & task VS Code untuk siswa RPL)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/tasks.json
 .idea/
 *.sublime-project
 *.sublime-workspace
